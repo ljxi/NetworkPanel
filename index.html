@@ -116,7 +116,6 @@
                     <option value="https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/5ca444c333bf4727babc7d154aabe559.mp4">天翼云</option>
                     <option value="https://cachefly.cachefly.net/100mb.test">Cachefly Test [Global]</option>
                     <option value="https://speed.cloudflare.com/__down?bytes=1073741824">Cloudflare Speed [Global]</option>
-                    <option value="https://gh.con.sh/https://github.com/ljxi/CDN-IP-test/releases/download/Latest/test.dump">Cloudflare Workers [Global]</option>
                   </select>
                   <input value=""
                     oninput="document.getElementById('select').selectedIndex=0;document.getElementById('diy').value=this.value;setCookie('diy',this.value,30);setCookie('select',0,30);" type="text" id="link"
@@ -131,8 +130,8 @@
                     onchange="var self= document.getElementById('thread');if(self.value<self.min)self.value=self.min;if(self.value>self.max)self.value=self.max"
                     id='thread' type="number" min="1" max="32" value=1 class="form-control number-spinner"> <button
                     onclick="var thread=document.getElementById('thread');if(thread.value!=thread.max)thread.value++;"
-                    class="btn btn-icon btn-outline-primary number-spinner-btn number-plus"><em
-                      class="icon ni ni-plus"></em></button></div>
+                    class="btn btn-icon btn-outline-primary number-spinner-btn number-plus"><em class="icon ni ni-plus"></em></button>
+                </div>
               </div>
               <div class="form-group" id="back">
                 <div class="preview-block">

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh" class="js">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>网络面板</title>
+  <meta name="keywords" content="IP查询,IP归属查询,在线测速,网速测试,多地IP查询,流量杀手网页,流量杀手在线">
+  <meta name="description" content="测试您的网速，多地查询您的IP地址，同时具备网络延迟实时检测">
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <link rel="stylesheet" href="./res/dashlite.css">
+  <link rel="stylesheet" href="./res/style.css">
+  <link rel="icon" href="https://q.qlogo.cn/headimg_dl?dst_uin=582424565&spec=640" type="image/png">
+  <link rel="stylesheet" href="./res/layer.css" id="layuicss-layer">
+</head>
+
+<body class="nk-body npc-invest bg-lighter no-touch nk-nio-theme" style="cursor:pointer">
+  <!-- wrap @s -->
+  <div class="nk-wrap ">
+    <!-- main header @s -->
+    <div class="nk-header nk-header-fluid nk-header-fixed is-light">
+      <div class="container-xl">
+        <div class="nk-header-wrap link-between">
+          <div class="nk-header-brand">
+            <a href="#" class="logo-link text-base"><img src="https://q.qlogo.cn/headimg_dl?dst_uin=582424565&spec=640"
+                class="hide-mb-sm">网络面板</a>
+          </div>
+          <!-- .nk-header-brand -->
+          <div class="nk-header-tools nk-header-menu" data-content="headerNav">
+            <!-- Menu -->
+            <ul class="nk-menu nk-menu-main">
+              <li class="nk-menu-item ">
+                <a href="/" class="nk-menu-link nk-ibx-action-item" data-original-title="" title="">
+                  <em class="icon ni ni-home"></em>
+                  <span class="nk-menu-text">首页</span>
+                </a>
+              </li>
+              <!-- <li class="nk-menu-item ">
+                                <a href="//ip.vv1234.cn" class="nk-menu-link nk-ibx-action-item">
+                                    <em class="icon ni ni-policy"></em>
+                                    <span class="nk-menu-text">IP归属查询</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item ">
+                                <a href="//pan.vv1234.cn" class="nk-menu-link nk-ibx-action-item">
+                                    <em class="icon ni ni-dropbox"></em>
+                                    <span class="nk-menu-text">免费图床</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item ">
+                                <a href="#" class="nk-menu-link nk-ibx-action-item">
+                                    <em class="icon ni ni-heart"></em>
+                                    <span class="nk-menu-text">占位占位</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item ">
+                                <a href="//vv1234.cn" class="nk-menu-link nk-ibx-action-item">
+                                    <em class="icon ni ni-comments"></em>
+                                    <span class="nk-menu-text">留言反馈</span>
+                                </a>
+                            </li> -->
+            </ul>
+          </div>
+          <!-- .nk-header-tools -->
+        </div>
+        <!-- .nk-header-wrap -->
+      </div>
+      <!-- .container-fliud -->
+    </div>
+    <!-- main header @e -->
+    <!-- content @s -->
+    <div class="nk-content nk-content-lg nk-content-fluid">
+
+      <style>
+        .stat {
+          width: 100%;
+          column-gap: 1rem;
+          padding: 1rem 1.5rem;
+        }
+
+        .stat-title {
+          white-space: nowrap;
+          opacity: .6;
+        }
+
+        .stat-value {
+          white-space: nowrap;
+          grid-column-start: 1;
+          font-size: 1.8rem;
+          font-weight: 700;
+          line-height: 2.5rem
+        }
+      </style>
+      <div id="app" class="container-xl">
+        <div class="col-sm-12 col-md-10 col-xl-8 center-block">
+          <div class="card card-preview">
+            <div class="card-inner mt-3">
+              <div class="nya-title nk-ibx-action-item progress-rating"><span
+                  class="nk-menu-text font-weight-bold">网络面板</span></div>
+              <div class="form-group"><label class="form-label">测试地址</label>
+                <div class="form-control-wrap">
+                  <select id='select'
+                    onchange="document.getElementById('link').value=this.options[this.selectedIndex].value;setCookie('select',this.selectedIndex,30);"
+                    type="text" class="form-control">
+                    <option value="" id="diy">自定义</option>
+                    <option selected="selected" value="https://wppkg.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_10.1.02.apk">百度CDN [高速]</option>
+                    <option value="https://kodo-toolbox.qiniu.com/kodo-browser-Linux-x64-v1.0.17.zip">七牛云CDN [高速]</option>
+                    <option value="https://img.alicdn.com/imgextra/i1/O1CN01xA4P9S1JsW2WEg0e1_!!6000000001084-2-tps-2880-560.png">阿里CDN</option>
+                    <option value="https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif?0.3190485611376561">腾讯CDN</option>
+                    <option value="https://lf9-cdn-tos.bytecdntp.com/cdn/yuntu-index/1.0.4/case/maiteng/detailbg.png">字节跳动</option>
+                    <option value="https://img10.360buyimg.com/live/jfs/t1/128947/12/26918/1361527/6260e71bE0ee85af5/ecaa17ea8dd3dddb.jpg">京东</option>
+                    <option value="https://pic-bucket.ws.126.net/photo/0003/2022-04-24/H5N2082C00AJ0003NOS.jpg">网易</option>
+                    <option value="https://cnbj0.fds.api.xiaomi.com/b2c-data-mishop/9b9d95e1ece27d5ec75205e5fe719ba5.apk">小米</option>
+                    <option value="https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4">Vivo</option>
+                    <option value="https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7140/MobileMusic7140_0140068.apk">咪咕音乐</option>
+                    <option value="https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/5ca444c333bf4727babc7d154aabe559.mp4">天翼云</option>
+                    <option value="https://cachefly.cachefly.net/100mb.test">Cachefly Test [Global]</option>
+                    <option value="https://speed.cloudflare.com/__down?bytes=1073741824">Cloudflare Speed [Global]</option>
+                    <option value="https://gh.con.sh/https://github.com/ljxi/CDN-IP-test/releases/download/Latest/test.dump">Cloudflare Workers [Global]</option>
+                  </select>
+                  <input value=""
+                    oninput="document.getElementById('select').selectedIndex=0;document.getElementById('diy').value=this.value;setCookie('diy',this.value,30);setCookie('select',0,30);" type="text" id="link"
+                    placeholder="请输入下载链接" autocomplete="off" class="form-control">
+                </div>
+              </div>
+              <div class="form-group"><label class="form-label">线程</label>
+                <div class="form-control-wrap number-spinner-wrap"><button
+                    onclick="var thread=document.getElementById('thread');if(thread.value!=thread.min)thread.value--;"
+                    class="btn btn-icon btn-outline-primary number-spinner-btn number-minus"><em
+                      class="icon ni ni-minus"></em></button> <input
+                    onchange="var self= document.getElementById('thread');if(self.value<self.min)self.value=self.min;if(self.value>self.max)self.value=self.max"
+                    id='thread' type="number" min="1" max="32" value=1 class="form-control number-spinner"> <button
+                    onclick="var thread=document.getElementById('thread');if(thread.value!=thread.max)thread.value++;"
+                    class="btn btn-icon btn-outline-primary number-spinner-btn number-plus"><em
+                      class="icon ni ni-plus"></em></button></div>
+              </div>
+              <div class="form-group" id="back">
+                <div class="preview-block">
+                  <div class="custom-control custom-switch checked"><input onclick="musiccontrol(this)" type="checkbox" id="customSwitch2"
+                      class="custom-control-input"> <label for="customSwitch2" class="custom-control-label">保持后台运行</label>
+                  </div>
+                </div>
+              </div> 
+              <button onclick="botton_clicked();" type="button" id="do" class="btn btn-dim btn-outline-secondary btn-block card-link">
+                开始
+              </button>
+              <div class="row mt-4">
+                <div class="col-sm-12 col-md-4 border stat">
+                  <div class="text-dark"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" class="h-15 w-15 float-right pt-3">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
+                      </path>
+                    </svg></div>
+                  <div class="stat-title">总流量</div>
+                  <div class="stat-value" id="total">-</div>
+                </div>
+                <div class="col-sm-12 col-md-4 border stat">
+                  <div class="text-info"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" class="h-15 w-15 float-right pt-3">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M16.469,8.924l-2.414,2.413c-0.156,0.156-0.408,0.156-0.564,0c-0.156-0.155-0.156-0.408,0-0.563l2.414-2.414c1.175-1.175,1.175-3.087,0-4.262c-0.57-0.569-1.326-0.883-2.132-0.883s-1.562,0.313-2.132,0.883L9.227,6.511c-1.175,1.175-1.175,3.087,0,4.263c0.288,0.288,0.624,0.511,0.997,0.662c0.204,0.083,0.303,0.315,0.22,0.52c-0.171,0.422-0.643,0.17-0.52,0.22c-0.473-0.191-0.898-0.474-1.262-0.838c-1.487-1.485-1.487-3.904,0-5.391l2.414-2.413c0.72-0.72,1.678-1.117,2.696-1.117s1.976,0.396,2.696,1.117C17.955,5.02,17.955,7.438,16.469,8.924 M10.076,7.825c-0.205-0.083-0.437,0.016-0.52,0.22c-0.083,0.205,0.016,0.437,0.22,0.52c0.374,0.151,0.709,0.374,0.997,0.662c1.176,1.176,1.176,3.088,0,4.263l-2.414,2.413c-0.569,0.569-1.326,0.883-2.131,0.883s-1.562-0.313-2.132-0.883c-1.175-1.175-1.175-3.087,0-4.262L6.51,9.227c0.156-0.155,0.156-0.408,0-0.564c-0.156-0.156-0.408-0.156-0.564,0l-2.414,2.414c-1.487,1.485-1.487,3.904,0,5.391c0.72,0.72,1.678,1.116,2.696,1.116s1.976-0.396,2.696-1.116l2.414-2.413c1.487-1.486,1.487-3.905,0-5.392C10.974,8.298,10.55,8.017,10.076,7.825">
+                      </path>
+                    </svg></div>
+                  <div class="stat-title" id="describe">实时速度</div>
+                  <div class="stat-value text-info" id="speed">-</div>
+                </div>
+                <div class="col-sm-12 col-md-4 border stat">
+                  <div class="text-dark"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" class="h-15 w-15 float-right pt-3">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg></div>
+                  <div class="stat-title">带宽</div>
+                  <div class="stat-value" id="mbps">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card card-preview">
+            <div class="card-inner">
+              <h6><em class="icon ni ni-info"></em>出口地址</h6>
+              <div class="accordion-inner">
+                <li class="nk-menu-item ">
+                  <a class="text-waring" style="pointer-events:none;" id="ipcn">Loading...</a>
+                  <a class="text-waring" style="pointer-events:none;float: right;" id="laycn">-ms</a>
+                </li>
+                <li class="nk-menu-item ">
+                <a class="text-secondary" style="pointer-events:none;" id="ipgb">Loading...</a>
+                <a style="pointer-events:none;float: right;" id="laygb">-ms</a>
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content @d -->
+    <div class="nk-footer nk-footer-fluid bg-lighter">
+      <div class="container-xl">
+        <div class="nk-footer-wrap">
+          <div class="nk-footer-copyright"> © 2023 <a href="/">Whoami </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer @e -->
+  </div>
+  <!-- wrap @e -->
+  <audio controls id="music" loop="loop" style="display:none">
+    <source src="res/background.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    // 禁用双击放大(防止按加减按钮误触)
+    var lastTouchEnd = 0
+    if (!!('ontouchstart' in window || navigator.maxTouchPoints)) {
+      document.documentElement.addEventListener(
+        'touchend',
+        function (event) {
+          var now = Date.now()
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault()
+          }
+          lastTouchEnd = now
+        },
+        {
+          passive: false
+        }
+      )
+    }
+    
+    function musiccontrol(botton){
+      if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+        if(document.getElementById("customSwitch2").checked)document.getElementById("music").play()
+        else document.getElementById("music").pause()
+      }
+    }
+
+    document.getElementById("music").addEventListener("pause", function () {
+            document.title='网络面板'
+            if(run&&!visibl)botton_clicked()
+            document.getElementById("customSwitch2").checked=false
+        })
+    document.getElementById("music").addEventListener("play", function () {
+            if(!(run||visibl))botton_clicked()
+            document.getElementById("customSwitch2").checked=true
+        })
+    function setCookie(cname,cvalue,exdays)
+    {
+      var d = new Date();
+      d.setTime(d.getTime()+(exdays*24*60*60*1000));
+      var expires = "expires="+d.toGMTString();
+      document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+    function getCookie(cname)
+    {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0; i<ca.length; i++) 
+      {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+      }
+      return "";
+    }
+    document.getElementById('diy').value=getCookie("diy");
+    if(getCookie("select"))document.getElementById('select').selectedIndex=getCookie("select");
+    var selector=document.getElementById("select");
+    document.getElementById('link').value=selector.options[selector.selectedIndex].value;
+  </script>
+
+<script type="text/javascript">
+  document.write("<script src='main.js?"+Math.random()+"'><\/script>");
+</script>
+</body>
+
+</html>

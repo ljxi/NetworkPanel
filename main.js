@@ -7,6 +7,7 @@ var run=false
 var visibl=true
 var thread_down = []
 var lsat_all_down=0
+var refresh_lay=5000
 async function start_thread(index){
     try{
         const response = await fetch(testurl,{cache: "no-store",mode: 'cors',referrerPolicy: 'no-referrer'})
@@ -170,7 +171,7 @@ function ipgb(){
             gbip=data['ip'];
         });
     }
-    setTimeout(ipgb,5000)
+    setTimeout(ipgb,refresh_lay)
 }
 
 

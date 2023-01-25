@@ -137,19 +137,38 @@ function checkURL(URL){
     return false;
     }
 } 
+
+var cnip=''
 function ipcn(){
     if(visibl){
         fetch('https://forge.speedtest.cn/api/location/info',{referrerPolicy: 'no-referrer'})
         .then(response => response.json())
-        .then(data =>document.getElementById("ipcn").innerText=data['ip']+' '+data['province']+' '+data['city']+' '+data['distinct']+' '+data['isp']);
+        .then(data =>{
+            var tag = document.getElementById("ipcn")
+            tag.innerText=data['ip']+' '+data['province']+' '+data['city']+' '+data['distinct']+' '+data['isp']
+            if(data['ip'] !== cnip){
+                tag.style.color=''
+                ckip(data['ip'],tag)
+            }
+            cnip=data['ip'];
+        });
     }
     setTimeout(ipcn,5000)
 }
+var gbip=""
 function ipgb(){
     if(visibl){
         fetch('https://api-ipv4.ip.sb/geoip',{referrerPolicy: 'no-referrer'})
         .then(response => response.json())
-        .then(data =>document.getElementById("ipgb").innerText=data['ip']+' '+CountryCode_Zh_cn[data['country_code']]+' '+data['isp']);
+        .then(data =>{
+            var tag = document.getElementById("ipgb")
+            tag.innerText=data['ip']+' '+CountryCode_Zh_cn[data['country_code']]+' '+data['isp']
+            if(data['ip'] !== gbip){
+                tag.style.color=''
+                ckip(data['ip'],tag)
+            }
+            gbip=data['ip'];
+        });
     }
     setTimeout(ipgb,5000)
 }
@@ -190,6 +209,16 @@ function ckbl(){
       .catch(error=>document.getElementById("laygb").style.color="red");
     }
     setTimeout(ckbl,1000)
+}
+
+function ckip(ip,tag){
+    console.log(ip,tag)
+    fetch('https://down.ljxnet.cn/?headers=%7B%22referer%22%3A%22https%3A%2F%2Fipinfo.io%2F%22%2C%22origin%22%3A%22https%3A%2F%2Fipinfo.io%2F%22%7D&url=https%3A%2F%2Fipinfo.io%2Fwidget%2Fdemo%2F' + ip)
+    .then(response => response.json())
+    .then(data =>{
+        console.log(data)
+        if(data.data.company.type === "isp")tag.style.color ="green"
+    });
 }
 
 ipcn()

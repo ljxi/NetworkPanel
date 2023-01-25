@@ -212,11 +212,10 @@ function ckbl(){
 }
 
 function ckip(ip,tag){
-    console.log(ip,tag)
     fetch('https://down.ljxnet.cn/?headers=%7B%22referer%22%3A%22https%3A%2F%2Fipinfo.io%2F%22%2C%22origin%22%3A%22https%3A%2F%2Fipinfo.io%2F%22%7D&url=https%3A%2F%2Fipinfo.io%2Fwidget%2Fdemo%2F' + ip)
     .then(response => response.json())
     .then(data =>{
-        console.log(data)
+        console.log(data.input,data.data.company.type)
         if(data.data.company.type === "isp")tag.style.color ="green"
     });
 }

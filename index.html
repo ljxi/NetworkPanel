@@ -109,7 +109,7 @@
               <div class="form-group"><label class="form-label">测试地址</label>
                 <div class="form-control-wrap">
                   <select id='select'
-                    onchange="document.getElementById('link').value=this.options[this.selectedIndex].value;setCookie('select',this.selectedIndex,30);"
+                    onchange="document.getElementById('link').value=this.options[this.selectedIndex].value;setCookie('select',this.selectedIndex,365);"
                     type="text" class="form-control">
                     <option value="" id="diy">自定义</option>
                     <option selected="selected" value="https://wppkg.baidupcs.com/issue/netdisk/apk/BaiduNetdisk_10.1.02.apk">百度CDN [高速]</option>
@@ -127,7 +127,7 @@
                     <option value="https://speed.cloudflare.com/__down?bytes=1073741824">Cloudflare Speed [Global]</option>
                   </select>
                   <input value=""
-                    oninput="document.getElementById('select').selectedIndex=0;document.getElementById('diy').value=this.value;setCookie('diy',this.value,30);setCookie('select',0,30);" type="text" id="link"
+                    oninput="document.getElementById('select').selectedIndex=0;document.getElementById('diy').value=this.value;setCookie('diy',this.value,365);setCookie('select',0,365);" type="text" id="link"
                     placeholder="请输入下载链接" autocomplete="off" class="form-control">
                 </div>
               </div>
@@ -153,14 +153,14 @@
                 开始
               </button>
               <div class="row mt-4">
-                <div class="col-sm-12 col-md-4 border stat">
+                <div class="col-sm-12 col-md-4 border stat"  onclick='inputMax=prompt("请输入流量上限(GB)\n不填为不设置上限","");if(inputMax !== null)setMax(inputMax)'>
                   <div class="text-dark"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                       stroke="currentColor" class="h-15 w-15 float-right pt-3">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
                       </path>
                     </svg></div>
-                  <div class="stat-title">总流量</div>
+                  <div class="stat-title">总流量<a id="showMax"></a></div>
                   <div class="stat-value" id="total">-</div>
                 </div>
                 <div class="col-sm-12 col-md-4 border stat">
@@ -237,6 +237,18 @@
       )
     }
     
+      function show(num,des,flo){
+      var cnum=num;
+      var total_index=0;
+      while(cnum>=1024){
+          if(total_index==des.length-1)break;
+          cnum=cnum/1024;
+          total_index++;
+      }
+      return cnum.toFixed(flo[total_index])+des[total_index];
+  }
+
+
     function musiccontrol(botton){
       if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
         if(document.getElementById("customSwitch2").checked)document.getElementById("music").play()
@@ -275,6 +287,22 @@
     if(getCookie("select"))document.getElementById('select').selectedIndex=getCookie("select");
     var selector=document.getElementById("select");
     document.getElementById('link').value=selector.options[selector.selectedIndex].value;
+
+
+    var Maximum =0
+    setMax(getCookie('Max'))
+
+    function setMax(inputMax){
+        if(inputMax>0){
+          setCookie("Max",inputMax,365)
+          Maximum = inputMax*1073741824
+          document.getElementById("showMax").innerText='/' + show(Maximum,['B','KB','MB','GB','TB','PB'],[0,0,1,2,2,2])
+        }else{
+          Maximum = 0
+          document.getElementById("showMax").innerText=''
+          setCookie("Max",0,365)
+        }
+      }
   </script>
 
 <script type="text/javascript">

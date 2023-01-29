@@ -56,11 +56,18 @@ async function cale(){
 async function total(){
     var all_down=sum(thread_down)
     if(visibl)document.getElementById("total").innerText=show((all_down_sum+all_down),['B','KB','MB','GB','TB','PB'],[0,0,1,2,2,2]);
+    if((all_down_sum+all_down) >= Maximum  && Maximum!=0)stop()
     if(run)setTimeout(total,100)
-    else all_down_sum+=all_down;
+    else{
+        all_down_sum+=all_down;
+        document.getElementById("total").innerText=show((all_down_sum),['B','KB','MB','GB','TB','PB'],[0,0,1,2,2,2]);
+    }
 }
 
 async function start(){
+    if(all_down_sum >= Maximum && Maximum!=0){
+        all_down_sum = 0
+    }
     maxtheard=document.getElementById("thread").value;
     testurl=document.getElementById("link").value;
     if(testurl.length<10){
@@ -226,17 +233,6 @@ ipgb()
 laycn()
 laygb()
 ckbl()
-function show(num,des,flo){
-    var cnum=num;
-    var total_index=0;
-    while(cnum>1024){
-        if(total_index==des.length-1)break;
-        cnum=cnum/1024;
-        total_index++;
-    }
-    return cnum.toFixed(flo[total_index])+des[total_index];
-}
-
 
 document.addEventListener("visibilitychange", function() {
     var string = document.visibilityState

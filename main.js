@@ -83,7 +83,10 @@ async function start(){
         alert("由于浏览器安全限制，不支持http协议，请使用https协议")
         return;
     }
-
+    if(!testurl.startsWith("https://")){
+        alert("链接不合法")
+        return;
+    }
     document.getElementById('do').innerText='正在检验链接...';
     document.getElementById('do').disabled=true;
 

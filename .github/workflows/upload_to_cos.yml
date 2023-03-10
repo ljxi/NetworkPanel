@@ -14,8 +14,15 @@ jobs:
       - name: Upload COS
         uses: zkqiang/tencent-cos-action@v0.1.0
         with:
-          args: delete -r -f / && upload -r ./ /
+          args: upload -rs ./ / --ignore "./.git/*" && abort
           secret_id: ${{ secrets.SECRET_ID }}
           secret_key: ${{ secrets.SECRET_KEY }}
           bucket: ${{ secrets.BUCKET }}
           region: ap-chengdu
+          max_thread: 10
+          part_size: 0.1
+          retry: 5
+          timeout: 60
+          schema: https
+          verify: md5
+          anonymous: False

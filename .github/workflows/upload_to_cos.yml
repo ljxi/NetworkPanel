@@ -1,5 +1,3 @@
-name: Sync-to-tencent-cos
-
 on:
   push:
     branches:
@@ -10,12 +8,11 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@v3
-      
       - name: Sync-to-tencent-cos
         run: |
           pip install coscmd
           echo "Sync to tencent cos..."
-          coscmd config -a ${{ secrets.SECRET_ID }} -s ${{ secrets.SECRET_KEY }} -b ${{ secrets.BUCKET }} -r ap-chengdu -m 30
+          coscmd config -a ${{ secrets.SECRET_ID }} -s ${{ secrets.SECRET_KEY }} -b ${{ secrets.BUCKET }} -e cos.accelerate.myqcloud.com -m 30
           coscmd upload -rs ./ / --ignore "./.git/*","./.github/*","./README.md"
           coscmd abort
           echo "Delete old files..."

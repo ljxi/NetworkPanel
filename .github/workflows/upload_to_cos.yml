@@ -9,20 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
-        uses: actions/checkout@v1
-          
-      - name: Upload COS
-        uses: zkqiang/tencent-cos-action@v0.1.0
-        with:
-          args: upload -rs ./ / && abort
-          secret_id: ${{ secrets.SECRET_ID }}
-          secret_key: ${{ secrets.SECRET_KEY }}
-          bucket: ${{ secrets.BUCKET }}
-          region: ap-chengdu
-          max_thread: 10
-          part_size: 0.1
-          retry: 5
-          timeout: 60
-          schema: https
-          verify: md5
-          anonymous: False
+        uses: actions/checkout@v3
+      
+      - name: Auto upload to tencent COS
+        run: |
+          pip install coscmd
+          coscmd config -a ${{ secrets.SECRET_ID }} -s ${{ secrets.SECRET_KEY }} -b ${{ secrets.BUCKET }} -r ap-chengdu -m 30
+          coscmd upload -rs ./ / --ignore "./.git/*"
+          coscmd abort

@@ -15,5 +15,5 @@ jobs:
         run: |
           pip install coscmd
           coscmd config -a ${{ secrets.SECRET_ID }} -s ${{ secrets.SECRET_KEY }} -b ${{ secrets.BUCKET }} -r ap-chengdu -m 30
-          coscmd upload -rs ./ / --ignore "./.git/*" "./.github/*"
+          coscmd upload -rs ./ / --ignore "./.git/*","./.github/*"
           coscmd abort

@@ -327,21 +327,13 @@ option = {
             }]
         },
         {
-            name: '本地延迟',
+            name: '延迟',
             type: 'line',
             data: [{
                 name: new Date(),
                 value: now_global_ping
             }]
-        },
-        {
-            name: '全球延迟',
-            type: 'line',
-            data: [{
-                name: new Date(),
-                value: now_global_ping
-            }]
-        },
+        }
     ]
 };
 
@@ -364,12 +356,12 @@ function dv() {
                 ]
             })
             // option.series[1].data.shift()
-        option.series[2].data.push({
-                name: now.toString(),
-                value: [
-                    now.getTime(), now_global_ping
-                ]
-            })
+            // option.series[2].data.push({
+            //         name: now.toString(),
+            //         value: [
+            //             now.getTime(), now_global_ping
+            //         ]
+            //     })
             // option.series[2].data.shift()
         myChart.setOption({
             series: option.series

@@ -302,7 +302,10 @@ option = {
     }],
     yAxis: [{
             type: 'value',
-            name: "延迟(ms)"
+            name: "延迟(ms)",
+            splitLine: {
+                show: false
+            }
         },
         {
             type: 'value',

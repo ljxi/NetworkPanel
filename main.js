@@ -56,7 +56,7 @@ async function cale() {
         lsat_all_down = 0
         document.getElementById('describe').innerText = '平均速度';
 
-        _hmt.push(['_trackEvent', '测速', '结束', testurl + ' ' + document.getElementById("total").innerText + " " + document.getElementById("speed").innerText, 0]);
+        _hmt.push(['_trackEvent', '测速', '结束', '' + document.getElementById("total").innerText + " " + document.getElementById("speed").innerText + " " + testurl, all_down_a]);
     }
 }
 

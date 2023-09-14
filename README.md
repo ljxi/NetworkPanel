@@ -4,7 +4,7 @@
 
 支持定量完成，支持多线程，适配iOS后台运行。
 
-[Demo](https://net.ljxnet.cn/)
+[Demo](https://net.netart.cn/)
 
 网页由原生js编写，直接部署在静态存储服务即可
 

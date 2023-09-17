@@ -1,0 +1,79 @@
+[{
+	"label": "高速",
+	"options": [{
+		"value": "https://mesh.if.iqiyi.com/player/upgrade/file/last/IQIYIsetup_app.exe",
+		"label": "爱奇艺"
+	}, {
+		"value": "https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-3/video/privacy/privacy-safe-center.webm",
+		"label": "华为"
+	}, {
+		"value": "https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk",
+		"label": "并夕夕"
+	}, {
+		"value": "https://ma75.gdl.netease.com/Sky_Gold_0.11.2_224829_obt_netease_unisec_minify_7247988dfc278855ee8057f609157a4f.apk",
+		"label": "网易"
+	}, {
+		"value": "https://storage.jd.com/jdmobile/JDMALL-PC2.apk",
+		"label": "京东"
+	}, {
+		"value": "https://f100.g.mi.com/download/AppStore/09b005af75fff45bd88ff8f37d7910ba550d32a07",
+		"label": "小米"
+	}]
+}, {
+	"label": "常用",
+	"options": [{
+		"value": "https://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
+		"label": "百度CDN"
+	}, {
+		"value": "https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
+		"label": "百度PCDN"
+	}, {
+		"value": "https://img.alicdn.com/imgextra/i1/O1CN01xA4P9S1JsW2WEg0e1_!!6000000001084-2-tps-2880-560.png",
+		"label": "阿里CDN"
+	}, {
+		"value": "https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif?0.3190485611376561",
+		"label": "腾讯CDN"
+	}, {
+		"value": "https://www.douyin.com/download/pc/obj/douyin-pc-client/7044145585217083655/releases/10715336/2.6.0/win32-ia32/douyin-v2.6.0-win32-ia32-douyinDownload1.exe",
+		"label": "字节跳动"
+	}, {
+		"value": "https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4",
+		"label": "vivo"
+	}, {
+		"value": "https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7300/MobileMusic7300_014000D.apk",
+		"label": "咪咕音乐"
+	}, {
+		"value": "https://img.cmvideo.cn/publish/noms/2022/10/14/1O3VIGPVP6HTS.jpg",
+		"label": "咪咕视频"
+	}, {
+		"value": "https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
+		"label": "和彩云"
+	}, {
+		"value": "https://s1.xmcdn.com/yx/xmly-live-release/last/dist/Ximalaya-Live-Setup-4.18.550.exe",
+		"label": "喜马拉雅"
+	}, {
+		"value": "https://cdn.aixifan.com/downloads/AcFun-acfunh5-release-6.62.0.1238_x64_60b608.apk",
+		"label": "AcFun"
+	}, {
+		"value": "https://dc.xiaohongshu.com/file/pkgs/base/xiaohongshu.apk",
+		"label": "小红书"
+	}, {
+		"value": "https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/07da9eb52ad948c7b58b760003c0006b.mp4",
+		"label": "天翼云"
+	}]
+}, {
+	"label": "全球[Global]",
+	"options": [{
+		"value": "https://cachefly.cachefly.net/200mb.test",
+		"label": "Cachefly Test"
+	}, {
+		"value": "https://speed.cloudflare.com/__down?bytes=1073741824",
+		"label": "Cloudflare Speed"
+	}, {
+		"value": "https://zip.gitiray.my.id/200MB.zip",
+		"label": "Cloudflare CDN1"
+	}, {
+		"value": "https://t1.geigei.gq",
+		"label": "Cloudflare CDN2"
+	}]
+}]

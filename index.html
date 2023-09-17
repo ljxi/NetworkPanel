@@ -1,200 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh" class="js">
+<html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <link rel="icon" href="/SPEED.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
     <title>网络面板</title>
-    <meta name="keywords" content="IP查询,IP归属查询,在线测速,网速测试,多地IP查询,流量杀手网页,流量杀手在线">
-    <meta name="description" content="测试您的网速，多地查询您的IP地址，同时具备网络延迟实时检测">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./res/dashlite.css">
-    <link rel="stylesheet" href="./res/style.css">
-    <link rel="icon" href="./res/SPEED.png" type="image/png">
-    <link rel="stylesheet" href="./res/layer.css" id="layuicss-layer">
-    <script src="./res/echarts.min.js"></script>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?25b770e160a55cf023c304174b63571f";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+    <style>
+        body{
+            background-color: aliceblue;
+            margin: 0;
+            font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        }
+        ::-webkit-scrollbar {
+            display: none; /* Chrome Safari */
+          }
+    </style>
 </head>
 
-<body class="nk-body npc-invest bg-lighter no-touch nk-nio-theme" style="cursor:pointer">
-    <!-- wrap @s -->
-    <div class="nk-wrap ">
-        <!-- main header @s -->
-        <div class="nk-header nk-header-fluid nk-header-fixed is-light">
-            <div class="container-xl">
-                <div class="nk-header-wrap link-between">
-                    <div class="nk-header-brand">
-                        <a href="#" class="logo-link text-base"><svg t="1690001220506" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2501" width="30" height="30"><path d="M484.266667 718.933333c-27.733333 0-53.333333-10.666667-74.666667-29.866666-21.333333-19.2-32-46.933333-32-74.666667 0-27.733333 10.666667-55.466667 29.866667-76.8 34.133333-36.266667 198.4-102.4 232.533333-115.2 8.533333-2.133333 17.066667-2.133333 23.466667 4.266667 6.4 6.4 8.533333 14.933333 4.266666 23.466666-12.8 34.133333-72.533333 200.533333-106.666666 236.8-21.333333 19.2-46.933333 32-76.8 32z m125.866666-236.8c-70.4 29.866667-155.733333 68.266667-172.8 85.333334-12.8 12.8-19.2 27.733333-17.066666 44.8 0 17.066667 6.4 32 19.2 44.8 12.8 12.8 27.733333 17.066667 44.8 17.066666s32-6.4 44.8-19.2c17.066667-17.066667 53.333333-102.4 81.066666-172.8z" fill="#05f0f9" p-id="2502"></path><path d="M196.266667 891.733333c-6.4 0-10.666667-2.133333-14.933334-6.4C91.733333 797.866667 42.666667 680.533333 42.666667 554.666667 42.666667 296.533333 253.866667 85.333333 512 85.333333s469.333333 211.2 469.333333 469.333334c0 125.866667-49.066667 243.2-136.533333 332.8-8.533333 8.533333-21.333333 8.533333-29.866667 0s-8.533333-21.333333 0-29.866667C893.866667 776.533333 938.666667 667.733333 938.666667 554.666667c0-234.666667-192-426.666667-426.666667-426.666667S85.333333 320 85.333333 554.666667c0 113.066667 44.8 221.866667 125.866667 300.8 8.533333 8.533333 8.533333 21.333333 0 29.866666-4.266667 6.4-10.666667 6.4-14.933333 6.4z" fill="#05f0f9" p-id="2503"></path><path d="M512 234.666667c-12.8 0-21.333333-8.533333-21.333333-21.333334V128c0-12.8 8.533333-21.333333 21.333333-21.333333s21.333333 8.533333 21.333333 21.333333v85.333333c0 12.8-8.533333 21.333333-21.333333 21.333334zM761.6 356.266667c-6.4 0-12.8-2.133333-17.066667-8.533334-6.4-8.533333-6.4-23.466667 2.133334-29.866666l66.133333-53.333334c8.533333-6.4 23.466667-6.4 29.866667 2.133334 6.4 8.533333 6.4 23.466667-2.133334 29.866666l-66.133333 53.333334c-2.133333 4.266667-6.4 6.4-12.8 6.4zM906.666667 644.266667h-4.266667l-83.2-19.2c-10.666667-2.133333-19.2-14.933333-17.066667-25.6 2.133333-10.666667 14.933333-19.2 25.6-17.066667l83.2 19.2c10.666667 2.133333 19.2 14.933333 17.066667 25.6-2.133333 10.666667-10.666667 17.066667-21.333333 17.066667zM117.333333 644.266667c-10.666667 0-19.2-6.4-21.333333-17.066667-2.133333-10.666667 4.266667-23.466667 14.933333-25.6l83.2-19.2c10.666667-2.133333 23.466667 4.266667 25.6 17.066667 2.133333 10.666667-4.266667 23.466667-14.933333 25.6l-83.2 19.2h-4.266667zM262.4 356.266667c-4.266667 0-8.533333-2.133333-12.8-4.266667L183.466667 298.666667c-8.533333-6.4-10.666667-21.333333-2.133334-29.866667 6.4-8.533333 21.333333-10.666667 29.866667-2.133333L277.333333 320c8.533333 6.4 10.666667 21.333333 2.133334 29.866667-6.4 2.133333-10.666667 6.4-17.066667 6.4z" fill="#05f0f9" p-id="2504"></path></svg> 网络面板</a>
-                    </div>
-                    <!-- .nk-header-brand -->
-                    <div class="nk-header-tools nk-header-menu" data-content="headerNav">
-                        <!-- Menu -->
-                        <ul class="nk-menu nk-menu-main">
-                            <li class="nk-menu-item ">
-                                <a href="https://ljxnet.cn/" class="nk-menu-link nk-ibx-action-item" data-original-title="" title="">
-                                    <em class="icon ni ni-home"></em>
-                                    <span class="nk-menu-text">首页</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- .nk-header-tools -->
-                </div>
-                <!-- .nk-header-wrap -->
-            </div>
-            <!-- .container-fliud -->
-        </div>
-        <!-- main header @e -->
-        <!-- content @s -->
-        <div class="nk-content nk-content-lg nk-content-fluid">
-
-            <style>
-                .stat {
-                    width: 100%;
-                    column-gap: 1rem;
-                    padding: 1rem 1.5rem;
-                }
-                
-                .stat-title {
-                    white-space: nowrap;
-                    opacity: .6;
-                }
-                
-                .stat-value {
-                    white-space: nowrap;
-                    grid-column-start: 1;
-                    font-size: 1.8rem;
-                    font-weight: 700;
-                    line-height: 2.5rem
-                }
-            </style>
-            <div id="app" class="container-xl">
-                <div class="col-sm-12 col-md-10 col-xl-8 center-block">
-                    <div class="card card-preview">
-                        <div class="card-inner mt-3">
-                            <div class="nya-title nk-ibx-action-item progress-rating"><span class="nk-menu-text font-weight-bold">网络面板</span></div>
-                            <div class="form-group"><label class="form-label">测试地址</label>
-                                <div class="form-control-wrap">
-                                    <select id='select' onchange="document.getElementById('link').value=this.options[this.selectedIndex].value;setCookie('select',this.selectedIndex,365);" type="text" class="form-control">
-                    <option value="" id="diy">自定义</option>
-                    <!-- <option value="https://iptv.tsinghua.edu.cn/st_new_HB1/garbage.php?ckSize=10240">清华大学 [稳定]</option> -->
-                    <option selected="selected" value="https://mesh.if.iqiyi.com/player/upgrade/file/last/IQIYIsetup_app.exe">爱奇艺 [高速]</option>
-                    <option value="https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-3/video/privacy/privacy-safe-center.webm">华为 [高速]</option>
-                    <option value="https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk">饼夕夕 [高速]</option>
-                    <option value="https://ma75.gdl.netease.com/Sky_Gold_0.11.2_224829_obt_netease_unisec_minify_7247988dfc278855ee8057f609157a4f.apk">网易 [高速]</option>
-                    <option value="https://storage.jd.com/jdmobile/JDMALL-PC2.apk">京东 [高速]</option>
-                    <option value="https://f100.g.mi.com/download/AppStore/09b005af75fff45bd88ff8f37d7910ba550d32a07">小米 [高速]</option>
-                    <option value="https://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe">百度CDN</option>
-                    <option value="https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe">百度PCDN</option>
-                    <option value="https://img.alicdn.com/imgextra/i1/O1CN01xA4P9S1JsW2WEg0e1_!!6000000001084-2-tps-2880-560.png">阿里CDN</option>
-                    <option value="https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif?0.3190485611376561">腾讯CDN</option>
-                    <option value="https://www.douyin.com/download/pc/obj/douyin-pc-client/7044145585217083655/releases/10715336/2.6.0/win32-ia32/douyin-v2.6.0-win32-ia32-douyinDownload1.exe">字节跳动</option>
-                    <option value="https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4">Vivo</option>
-                    <option value="https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7300/MobileMusic7300_014000D.apk">咪咕音乐</option>
-                    <option value="https://img.cmvideo.cn/publish/noms/2022/10/14/1O3VIGPVP6HTS.jpg">咪咕视频</option>
-                    <option value="https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png">和彩云-图片资源</option>
-                    <option value="https://s1.xmcdn.com/yx/xmly-live-release/last/dist/Ximalaya-Live-Setup-4.18.550.exe">喜马拉雅</option>
-                    <option value="https://cdn.aixifan.com/downloads/AcFun-acfunh5-release-6.62.0.1238_x64_60b608.apk">AcFun</option>
-			        <option value="https://dc.xiaohongshu.com/file/pkgs/base/xiaohongshu.apk">小红书</option>
-                    <option value="https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/07da9eb52ad948c7b58b760003c0006b.mp4">天翼云</option>
-                    <option value="https://cachefly.cachefly.net/200mb.test">Cachefly Test [Global]</option>
-                    <option value="https://speed.cloudflare.com/__down?bytes=1073741824">Cloudflare Speed [Global]</option>
-                    <option value="https://zip.gitiray.my.id/200MB.zip">Cloudflare CDN [Global]</option>
-                    <option value="https://t1.geigei.gq">Cloudflare CDN [Global]</option>
-                  </select>
-                                    <input value="" oninput="document.getElementById('select').selectedIndex=0;document.getElementById('diy').value=this.value;setCookie('diy',this.value,365);setCookie('select',0,365);" type="text" id="link" placeholder="请输入下载链接" autocomplete="off" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group"><label class="form-label">线程</label>
-                                <div class="form-control-wrap number-spinner-wrap"><button onclick="var thread=document.getElementById('thread');if(thread.value!=thread.min)thread.value--;" class="btn btn-icon btn-outline-primary number-spinner-btn number-minus"><em
-                      class="icon ni ni-minus"></em></button> <input onchange="var self= document.getElementById('thread');if(self.value<self.min)self.value=self.min;if(self.value>self.max)self.value=self.max" id='thread' type="number" min="1" max="32"
-                                        value=1 class="form-control number-spinner"> <button onclick="var thread=document.getElementById('thread');if(thread.value!=thread.max)thread.value++;" class="btn btn-icon btn-outline-primary number-spinner-btn number-plus"><em class="icon ni ni-plus"></em></button>
-                                </div>
-                            </div>
-                            <div class="form-group" id="back">
-                                <div class="preview-block">
-                                    <div class="custom-control custom-switch checked"><input onclick="musiccontrol(this)" type="checkbox" id="customSwitch2" class="custom-control-input"> <label for="customSwitch2" class="custom-control-label">保持后台运行</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <button onclick="botton_clicked();" type="button" id="do" class="btn btn-dim btn-outline-secondary btn-block card-link">
-                开始
-              </button>
-                            <div class="row mt-4">
-                                <div class="col-sm-12 col-md-4 border stat" onclick='inputMax=prompt("请输入流量上限(GB)\n不填为不设置上限","");if(inputMax !== null)setMax(inputMax)'>
-                                    <div class="text-dark"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-15 w-15 float-right pt-3">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
-                      </path>
-                    </svg></div>
-                                    <div class="stat-title">总流量
-                                        <a id="showMax"></a>
-                                    </div>
-                                    <div class="stat-value" id="total">-</div>
-                                </div>
-                                <div class="col-sm-12 col-md-4 border stat">
-                                    <div class="text-info"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-15 w-15 float-right pt-3">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                        d="M16.469,8.924l-2.414,2.413c-0.156,0.156-0.408,0.156-0.564,0c-0.156-0.155-0.156-0.408,0-0.563l2.414-2.414c1.175-1.175,1.175-3.087,0-4.262c-0.57-0.569-1.326-0.883-2.132-0.883s-1.562,0.313-2.132,0.883L9.227,6.511c-1.175,1.175-1.175,3.087,0,4.263c0.288,0.288,0.624,0.511,0.997,0.662c0.204,0.083,0.303,0.315,0.22,0.52c-0.171,0.422-0.643,0.17-0.52,0.22c-0.473-0.191-0.898-0.474-1.262-0.838c-1.487-1.485-1.487-3.904,0-5.391l2.414-2.413c0.72-0.72,1.678-1.117,2.696-1.117s1.976,0.396,2.696,1.117C17.955,5.02,17.955,7.438,16.469,8.924 M10.076,7.825c-0.205-0.083-0.437,0.016-0.52,0.22c-0.083,0.205,0.016,0.437,0.22,0.52c0.374,0.151,0.709,0.374,0.997,0.662c1.176,1.176,1.176,3.088,0,4.263l-2.414,2.413c-0.569,0.569-1.326,0.883-2.131,0.883s-1.562-0.313-2.132-0.883c-1.175-1.175-1.175-3.087,0-4.262L6.51,9.227c0.156-0.155,0.156-0.408,0-0.564c-0.156-0.156-0.408-0.156-0.564,0l-2.414,2.414c-1.487,1.485-1.487,3.904,0,5.391c0.72,0.72,1.678,1.116,2.696,1.116s1.976-0.396,2.696-1.116l2.414-2.413c1.487-1.486,1.487-3.905,0-5.392C10.974,8.298,10.55,8.017,10.076,7.825">
-                      </path>
-                    </svg></div>
-                                    <div class="stat-title" id="describe">实时速度</div>
-                                    <div class="stat-value text-info" id="speed">-</div>
-                                </div>
-                                <div class="col-sm-12 col-md-4 border stat">
-                                    <div class="text-dark"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-15 w-15 float-right pt-3">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg></div>
-                                    <div class="stat-title">带宽</div>
-                                    <div class="stat-value" id="mbps">-</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card card-preview">
-                        <div class="card-inner">
-                            <h6><em class="icon ni ni-info"></em>出口地址</h6>
-                            <div class="accordion-inner">
-                                <li class="nk-menu-item ">
-                                    <a class="text-waring" style="pointer-events:none;" id="ipcn">Loading...</a>
-                                    <a class="text-waring" style="pointer-events:none;float: right;" id="laycn">-ms</a>
-                                </li>
-                                <li class="nk-menu-item ">
-                                    <a style="pointer-events:none;" id="ipgb">Loading...</a>
-                                    <a style="pointer-events:none;float: right;" id="laygb">-ms</a>
-                                </li>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- content @d -->
-        <div class="nk-footer nk-footer-fluid bg-lighter">
-            <div class="container-xl">
-                <div class="nk-footer-wrap">
-                    <div class="nk-footer-copyright"> © 2023 <a href="https://netart.cn/">Whoami </a> <a href="https://github.com/ljxi/NetworkPanel"> 源码</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- footer @e -->
-    </div>
-    <!-- wrap @e -->
-    <audio controls id="music" loop="loop" style="display:none">
-    <source src="res/background.mp3" type="audio/mpeg">
-  </audio>
-    <script>
-        // 禁用双击放大(防止按加减按钮误触)
+<body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script>// 禁用双击放大(防止按加减按钮误触)
         var lastTouchEnd = 0
         if (!!('ontouchstart' in window || navigator.maxTouchPoints)) {
             document.documentElement.addEventListener(
@@ -210,75 +37,7 @@
                 }
             )
         }
-
-        function show(num, des, flo) {
-            var cnum = num;
-            var total_index = 0;
-            while (cnum >= 1024) {
-                if (total_index == des.length - 1) break;
-                cnum = cnum / 1024;
-                total_index++;
-            }
-            return cnum.toFixed(flo[total_index]) + des[total_index];
-        }
-
-
-        function musiccontrol(botton) {
-            if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-                if (document.getElementById("customSwitch2").checked) document.getElementById("music").play()
-                else document.getElementById("music").pause()
-            }
-        }
-
-        document.getElementById("music").addEventListener("pause", function() {
-            document.title = '网络面板'
-            if (run && !visibl) botton_clicked()
-            document.getElementById("customSwitch2").checked = false
-        })
-        document.getElementById("music").addEventListener("play", function() {
-            if (!(run || visibl)) botton_clicked()
-            document.getElementById("customSwitch2").checked = true
-        })
-
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toGMTString();
-            document.cookie = cname + "=" + cvalue + "; " + expires;
-        }
-
-        function getCookie(cname) {
-            var name = cname + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i].trim();
-                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-            }
-            return "";
-        }
-        document.getElementById('diy').value = getCookie("diy");
-        if (getCookie("select")) document.getElementById('select').selectedIndex = getCookie("select");
-        var selector = document.getElementById("select");
-        document.getElementById('link').value = selector.options[selector.selectedIndex].value;
-
-
-        var Maximum = 0
-        setMax(getCookie('Max'))
-
-        function setMax(inputMax) {
-            if (inputMax > 0) {
-                setCookie("Max", inputMax, 365)
-                Maximum = inputMax * 1073741824
-                document.getElementById("showMax").innerText = '/' + show(Maximum, ['B', 'KB', 'MB', 'GB', 'TB', 'PB'], [0, 0, 1, 2, 2, 2])
-            } else {
-                Maximum = 0
-                document.getElementById("showMax").innerText = ''
-                setCookie("Max", 0, 365)
-            }
-        }
     </script>
-
-    <script src='main.js?9'></script>
 </body>
 
 </html>

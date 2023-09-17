@@ -1,6 +1,21 @@
-# network-panel
+# 网络面板
 
-This template should help get you started developing with Vue 3 in Vite.
+测试您的网速，多地查询您的IP地址，同时具备网络延迟实时检测，流量杀手，流量消耗器，流量消失器
+
+支持定量完成，支持多线程，适配iOS后台运行。
+
+[Demo](https://net.netart.cn/)
+
+这是vue3重写版本，旧版本在old分支，这次重写，主要增加了一下特性：
+
+1.支持自定义节点
+
+2.启动之后更改节点与线程数立即生效（旧版本需要重新启动）
+
+3.线程数和后台开关状态保存
+
+4.更友好的界面
+
 
 ## Recommended IDE Setup
 

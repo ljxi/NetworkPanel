@@ -28,14 +28,14 @@ export default defineConfig({
         },
       ],
     }),
-    // visualizer({
-    //   gzipSize: true,
-    //   brotliSize: true,
-    //   emitFile: false,
-    //   filename: "visualizer.html",
-    //   template :"sunburst",
-    //   open:true
-    // }),
+    visualizer({
+      gzipSize: true,
+      brotliSize: true,
+      emitFile: false,
+      filename: "visualizer.html",
+      template :"sunburst",
+      open:false
+    }),
   ],
   resolve: {
     alias: {
@@ -56,4 +56,5 @@ export default defineConfig({
     port: 3005,
     host: '0.0.0.0'
   },
+  base: './'
 })

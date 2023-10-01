@@ -1,0 +1,25 @@
+name: auto-build and upload to tencent COS
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@master
+        
+      - name: Install & Build
+        run:  |
+            npm install
+            npm run build
+        
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

@@ -3,13 +3,19 @@
     style="max-width: 800px;height:fit-content;display: block;margin:0 auto;background-color:#ffffff;padding:2%">
     <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
       <div class="slider-demo-block">
-        <span class="font-background">测试地址：</span>
+        <span class="font-background">测速地址：</span>
+        <el-button type="primary" :icon="CopyDocument" link @click="copyUrl" />
         <el-button type="primary" :icon="Edit" link @click="EditTableVisible = true" />
         <br>
-        <el-select style="width: 100%;" v-model="url">
+        <el-select style="width: 100%;" v-model="runUrl">
           <el-option-group v-for="group in nodes" :key="group.label" :label="group.label">
             <el-option v-for="item in group.options" :key="item.value" :label="item.label" :value="item.value" />
           </el-option-group>
+          <template #prefix>
+            <el-icon>
+              <Link />
+            </el-icon>
+          </template>
         </el-select>
       </div>
       <div class="slider-demo-block" style="margin-top:20px;">
@@ -21,29 +27,47 @@
       <div class="ItemContainer">
         <div class="showItem">
           <span class="font-background" style="font-size: larger;">总流量</span>
-          <el-text size="small" class="mx-1">{{ state.maxUse ? '/' + formatter(state.maxUse, ['B', 'KB',
-            'MB', 'GB', 'TB', 'PB'], [0, 0, 0, 0, 0, 0]) : "" }}</el-text>
+          <el-text size="small" class="mx-1">{{ state.maxUse ? '/' + formatter(state.maxUse, 0, [0, 0, 0, 0, 0, 0]) : ""
+          }}</el-text>
           <el-button type="primary" style="height: 15px;" :icon="Edit" link @click="EditMaxVisible = true" />
           <div class="state-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-15 w-15 float-right pt-3">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="h-15 w-15 float-right pt-3">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
             </svg>
           </div>
           <el-text class="font-data">{{ state.show.allUsed }}</el-text>
         </div>
         <div class="showItem">
-          <span class="font-background" style="font-size: larger;">{{ isRuning ? '实时速度' : '平均速度' }}</span>
+          <span class="font-background" style="font-size: larger;">{{ isRunning ? '实时速度' : '平均速度' }}</span>
+          <el-popover placement="top-start" title="用量预测" :width="150" trigger="click">
+            <template #reference>
+              <el-button type="primary" style="height: 15px;vertical-align: -2px;" :icon="Calendar" link />
+            </template>
+            每分钟&nbsp;&nbsp;{{ state.predict.min }}
+            <br>
+            每小时&nbsp;&nbsp;{{ state.predict.hour }}
+            <br>
+            每天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ state.predict.day }}
+            <br>
+            每月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ state.predict.mon }}
+          </el-popover>
           <div class="state-icon" style="color: rgb(9,194,222);">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-15 w-15 float-right pt-3">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16.469,8.924l-2.414,2.413c-0.156,0.156-0.408,0.156-0.564,0c-0.156-0.155-0.156-0.408,0-0.563l2.414-2.414c1.175-1.175,1.175-3.087,0-4.262c-0.57-0.569-1.326-0.883-2.132-0.883s-1.562,0.313-2.132,0.883L9.227,6.511c-1.175,1.175-1.175,3.087,0,4.263c0.288,0.288,0.624,0.511,0.997,0.662c0.204,0.083,0.303,0.315,0.22,0.52c-0.171,0.422-0.643,0.17-0.52,0.22c-0.473-0.191-0.898-0.474-1.262-0.838c-1.487-1.485-1.487-3.904,0-5.391l2.414-2.413c0.72-0.72,1.678-1.117,2.696-1.117s1.976,0.396,2.696,1.117C17.955,5.02,17.955,7.438,16.469,8.924 M10.076,7.825c-0.205-0.083-0.437,0.016-0.52,0.22c-0.083,0.205,0.016,0.437,0.22,0.52c0.374,0.151,0.709,0.374,0.997,0.662c1.176,1.176,1.176,3.088,0,4.263l-2.414,2.413c-0.569,0.569-1.326,0.883-2.131,0.883s-1.562-0.313-2.132-0.883c-1.175-1.175-1.175-3.087,0-4.262L6.51,9.227c0.156-0.155,0.156-0.408,0-0.564c-0.156-0.156-0.408-0.156-0.564,0l-2.414,2.414c-1.487,1.485-1.487,3.904,0,5.391c0.72,0.72,1.678,1.116,2.696,1.116s1.976-0.396,2.696-1.116l2.414-2.413c1.487-1.486,1.487-3.905,0-5.392C10.974,8.298,10.55,8.017,10.076,7.825"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="h-15 w-15 float-right pt-3">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                d="M16.469,8.924l-2.414,2.413c-0.156,0.156-0.408,0.156-0.564,0c-0.156-0.155-0.156-0.408,0-0.563l2.414-2.414c1.175-1.175,1.175-3.087,0-4.262c-0.57-0.569-1.326-0.883-2.132-0.883s-1.562,0.313-2.132,0.883L9.227,6.511c-1.175,1.175-1.175,3.087,0,4.263c0.288,0.288,0.624,0.511,0.997,0.662c0.204,0.083,0.303,0.315,0.22,0.52c-0.171,0.422-0.643,0.17-0.52,0.22c-0.473-0.191-0.898-0.474-1.262-0.838c-1.487-1.485-1.487-3.904,0-5.391l2.414-2.413c0.72-0.72,1.678-1.117,2.696-1.117s1.976,0.396,2.696,1.117C17.955,5.02,17.955,7.438,16.469,8.924 M10.076,7.825c-0.205-0.083-0.437,0.016-0.52,0.22c-0.083,0.205,0.016,0.437,0.22,0.52c0.374,0.151,0.709,0.374,0.997,0.662c1.176,1.176,1.176,3.088,0,4.263l-2.414,2.413c-0.569,0.569-1.326,0.883-2.131,0.883s-1.562-0.313-2.132-0.883c-1.175-1.175-1.175-3.087,0-4.262L6.51,9.227c0.156-0.155,0.156-0.408,0-0.564c-0.156-0.156-0.408-0.156-0.564,0l-2.414,2.414c-1.487,1.485-1.487,3.904,0,5.391c0.72,0.72,1.678,1.116,2.696,1.116s1.976-0.396,2.696-1.116l2.414-2.413c1.487-1.486,1.487-3.905,0-5.392C10.974,8.298,10.55,8.017,10.076,7.825">
+              </path>
             </svg>
           </div>
-          <el-text   class="font-data" style="color: rgb(9,194,222);" >{{ state.show.speed }}</el-text>
+          <el-text class="font-data" style="color: rgb(9,194,222);">{{ state.show.speed }}</el-text>
         </div>
         <div class="showItem">
           <span class="font-background" style="font-size: larger;">带宽</span>
           <div class="state-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-15 w-15 float-right pt-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              class="h-15 w-15 float-right pt-3">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
           </div>
@@ -52,13 +76,35 @@
       </div>
 
       <div style="width: fit-content;display: block;margin-top:2ch;margin-left: auto;margin-right: auto;">
-        <a class="button" v-if="!isRuning" @click="isRuning = true">
-            <svg t="1694957757562" fill="white" style="width: 50px;margin-left: 10px;margin-top: -30px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4036" width="200" height="200"><path d="M823.8 603.5l-501.2 336c-50.7 34-119.3 20.4-153.2-30.2-12.2-18.2-18.7-39.6-18.7-61.5v-672c0-61 49.5-110.4 110.4-110.4 21.9 0 43.3 6.5 61.5 18.7l501.1 336c50.7 34 64.2 102.6 30.2 153.2-7.8 11.9-18.1 22.2-30.1 30.2z m0 0" p-id="4037"></path></svg>
+        <a class="button" v-if="!isRunning && !state.isChecking" @click="tryStart">
+          <svg t="1694957757562" fill="white" style="width: 50px;margin-left: 10px;margin-top: -30px;"
+            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4036" width="200" height="200">
+            <path
+              d="M823.8 603.5l-501.2 336c-50.7 34-119.3 20.4-153.2-30.2-12.2-18.2-18.7-39.6-18.7-61.5v-672c0-61 49.5-110.4 110.4-110.4 21.9 0 43.3 6.5 61.5 18.7l501.1 336c50.7 34 64.2 102.6 30.2 153.2-7.8 11.9-18.1 22.2-30.1 30.2z m0 0"
+              p-id="4037"></path>
+          </svg>
         </a>
-        <a class="button" v-if="isRuning" @click="isRuning = false" circle>
-          <svg t="1694958268344" fill="white" style="width: 80px;margin-top: -30px;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7667" width="200" height="200"><path d="M352 768c-17.664 0-32-14.304-32-32V288c0-17.664 14.336-32 32-32s32 14.336 32 32v448c0 17.696-14.336 32-32 32zM672 768c-17.696 0-32-14.304-32-32V288c0-17.664 14.304-32 32-32s32 14.336 32 32v448c0 17.696-14.304 32-32 32z" p-id="7668"></path></svg>
+        <a class="button" v-if="state.isChecking">
+          <el-icon style="margin-top: 40px" :size="60" class="is-loading">
+            <Loading />
+          </el-icon>
+        </a>
+        <a class="button" v-if="isRunning" @click="isRunning = false">
+          <svg t="1694958268344" fill="white" style="width: 80px;margin-top: -30px;" viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" p-id="7667" width="200" height="200">
+            <path
+              d="M352 768c-17.664 0-32-14.304-32-32V288c0-17.664 14.336-32 32-32s32 14.336 32 32v448c0 17.696-14.336 32-32 32zM672 768c-17.696 0-32-14.304-32-32V288c0-17.664 14.304-32 32-32s32 14.336 32 32v448c0 17.696-14.304 32-32 32z"
+              p-id="7668"></path>
+          </svg>
         </a>
       </div>
+      <el-button style="float: left;margin-top: -20px;margin-right: 3px" type="primary" :icon="Histogram" link
+        @click="showMark.show = true" />
+      <el-button style="float: right;margin-top: -20px;margin-right: 3px" type="primary" :icon="TrendCharts" link
+        v-if="!chartShow" @click="chartShow = true" />
+      <el-button style="float: right;margin-top: -20px;margin-right: 3px" type="primary" :icon="Hide" link
+        v-if="chartShow" @click="chartShow = false" />
+      <div v-show="chartShow" ref="chartContainer" style="width: 100%; height: 400px;"></div>
     </div>
   </div>
 
@@ -72,6 +118,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-empty v-else description="没有自定义地址" />
     <el-button class="mt-4" style="width: 100%" @click="addTableVisible = true;">添加地址</el-button>
   </el-dialog>
 
@@ -90,31 +137,21 @@
         </el-input>
       </el-form-item>
     </el-form>
-    <el-alert
-    title="注意："
-    type="warning">
-    在浏览器工作的程序受到浏览器安全策略的限制
-    <br>
-    以下情况你将无法正常使用链接
-    <br>
-    1.你使用https协议打开的本站，但是url是http协议
-    <br>
-    2.目标服务器返回的Access-Control-Allow-Origin响应头没有允许本站
-    <br>
-    具体细节请在报错后查看控制台
-  </el-alert>
-  <el-alert
-    title="免责声明"
-    type="error">
-    本站仅供网络质量测试，请勿测试载有重要业务的链接，滥用造成的损失由用户承担
-    <br>
-    如果本站对您的服务器有负面影响，请将本站域名纳入跨域黑名单
-  </el-alert>
+    <el-alert title="注意：" type="warning">
+      在浏览器工作的程序受到浏览器安全策略的限制
+      <br>
+      以下情况你将无法正常使用链接
+      <br>
+      1.你使用https协议打开的本站，但是url是http协议
+      <br>
+      2.目标服务器返回的Access-Control-Allow-Origin响应头没有允许本站
+      <br>
+      具体细节请在报错后查看控制台
+    </el-alert>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="addTableVisible = false">取消</el-button>
-        <el-button type="primary"
-          :disabled="!urlParser(addForm.value) || !addForm.label || addForm.checking"
+        <el-button type="primary" :disabled="!urlParser(addForm.value) || !addForm.label || addForm.checking"
           @click="addNode()">确认
           <el-icon v-if="addForm.checking" class="is-loading">
             <Loading />
@@ -147,19 +184,34 @@
       </span>
     </template>
   </el-dialog>
-  <audio v-if="isMobile && runBackground" @canplay="()=>{if(isRuning)audioDom.play()}" @pause="()=>{if(runBackground)isRuning=false}"  @play="isRuning=true" controls loop ref="audioDom" style="display:none">
-    <source src="/audio.mp3" type="audio/mpeg">
+  <MarkUI :show="showMark" :loginInfo="loginInfo" />
+  <audio v-if="isMobile && !isIOS && !isMiuiBrowser && runBackground" @canplay="() => { if (isRunning) audioDom.play() }"
+    @pause="() => { if (runBackground) isRunning = false }" @play="isRunning = true" controls loop ref="audioDom"
+    style="display:none">
+    <source src="/android.mp3" type="audio/mpeg">
+  </audio>
+  <audio v-if="isIOS && runBackground" @canplay="() => { if (isRunning) audioDom.play() }"
+    @pause="() => { if (runBackground) isRunning = false }" @play="isRunning = true" controls loop ref="audioDom"
+    style="display:none">
+    <source src="/ios.mp3" type="audio/mpeg">
   </audio>
 </template>
 
 <script lang="ts" setup>
+import type { EChartsType } from "echarts";
+
 const props = defineProps({
-  isVisible: Boolean
+  isVisible: Boolean,
+  IPinfo: Object
 })
 import { ElMessage } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
-import { Edit, Delete, CircleCheck, Loading } from '@element-plus/icons-vue'
-import { ref, watch, type Ref ,reactive} from 'vue'
+import { DocumentChecked, Link, Edit, Delete, CircleCheck, Loading, CopyDocument, TrendCharts, Hide, Histogram, Calendar } from '@element-plus/icons-vue'
+import { ref, watch, type Ref, reactive } from 'vue'
+import { toClipboard } from '@soerenmartius/vue3-clipboard'
+import MarkUI from './Mark.vue'
+
+const showMark = ref({ show: false })
 const customNodes: Ref<{
   value: string;
   label: string;
@@ -194,132 +246,298 @@ const state = reactive({
     speed: '-',
     speedBit: '-'
   },
+  predict: {
+    min: '-',
+    hour: '-',
+    day: '-',
+    mon: '-',
+  },
+  isChecking: false,
   bytesUsed: 0,
+  logged: 0,
+  lastLogTime: 0,
   recordUse: 0,
   recordTime: 0,
   startUse: 0,
   startTime: 0,
+  speedHistory: [[new Date, 0]],
   maxUse: localStorage.maxUse ? Number(localStorage.maxUse) : 0,
 })
-const isRuning = ref(false)
-
+const isRunning = ref(false)
+const loginInfo = reactive({ AccessToken: localStorage.AccessToken ? localStorage.AccessToken : "" })
+const chartShow = ref(localStorage.chartShow ? localStorage.chartShow === 'true' : false)
 const threadNum = ref(localStorage.threadNum ? Number(localStorage.threadNum) : 8)
 const runBackground = ref(localStorage.runBackground ? localStorage.runBackground === 'true' : false)
-const url = ref(localStorage.url ? localStorage.url : nodes.value[0].options[0].value)
+const runUrl = ref(localStorage.url ? localStorage.url : nodes.value[0].options[0].value)
 
 var tasks: Array<number> = []
-watch(isRuning, async (newState, oldState) => {
-  if (newState == true) {
+
+const tryStart = async () => {
+  state.isChecking = true
+  const urlStatus = await checkUrl(runUrl.value)
+  state.isChecking = false
+  if (!urlStatus.status) {
+    ElMessage.error({
+      dangerouslyUseHTMLString: true,
+      message: urlStatus.info
+    })
+  } else {
+    isRunning.value = true
+  }
+}
+
+const checkUrl = async (url: string) => {
+  var status = true
+  let info = ''
+  try {
+    let structUrl = new URL(url)
+    if (structUrl.host.indexOf("ljxnet.cn") + structUrl.host.indexOf("netart.cn") != -2) {
+      throw '你不对劲，我要拿小本本把你记下来然后交给警察蜀黍！'
+    }
+    const response = await fetch(url, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' })
+    if (response.status == 404) throw "资源响应异常" + response.status
+    if (!response.body) throw "资源响应异常 Nobody"
+    const reader = response.body.getReader();
+    const { value, done } = await reader.read();
+    if (!value || value.length <= 0) throw "资源响应异常 Nobody";
+    reader.cancel()
+  } catch (err) {
+    status = false
+    if (err instanceof Error) info = err.message
+    else info = String(err)
+  }
+  return {
+    status: status,
+    info: info,
+  }
+}
+
+watch(isRunning, async (newState, oldState) => {
+  if (newState) {
+    if (state.maxUse && state.bytesUsed >= state.maxUse) {
+      state.bytesUsed = 0;
+      state.logged = 0;
+    }
+    state.lastLogTime = new Date().getTime() / 1000;
+    state.speedHistory.length = 0;
     state.startUse = state.bytesUsed
     state.startTime = new Date().getTime() / 1000;
     state.recordUse = state.bytesUsed
     state.recordTime = new Date().getTime() / 1000;
-    for (let i = 0; i < threadNum.value; i++)start_thread(i)
+    for (let i = 0; i < threadNum.value; i++)startThread(i)
     tasks.push(setInterval(frameEvent, 16))
+    tasks.push(setInterval(uploadLog, 60000))
     secEvent()
     tasks.push(setInterval(secEvent, 1000))
-    runBackground.value?audioDom.value?.play():''
+    runBackground.value ? audioDom.value?.play() : ''
   } else {
     tasks.map((i) => clearInterval(i))
+    uploadLog()
     audioDom.value?.pause()
     var speed = (state.bytesUsed - state.startUse) / (new Date().getTime() / 1000 - state.startTime)
     setSpeed(speed)
-    if (state.maxUse && state.bytesUsed >= state.maxUse) {
-      state.bytesUsed=0
-      if(!props.isVisible){
-        setTitle('任务完成')
-      }
-    }else{
-      if(!props.isVisible){
-        setTitle('已暂停')
-      }
+    setUsed()
+    if (!props.isVisible) {
+      setTitle()
     }
   }
 })
 
+async function uploadLog() {
+  let now = new Date().getTime() / 1000
+  let num = state.bytesUsed - state.logged
+  let time = now - state.lastLogTime
+
+  state.logged = state.bytesUsed
+  state.lastLogTime = now
+  if (loginInfo.AccessToken) {
+    let resp = await fetch('https://api.netart.cn/app/network-panel/', {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify({
+        action: 'log',
+        AccessToken: loginInfo.AccessToken,
+        url: runUrl.value,
+        threadNum: threadNum.value,
+        used: num,
+        time: time,
+        IPinfo: props.IPinfo
+      })
+    });
+    resp = await resp.json()
+    if (resp.status == -1) {
+      loginInfo.AccessToken = ''
+    }
+  }
+}
+
 watch(props, async (newState, oldState) => {
-  if(!newState.isVisible && runBackground.value && isRuning.value)secEvent()
-  if(!newState.isVisible && !runBackground.value && isRuning.value)isRuning.value = false
-  if(newState.isVisible == true)setTitle("网络面板")
+  if (!newState.isVisible && runBackground.value && isRunning.value) secEvent()
+  if (!newState.isVisible && !runBackground.value && isRunning.value) isRunning.value = false
+  if (newState.isVisible) setTitle()
 })
 
 watch(threadNum, async (newState, oldState) => {
   localStorage.threadNum = newState
-  if (isRuning.value && newState > oldState) {
-    for (let i = oldState; i < newState; i++)start_thread(i)
+  if (isRunning.value && newState > oldState) {
+    for (let i = oldState; i < newState; i++)startThread(i)
   }
 })
+
 watch(runBackground, async (newState, oldState) => {
   localStorage.runBackground = newState
 })
-watch(url, async (newState, oldState) => {
+
+watch(chartShow, async (newState, oldState) => {
+  localStorage.chartShow = newState
+  if (newState) {
+    setTimeout(() => myChart.resize(), 100)
+  }
+})
+
+watch(runUrl, async (newState, oldState) => {
   localStorage.url = newState
 })
 
-var setTitle=(title:string)=>{
-  document.title = title
+watch(loginInfo, async (newState, oldState) => {
+  localStorage.AccessToken = newState.AccessToken
+})
+
+const copyUrl = () => {
+  toClipboard(runUrl.value).then(() => {
+    ElMessage.success({
+      dangerouslyUseHTMLString: true,
+      message: '已复制当前链接',
+    })
+  })
 }
-var setUsed=()=>{
-  if (!state.bytesUsed) state.show.allUsed='-'
-  state.show.allUsed = formatter(state.bytesUsed, ['B', 'KB', 'MB', 'GB', 'TB', 'PB'], [0, 0, 1, 2, 2, 2])
+
+window.addEventListener("paste", function (e) {
+  if (!(e.clipboardData && e.clipboardData.items && document.activeElement?.nodeName != 'INPUT'))return;
+  for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
+    var itemz = e.clipboardData.items[i];
+    if (itemz.type === "text/plain") {
+      e.clipboardData.items[i].getAsString(function (str){
+        let clipText = urlParser(str)
+        if (clipText) {
+          runUrl.value = clipText
+          ElMessage.success('读取剪切板链接成功')
+        } else {
+          ElMessage.error('没有检测到剪切板中的链接')
+        }
+      })
+      break
+    }
+  }
+})
+var setTitle = (speed: number = 0) => {
+  if (props.isVisible) {
+    document.title = '网络面板'
+  } else {
+    if (isRunning.value) {
+      document.title = formatter(state.bytesUsed, 0, [0, 0, 0, 0, 0, 0]) + ' ' + formatter(speed, 1, [0, 0, 0, 0, 0, 0])
+    } else if (state.maxUse && state.bytesUsed >= state.maxUse) {
+      document.title = '已完成'
+    } else {
+      document.title = '已暂停'
+    }
+  }
 }
-var setSpeed=(speed:number)=>{
-  state.show.speed = formatter(speed, ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s'], [0, 0, 1, 2, 2, 2])
-  state.show.speedBit = formatter(speed * 8, ['Bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps', 'Pbps'], [0, 0, 0, 2, 2, 2])
+var setUsed = () => {
+  if (!state.bytesUsed) state.show.allUsed = '-'
+  state.show.allUsed = formatter(state.bytesUsed, 0, [0, 0, 1, 2, 2, 2])
 }
+var setSpeed = (speed: number) => {
+  state.show.speed = formatter(speed, 1, [0, 0, 1, 2, 2, 2])
+  state.show.speedBit = formatter(speed * 8, 2, [0, 0, 0, 2, 2, 2])
+  state.predict.min = formatter(speed * 60, 0, [0, 0, 0, 1, 1, 1])
+  state.predict.hour = formatter(speed * 60 * 60, 0, [0, 0, 0, 1, 1, 1])
+  state.predict.day = formatter(speed * 60 * 60 * 24, 0, [0, 0, 0, 1, 1, 1])
+  state.predict.mon = formatter(speed * 60 * 60 * 24 * 30, 0, [0, 0, 0, 1, 1, 1])
+}
+
+let chartUpdateCon = (i: number) => {
+  if (i < 10) i = 10;
+  return i % Math.pow(10, i.toString().length - 2) == 0
+}
+
 var frameEvent = () => {
-  if(props.isVisible)setUsed()
+  if (props.isVisible) setUsed()
   if (state.maxUse && state.bytesUsed >= state.maxUse) {
-    isRuning.value = false
+    isRunning.value = false
   }
 }
 var secEvent = () => {
-  var speed = (state.bytesUsed - state.recordUse)/(new Date().getTime() / 1000 - state.recordTime)
+  var speed = (state.bytesUsed - state.recordUse) / (new Date().getTime() / 1000 - state.recordTime)
+  if (!isNaN(speed)) state.speedHistory.push([new Date(), speed])
+  else state.speedHistory.push([new Date(), 0])
+
+  if (chartUpdateCon(state.speedHistory.length)) updateChart();
   if (speed <= 0 || isNaN(speed)) {
     state.show.speed = '-'
     state.show.speedBit = '-'
-  }else if (props.isVisible) {
+  } else if (props.isVisible) {
     setSpeed(speed)
-  } else if (runBackground.value){
-    setTitle(formatter(state.bytesUsed, ['B', 'KB', 'MB', 'GB', 'TB', 'PB'], [0, 0, 0, 0, 0, 0]) + ' ' + formatter(speed, ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s'], [0, 0, 0, 0, 0, 0]))
+  } else if (runBackground.value) {
+    setTitle(speed)
   }
   state.recordUse = state.bytesUsed
   state.recordTime = new Date().getTime() / 1000;
 }
 
 
-function formatter(num: number, des: Array<string>, flo: Array<number>) {
+function formatter(num: number, desIndex: number, flo: Array<number>) {
+  const describeString = [['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
+  ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s'],
+  ['Bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps', 'Pbps']
+  ]
+  const describe = describeString[desIndex]
   var cnum = num;
   var total_index = 0;
   while (cnum >= 1024) {
-    if (total_index == des.length - 1) break;
+    if (total_index == describe.length - 1) break;
     cnum = cnum / 1024;
     total_index++;
   }
-  return cnum.toFixed(flo[total_index]) + des[total_index];
+  return cnum.toFixed(flo[total_index]) + describe[total_index];
 }
 
-async function start_thread(index: number) {
+async function startThread(index: number) {
   try {
-    var _url = url.value
-    const response = await fetch(url.value, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' })
-    if (!response.body) return
+    var _url = runUrl.value
+    const response = await fetch(_url, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' })
+    if (!response.body) throw "Nobody"
+    let contentLength = response.headers.get('content-length')
+    let realLength = Infinity
+    if (contentLength) realLength = parseInt(contentLength)
     const reader = response.body.getReader();
+    let decodeLength = 0
     while (true) {
-      const { value, done } = await reader.read();
-      if (index >= threadNum.value || !isRuning.value) {
-        reader.cancel()
-        break
-      }
-      if (done || _url != url.value) {
-        reader.cancel()
-        start_thread(index);
+      const { value } = await reader.read();
+      let chunkLength = value?.length
+      if (!chunkLength || _url != runUrl.value) {
+        startThread(index);
         break;
       }
-      state.bytesUsed += value.length
+      let usefulChunkLength = chunkLength
+      if (decodeLength >= realLength) {
+        usefulChunkLength = 0
+      } else if (decodeLength + chunkLength > realLength) {
+        usefulChunkLength = realLength - decodeLength
+      }
+      state.bytesUsed += usefulChunkLength
+      if (index >= threadNum.value || !isRunning.value) break
+      decodeLength += chunkLength
     }
+    reader.cancel()
   } catch (err) {
-    if (isRuning.value) start_thread(index);
+    console.log(err)
+    if (isRunning.value) startThread(index);
   }
 }
 
@@ -332,32 +550,22 @@ const addForm = ref({
   checking: false
 })
 const urlParser = (ipt: string) => {
-  var a = ipt.match(/https?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=@]*)?/);
+  var a = ipt.match(/https?:\/\/([\w-]+\.)+[\w-]+(:[0-9]+)?(\/\S*)?/);
   return a ? a[0] : '';
 }
 const addNode = async () => {
-  addForm.value.value=urlParser(addForm.value.value)
+  addForm.value.value = urlParser(addForm.value.value)
   addForm.value.checking = true
-  try {
-    const response = await fetch(addForm.value.value, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' })
-    if (response.status == 404) throw "资源响应异常" + response.status
-    if (!response.body) throw "资源响应异常 Nobody"
-    const reader = response.body.getReader();
-    const { value, done } = await reader.read();
-    if (!value || value.length <= 0) throw "资源响应异常 Nobody";
-    reader.cancel()
-  } catch (err) {
+  const urlStatus = await checkUrl(addForm.value.value)
+  if (!urlStatus.status) {
     addForm.value.checking = false
-    let info = ''
-    if (err instanceof Error) info = err.message
-    else info = String(err)
-    console.warn(err)
     ElMessage.error({
       dangerouslyUseHTMLString: true,
-      message: '<center>' + info + '<br>详细信息请查看控制台</center>',
+      message: urlStatus.info,
     })
     return
   }
+  addForm.value.checking = false
   customNodes.value.push({
     label: addForm.value.label,
     value: addForm.value.value,
@@ -383,7 +591,6 @@ const editMaxUse = () => {
   var tmp = 0
   if (maxUseInput.value.num) {
     tmp = Math.floor(maxUseInput.value.num * map[maxUseInput.value.type])
-    if (state.bytesUsed >= tmp) state.bytesUsed = 0
   }
   state.maxUse = tmp
   localStorage.maxUse = tmp
@@ -391,8 +598,100 @@ const editMaxUse = () => {
   EditMaxVisible.value = false
 }
 var isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent)
-const audioDom:Ref<any> = ref(null);
+var isMiuiBrowser = /MiuiBrowser/i.test(navigator.userAgent)
+var isIOS = /iPhone/i.test(navigator.userAgent)
 
+const audioDom: Ref<any> = ref(null);
+
+
+import { onMounted, onUnmounted } from 'vue';
+import * as echarts from 'echarts';
+
+const chartContainer = ref(null);
+
+let myChart: EChartsType;
+let updateChart = () => { };
+function resampleArray(arr: Array<any>) {
+  const length = arr.length;
+  if (length <= 100) {
+    return arr;
+  }
+  const step = length / 100;
+  let result = [];
+  for (let i = 0; i < 100; i++) {
+    const index = Math.floor(step * i);
+    result.push(arr[index]);
+  }
+  return result;
+}
+onMounted(() => {
+  myChart = echarts.init(chartContainer.value);
+  const chartOption = {
+    tooltip: {
+      trigger: 'axis',
+      formatter: function (params: any) {
+        let speed = formatter(params[0].data[1], 1, [0, 0, 1, 2, 2, 2]);
+        return `${params[0].data[0].toLocaleString()}<br />
+              ${speed}`;
+      },
+    },
+    toolbox: {
+      feature: {
+        saveAsImage: {}
+      }
+    },
+    title: {
+      left: 'left',
+      text: '速度图表'
+    },
+    xAxis: {
+      type: 'time',
+      boundaryGap: false,
+      axisLabel: {
+        show: false
+      },
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        formatter: (val: number) => {
+          let a = formatter(val, 1, [0, 0, 0, 0, 0, 0]);
+          return a == '-' ? 0 : a
+        }
+      }
+    },
+    series: [
+      {
+        name: '速度',
+        type: 'line',
+        smooth: false,
+        symbol: 'none',
+        areaStyle: {},
+        data: state.speedHistory
+      }
+    ],
+    grid: {
+      x: 50,
+      y: 40,
+      x2: 8,
+      y2: 10
+    },
+  }
+
+  myChart.setOption(chartOption);
+  updateChart = () => {
+    if (!chartShow.value) return
+    chartOption.series[0].data = resampleArray(state.speedHistory)
+    myChart.setOption(chartOption);
+  }
+  window.addEventListener('resize', () => { myChart.resize() });
+});
+
+onUnmounted(() => {
+  if (myChart) {
+    myChart.dispose();
+  }
+});
 </script>
 <style>
 .ItemContainer {
@@ -407,51 +706,51 @@ const audioDom:Ref<any> = ref(null);
 }
 
 .showItem {
-  border:1px solid #dbdfea !important;
-  padding:20px 15px 15px 30px
+  border: 1px solid #dbdfea !important;
+  padding: 20px 15px 15px 30px
 }
 
-.font-data{
+.font-data {
   white-space: nowrap;
   grid-column-start: 1;
-  font-size: 1.8rem;
   font-weight: 700;
   line-height: 2.5rem;
-  font-size:30px;
+  font-size: 30px;
 }
-.font-background{
+
+.font-background {
   color: #344357;
   font-size: 14px;
 }
-.state-icon{
+
+.state-icon {
   display: block;
-  margin-right:10px;
+  margin-right: 10px;
   margin-left: auto;
   margin-top: -10px;
   width: 40px;
   height: 20px;
 }
-.button{
+
+.button {
   display: block;
-    text-decoration: none;
-    background-color: #485bed;
-    /* background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7)); */
-    background-image: -webkit-linear-gradient(145deg,#485bed,#6576ff);
-    /* background-image: linear-gradient(145deg,
+  text-decoration: none;
+  background-color: #485bed;
+  /* background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7)); */
+  background-image: -webkit-linear-gradient(145deg, #485bed, #6576ff);
+  /* background-image: linear-gradient(145deg,
                     #00e4ca 10%, #0026a4 10%,
                     #00dbe0 10%, #ff0000 10%); */
-    
-    font-size: 30px;
-    font-weight: 700 !important;
-    margin: 36px;
-    width: 144px;
-    height: 144px;
-    position: relative;
-    text-align: center;
-    line-height: 144px;
-    border-radius: 50%;
-    box-shadow: 0px 3px 8px #485bed, inset 0px 2px 3px #6576ff;
-    /* border: solid 1px transparent; */
-}
 
-</style>
+  font-size: 30px;
+  font-weight: 700 !important;
+  margin: 36px;
+  width: 144px;
+  height: 144px;
+  position: relative;
+  text-align: center;
+  line-height: 144px;
+  border-radius: 50%;
+  box-shadow: 0px 3px 8px #485bed, inset 0px 2px 3px #6576ff;
+  /* border: solid 1px transparent; */
+}</style>

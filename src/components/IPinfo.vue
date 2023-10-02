@@ -6,9 +6,9 @@
           <transition name="el-fade-in">
             <div v-loading="!info.localInfo" v-if="!info.localInfo || info.localInfo['isChinaMainland']" >
                 <el-tooltip class="item" effect="dark" :content="info.localInfo?info.localInfo['ip']:'Loading...'" placement="top">
-                    <div>
+                    <div @click="copy(info.localInfo?info.localInfo['ip']:'')">
                         <el-tag style="width: 50px;" class="ml-2" type="success">{{ info.localLay?info.localLay+"ms":"-ms" }}</el-tag>
-                        <el-text style="white-space:nowrap;vertical-align: -1px;" class="font-background">{{ info.localInfo?info.localInfo['province'] + ' ' + info.localInfo['city'] + ' ' + info.localInfo['area'] + ' ' + info.localInfo['isp']:"Loading..." }}</el-text>
+                        <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -1px;" class="font-background">{{ info.localInfo?info.localInfo['province'] + ' ' + info.localInfo['city'] + ' ' + info.localInfo['area'] + ' ' + info.localInfo['isp']:"Loading..." }}</el-text>
                     </div>
                 </el-tooltip>
             </div>
@@ -16,10 +16,10 @@
           <transition name="el-fade-in">
               <div v-loading="!info.globalInfo" v-if="(info.localInfo && info.localInfo['province'] && !info.globalInfo) || (info.globalInfo && info.globalInfo['country']!='中国')" >
                   <el-tooltip class="item" effect="dark" :content="info.globalInfo?info.globalInfo['ip']:'Loading...'" placement="top">
-                      <div>
+                      <div @click="copy(info.globalInfo?info.globalInfo['ip']:'')">
                           <el-tag style="width: 50px;" class="ml-2" type="success">{{ info.globalLay?info.globalLay+"ms":"-ms" }}</el-tag>
-                          <el-text style="white-space:nowrap;vertical-align: -3px;" class="font-background">{{ info.globalInfo?info.globalInfo['country']:"" }}</el-text>
-                          <el-text style="white-space:nowrap;vertical-align: -3px;" class="font-background">{{ info.globalInfo?info.globalInfo['isp']:"" }}</el-text>
+                          <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -3px;" class="font-background">{{ info.globalInfo?info.globalInfo['country']:"" }}</el-text>
+                          <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -3px;" class="font-background">{{ info.globalInfo?info.globalInfo['isp']:"" }}</el-text>
                       </div>
                   </el-tooltip>
               </div>
@@ -35,12 +35,22 @@ const props = defineProps({
 })
 import CountryCode from "../assets/CountryCode.json"
 import { reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import { toClipboard } from '@soerenmartius/vue3-clipboard'
 const info=reactive({
     localInfo:null,
     globalInfo:null,
     localLay:0,
     globalLay:0,
 })
+
+const copy=(ip:string)=>{
+    toClipboard(ip)
+    ElMessage.success({
+        dangerouslyUseHTMLString: true,
+        message: `已经复制IP地址：<br><strong>${ip}</strong>`,
+    })
+}
 
 const provinceMatch=(str:string)=>{
     const ChinaMainland=['内蒙古','黑龙江','河北','山西','吉林','辽宁','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','海南','四川','贵州','云南','陕西','甘肃','青海','广西','西藏','宁夏','新疆','北京','天津','上海','重庆']

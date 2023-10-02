@@ -17,9 +17,9 @@
             <el-checkbox v-model="past" label="上个统计周期" size="small" @change="refreshMark" />
           </el-radio-group>
         </div>
-        <el-table :table-layout="'auto'" v-loading="isLoading" :data="mark" size="small">
+        <el-table style="min-height: 500px;" :table-layout="'auto'" v-loading="isLoading" :data="mark" size="small">
           <template #empty>
-            <el-empty v-show="!isLoading" description="没有数据" />
+              <el-empty v-show="!isLoading" description="没有数据" />
           </template>
           <el-table-column type="index" label="" width="40"/>
           <el-table-column prop="user" label="用户" >

@@ -212,17 +212,28 @@ import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
 
 const showMark = ref({ show: false })
-const customNodes: Ref<{
-  value: string;
-  label: string;
-}[]> = ref(localStorage.customNodes ? JSON.parse(localStorage.customNodes) : [])
+const customNodes = reactive(localStorage.customNodes ? JSON.parse(localStorage.customNodes) : [])
 const OnlineNodes: {
   label: string;
   options: {
     value: string;
     label: string;
   }[];
-}[] = nodesJson
+}[] = []
+for(let groupName in nodesJson) {
+  const group=nodesJson[groupName as keyof typeof nodesJson]
+  const temp: {
+    label: string;
+    options: {
+      value: string;
+      label: string;
+    }[];
+  }={"label":groupName,options:[]}
+  for(let node in group) {
+    temp.options.push({"value":group[node as keyof typeof group],"label":node})
+  }
+  OnlineNodes.push(temp)
+}
 const nodes: Ref<{
   label: string;
   options: {
@@ -230,12 +241,12 @@ const nodes: Ref<{
     label: string;
   }[];
 }[]> = ref(OnlineNodes)
-if (customNodes.value.length) {
-  nodes.value = [{ "label": "自定义", "options": customNodes.value }].concat(OnlineNodes)
+if (customNodes.length) {
+  nodes.value = [{ "label": "自定义", "options": customNodes}].concat(OnlineNodes)
 }
 watch(customNodes, async (newState, oldState) => {
-  if (customNodes.value.length) {
-    nodes.value = [{ "label": "自定义", "options": customNodes.value }].concat(OnlineNodes)
+  if (customNodes.length) {
+    nodes.value = [{ "label": "自定义", "options": customNodes }].concat(OnlineNodes)
   } else nodes.value = OnlineNodes
   localStorage.customNodes = JSON.stringify(newState)
 }, { deep: true })
@@ -558,7 +569,7 @@ const addNode = async () => {
     return
   }
   addForm.value.checking = false
-  customNodes.value.push({
+  customNodes.push({
     label: addForm.value.label,
     value: addForm.value.value,
   })

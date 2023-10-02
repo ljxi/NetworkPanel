@@ -1,6 +1,6 @@
 <template>
-    <el-dialog align-center style="width: 95vw;max-width: 600px;height: 85vh;" v-model="show" title="排行榜">
-      <div style="overflow-y: auto;height: calc(85vh - 100px);margin-top:-30px">
+    <el-dialog align-center style="width: 95vw;max-width: 600px;max-height: 85vh;" v-model="show" title="排行榜">
+      <div style="overflow-y: auto;max-height: calc(85vh - 100px);margin-top:-30px">
         <div class="mb-2 flex items-center text-sm">
           <el-radio-group v-model="sortBy" @change="refreshMark" class="ml-4">
             <el-radio label="allUsed" size="small">总流量</el-radio>
@@ -59,7 +59,7 @@
           </el-table-column> -->
         </el-table>
       </div>
-      <el-button class="mt-4" style="width: 100%" @click="isShowMe=true">用户中心</el-button>
+      <el-button style="width: 100%" @click="isShowMe=true">用户中心</el-button>
     </el-dialog>
     <el-dialog style="width: 99vw;max-width: 500px;" v-model="isShowMe" title="用户中心">
       <MyUI v-if="isShowMe" :loginInfo="props.loginInfo"/>

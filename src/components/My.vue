@@ -106,12 +106,10 @@ const getStatus=async()=>{
   }
 }
 onMounted(() => {
-  console.log("M")
   getStatus()
 })
 
 onUnmounted(() =>{
-  console.log("UM")
   checkTsk?clearInterval(checkTsk):""
   })
 </script>

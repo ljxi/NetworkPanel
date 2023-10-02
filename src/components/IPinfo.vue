@@ -86,12 +86,10 @@ async function getGlobalIp() {
         try {
             const response = await  fetch('https://api-ipv4.ip.sb/geoip', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
-            type ObjectKey = keyof typeof CountryCode;
-            const myVar = resp['country_code'] as ObjectKey;
             let globalInfo:any={
                 ip:resp['ip'],
                 isp:resp['isp'],
-                country:CountryCode[myVar],
+                country:CountryCode[resp['country_code'] as keyof typeof CountryCode],
             }
             info['globalInfo']=globalInfo
             if(props.IPinfo){

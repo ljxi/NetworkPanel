@@ -1,108 +1,36 @@
-[{
-	"label": "高速",
-	"options": [
-	{
-		"value": "https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk",
-		"label": "并夕夕(华为云)"
+{
+	"高速":{
+		"并夕夕":"https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk",
+		"华为":"https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-3/video/privacy/privacy-safe-center.webm",
+		"淘宝网":"https://cloud.video.taobao.com/play/u/null/p/1/e/6/t/1/d/ud/329682839911.mp4",
+		"京东":"https://storage.jd.com/jdmobile/JDMALL-PC2.apk",
+		"网易":"https://ma75.gdl.netease.com/Sky_Gold_0.11.4_228509_obt_netease_unisec_minify_b16066d78995a9048c08e5552198a642.apk",
+		"小米":"https://f100.g.mi.com/download/AppStore/09b005af75fff45bd88ff8f37d7910ba550d32a07",
+		"爱奇艺":"https://mesh.if.iqiyi.com/player/upgrade/file/last/IQIYIsetup_app.exe",
+		"字节跳动":"https://www.douyin.com/download/pc/obj/douyin-pc-client/7044145585217083655/releases/10715336/2.6.0/win32-ia32/douyin-v2.6.0-win32-ia32-douyinDownload1.exe"
 	},
-	{
-		"value": "https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-3/video/privacy/privacy-safe-center.webm",
-		"label": "华为云"
+	"运营商":{
+		"联通电视":"https://listen.10155.com/listener/womusic-bucket/90115000/mv_vod/volte_mp4/20230215/1625752132487675906.mp4",
+		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7350/MobileMusic7350_014000D.apk",
+		"咪咕视频":"https://img.cmvideo.cn/publish/noms/2022/10/14/1O3VIGPVP6HTS.jpg",
+		"咪咕快游":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
+		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
+		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/07da9eb52ad948c7b58b760003c0006b.mp4",
+		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
+		"21CN直播":"https://review.21cn.com/img/20220926/1/1664177550543.mp4"
 	},
-	{
-		"value": "https://cloud.video.taobao.com/play/u/null/p/1/e/6/t/1/d/ud/329682839911.mp4",
-		"label": "阿里CDN"
+	"常用":{
+		"腾讯":"https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif?0.3190485611376561",
+		"喜马拉雅":"https://s1.xmcdn.com/yx/xmly-live-release/last/dist/Ximalaya-Live-Setup-4.18.550.exe",
+		"小红书":"https://dc.xiaohongshu.com/file/pkgs/base/xiaohongshu.apk",
+		"vivo":"https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4",
+		"七牛云":"https://devtools.qiniu.com/linux/amd64/qrsctl",
+		"百度CDN":"https://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
+		"百度PCDN":"https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe"
 	},
-	{
-		"value": "https://storage.jd.com/jdmobile/JDMALL-PC2.apk",
-		"label": "京东CDN"
-	},
-	{
-		"value": "https://ma75.gdl.netease.com/Sky_Gold_0.11.4_228509_obt_netease_unisec_minify_b16066d78995a9048c08e5552198a642.apk",
-		"label": "网易CDN"
-	},
-	{
-		"value": "https://f100.g.mi.com/download/AppStore/09b005af75fff45bd88ff8f37d7910ba550d32a07",
-		"label": "金山云"
-	},
-	{
-		"value": "https://mesh.if.iqiyi.com/player/upgrade/file/last/IQIYIsetup_app.exe",
-		"label": "爱奇艺"
-	},
-	{
-		"value": "https://devtools.qiniu.com/linux/amd64/qrsctl",
-		"label": "七牛云"
-	},
-	{
-		"value": "https://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
-		"label": "百度CDN"
-	},
-	{
-		"value": "https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
-		"label": "百度PCDN"
-	},
-	{
-		"value": "https://www.douyin.com/download/pc/obj/douyin-pc-client/7044145585217083655/releases/10715336/2.6.0/win32-ia32/douyin-v2.6.0-win32-ia32-douyinDownload1.exe",
-		"label": "字节跳动"
+	"全球[Global]":{
+		"Cachefly Test":"https://cachefly.cachefly.net/200mb.test",
+		"Cloudflare Speed":"https://speed.cloudflare.com/__down?bytes=1073741824",
+		"Cloudflare Workers":"https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z"
 	}
-]
-}, {
-	"label": "常用",
-	"options": [{
-		"value": "https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif?0.3190485611376561",
-		"label": "腾讯CDN"
-	},
-	{
-		"value": "https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4",
-		"label": "vivo(阿里CDN)"
-	},
-	{
-		"value": "https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7350/MobileMusic7350_014000D.apk",
-		"label": "咪咕音乐"
-	},
-	{
-		"value": "https://img.cmvideo.cn/publish/noms/2022/10/14/1O3VIGPVP6HTS.jpg",
-		"label": "咪咕视频"
-	},
-	{
-		"value": "https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
-		"label": "和彩云"
-	},
-	{
-		"value": "https://s1.xmcdn.com/yx/xmly-live-release/last/dist/Ximalaya-Live-Setup-4.18.550.exe",
-		"label": "喜马拉雅(华为云)"
-	},
-	{
-		"value": "https://dc.xiaohongshu.com/file/pkgs/base/xiaohongshu.apk",
-		"label": "小红书(优云CDN)"
-	},
-	{
-		"value": "https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/07da9eb52ad948c7b58b760003c0006b.mp4",
-		"label": "天翼云"
-	},
-	{
-		"value": "https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
-		"label": "天翼云桌面"
-	},
-	{
-		"value": "https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
-		"label": "咪咕快游"
-	},
-	{
-		"value": "https://listen.10155.com/listener/womusic-bucket/90115000/mv_vod/volte_mp4/20230215/1625752132487675906.mp4",
-		"label": "联通电视"
-	}
-]
-}, {
-	"label": "全球[Global]",
-	"options": [{
-		"value": "https://cachefly.cachefly.net/200mb.test",
-		"label": "Cachefly Test"
-	}, {
-		"value": "https://speed.cloudflare.com/__down?bytes=1073741824",
-		"label": "Cloudflare Speed"
-	}, {
-		"value": "https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
-		"label": "Cloudflare Workers"
-	}]
-}]
+}

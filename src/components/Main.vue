@@ -206,7 +206,7 @@ const props = defineProps({
 })
 import { ElMessage } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
-import { DocumentChecked, Link, Edit, Delete, CircleCheck, Loading, CopyDocument, TrendCharts, Hide, Histogram, Calendar } from '@element-plus/icons-vue'
+import { Link, Edit, Delete, CircleCheck, Loading, CopyDocument, TrendCharts, Hide, Histogram, Calendar } from '@element-plus/icons-vue'
 import { ref, watch, type Ref, reactive } from 'vue'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
@@ -260,7 +260,6 @@ const state = reactive({
   recordTime: 0,
   startUse: 0,
   startTime: 0,
-  speedHistory: [[new Date, 0]],
   maxUse: localStorage.maxUse ? Number(localStorage.maxUse) : 0,
 })
 const isRunning = ref(false)
@@ -313,13 +312,13 @@ const checkUrl = async (url: string) => {
 }
 
 watch(isRunning, async (newState, oldState) => {
+  clearChart()
   if (newState) {
     if (state.maxUse && state.bytesUsed >= state.maxUse) {
       state.bytesUsed = 0;
       state.logged = 0;
     }
     state.lastLogTime = new Date().getTime() / 1000;
-    state.speedHistory.length = 0;
     state.startUse = state.bytesUsed
     state.startTime = new Date().getTime() / 1000;
     state.recordUse = state.bytesUsed
@@ -461,11 +460,6 @@ var setSpeed = (speed: number) => {
   state.predict.mon = formatter(speed * 60 * 60 * 24 * 30, 0, [0, 0, 0, 1, 1, 1])
 }
 
-let chartUpdateCon = (i: number) => {
-  if (i < 10) i = 10;
-  return i % Math.pow(10, i.toString().length - 2) == 0
-}
-
 var frameEvent = () => {
   if (props.isVisible) setUsed()
   if (state.maxUse && state.bytesUsed >= state.maxUse) {
@@ -474,10 +468,8 @@ var frameEvent = () => {
 }
 var secEvent = () => {
   var speed = (state.bytesUsed - state.recordUse) / (new Date().getTime() / 1000 - state.recordTime)
-  if (!isNaN(speed)) state.speedHistory.push([new Date(), speed])
-  else state.speedHistory.push([new Date(), 0])
-
-  if (chartUpdateCon(state.speedHistory.length)) updateChart();
+  if (!isNaN(speed)) updateChart(speed)
+  else updateChart(0)
   if (speed <= 0 || isNaN(speed)) {
     state.show.speed = '-'
     state.show.speedBit = '-'
@@ -610,20 +602,8 @@ import * as echarts from 'echarts';
 const chartContainer = ref(null);
 
 let myChart: EChartsType;
-let updateChart = () => { };
-function resampleArray(arr: Array<any>) {
-  const length = arr.length;
-  if (length <= 100) {
-    return arr;
-  }
-  const step = length / 100;
-  let result = [];
-  for (let i = 0; i < 100; i++) {
-    const index = Math.floor(step * i);
-    result.push(arr[index]);
-  }
-  return result;
-}
+let updateChart = (n:number) => { };
+let clearChart=()=>{};
 onMounted(() => {
   myChart = echarts.init(chartContainer.value);
   const chartOption = {
@@ -631,7 +611,7 @@ onMounted(() => {
       trigger: 'axis',
       formatter: function (params: any) {
         let speed = formatter(params[0].data[1], 1, [0, 0, 1, 2, 2, 2]);
-        return `${params[0].data[0].toLocaleString()}<br />
+        return `${new Date(params[0].data[0] * 1000).toLocaleString()}<br />
               ${speed}`;
       },
     },
@@ -650,6 +630,9 @@ onMounted(() => {
       axisLabel: {
         show: false
       },
+      axisTick:{
+        show:false
+      }
     },
     yAxis: {
       type: 'value',
@@ -667,7 +650,7 @@ onMounted(() => {
         smooth: false,
         symbol: 'none',
         areaStyle: {},
-        data: state.speedHistory
+        data: [[new Date().getTime() / 1000,0]]
       }
     ],
     grid: {
@@ -679,10 +662,36 @@ onMounted(() => {
   }
 
   myChart.setOption(chartOption);
-  updateChart = () => {
-    if (!chartShow.value) return
-    chartOption.series[0].data = resampleArray(state.speedHistory)
-    myChart.setOption(chartOption);
+  let showArray:Array<any>=[]
+  let speedTemp:Array<number>=[]
+  let stepLength=1
+  clearChart=()=>{
+    // showArray=[]
+    speedTemp=[]
+    showArray.push([new Date().getTime() / 1000,0])
+    // stepLength=1
+  }
+  updateChart = (speed:number) => {
+    let refresh=false
+    speedTemp.push(speed)
+    while(speedTemp.length>=stepLength){
+      refresh=true
+      var tmp = speedTemp.splice(0, stepLength);
+      const avg = tmp.reduce((a, b) => a + b,0)/stepLength;
+      showArray.push([new Date().getTime() / 1000,avg])
+    }
+    while(showArray.length>=200){
+      refresh=true
+      const result = [];
+      const lengthToProcess = showArray.length % 2 === 0 ? showArray.length : showArray.length - 1;
+      for (let i = 0; i < lengthToProcess; i += 2) {
+        result.push([showArray[i][0],(showArray[i][1] + showArray[i + 1][1]) / 2]);
+      }
+      showArray=result
+      stepLength*=2
+    }
+    chartOption.series[0].data = showArray
+    if(chartShow.value && refresh)myChart.setOption(chartOption);
   }
   window.addEventListener('resize', () => { myChart.resize() });
 });

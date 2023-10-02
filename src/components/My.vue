@@ -88,7 +88,7 @@ const qr_check=async()=>{
     loginStatus.value=-1
   }else if(resp.status==-10){
     clearInterval(checkTsk)
-    ElMessageBox.alert(`登录失败，${resp.msg}，请重新拉取二维码`, '提示', {
+    ElMessageBox.alert(`登录失败，${resp.msg}请重新拉取二维码`, '提示', {
       confirmButtonText: '确定',
       callback: () => {
         login()

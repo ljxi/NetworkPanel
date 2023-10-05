@@ -1,5 +1,6 @@
 {
 	"高速":{
+		"微软Azure":"https://cdn.microsoftstore.com.cn/media/product_long_description/3781-00000/2_dupn50xr/4h0yzz2_360.jpg",
 		"并夕夕":"https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk",
 		"华为":"https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-3/video/privacy/privacy-safe-center.webm",
 		"淘宝网":"https://cloud.video.taobao.com/play/u/null/p/1/e/6/t/1/d/ud/329682839911.mp4",
@@ -29,8 +30,12 @@
 		"百度PCDN":"https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe"
 	},
 	"全球[Global]":{
-		"Cachefly Test":"https://cachefly.cachefly.net/200mb.test",
-		"Cloudflare Speed":"https://speed.cloudflare.com/__down?bytes=1073741824",
-		"Cloudflare Workers":"https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z"
+		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",
+		"Cloudflare":"https://speed.cloudflare.com/__down?bytes=1073741824",
+		"Akamai":"https://akamtrans-a.akamaihd.net/delivery/2023/08/30/brand-protector-2500k-00004.ts",
+		"Cloudflare Workers":"https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
+		"Steam Akamai":"https://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
+		"Steam Cloudflare":"https://cdn.cloudflare.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
+		"Microsoft Akamai":"https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16Ptm"
 	}
 }

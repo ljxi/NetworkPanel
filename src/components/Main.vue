@@ -613,7 +613,7 @@ import * as echarts from 'echarts';
 const chartContainer = ref(null);
 
 let myChart: EChartsType;
-let updateChart = (n:number) => { };
+let updateChart = (n:number) => {};
 let clearChart=()=>{};
 onMounted(() => {
   myChart = echarts.init(chartContainer.value);
@@ -688,7 +688,9 @@ onMounted(() => {
     while(speedTemp.length>=stepLength){
       refresh=true
       var tmp = speedTemp.splice(0, stepLength);
-      const avg = tmp.reduce((a, b) => a + b,0)/stepLength;
+      let avg;
+      if(tmp.includes(0))avg=0
+      else avg = tmp.reduce((a, b) => a + b,0)/stepLength;
       showArray.push([new Date().getTime() / 1000,avg])
     }
     while(showArray.length>=200){

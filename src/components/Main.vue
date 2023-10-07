@@ -432,11 +432,17 @@ window.addEventListener("paste", function (e) {
   for (var i = 0, len = e.clipboardData.items.length; i < len; i++) {
     var itemz = e.clipboardData.items[i];
     if (itemz.type === "text/plain") {
-      e.clipboardData.items[i].getAsString(function (str){
+      e.clipboardData.items[i].getAsString(async function (str){
         let clipText = urlParser(str)
         if (clipText) {
-          runUrl.value = clipText
-          ElMessage.success('读取剪切板链接成功')
+          ElMessage.info('读取剪切板链接成功,正在检测链接可用性')
+          let ret=await checkUrl(clipText)
+          if(ret.status){
+            runUrl.value = clipText
+            ElMessage.success('读取剪切板链接成功')
+          }else{
+            ElMessage.error(ret.info)
+          }
         } else {
           ElMessage.error('没有检测到剪切板中的链接')
         }

@@ -108,7 +108,7 @@
     </div>
   </div>
 
-  <el-dialog style="min-width: 350px;max-width: 800px;" v-model="EditTableVisible" title="自定义地址">
+  <el-dialog style="width: 90%;max-width: 700px;" v-model="EditTableVisible" title="自定义地址">
     <el-table v-if="customNodes.length" :data="customNodes" style="width: 100%" max-height="300">
       <el-table-column prop="label" label="名称" width="100" />
       <el-table-column prop="value" label="URL" />
@@ -122,7 +122,7 @@
     <el-button class="mt-4" style="width: 100%" @click="addTableVisible = true;">添加地址</el-button>
   </el-dialog>
 
-  <el-dialog style="min-width: 350px;max-width: 800px;" v-model="addTableVisible" title="添加链接">
+  <el-dialog style="width: 90%;max-width: 700px;" v-model="addTableVisible" title="添加链接">
     <el-form :model="addForm">
       <el-form-item label="名称:" label-width='50px'>
         <el-input v-model="addForm.label" autocomplete="off" />
@@ -148,6 +148,9 @@
       <br>
       具体细节请在报错后查看控制台
     </el-alert>
+    <el-alert title="免责声明：" type="error">
+      请勿用于非法用途，使用本功能造成的一切后果由用户承担
+    </el-alert>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="addTableVisible = false">取消</el-button>
@@ -160,7 +163,7 @@
       </span>
     </template>
   </el-dialog>
-  <el-dialog style="min-width: 350px;max-width: 800px;" v-model="EditMaxVisible" title="设置上限自动停止">
+  <el-dialog style="width: 90%;max-width: 300px;" v-model="EditMaxVisible" title="设置上限自动停止">
     <el-form>
       <div class="mt-4">
         <el-input type="number" min='1' v-model="maxUseInput.num" autocomplete="off" placeholder="留空则无上限"

@@ -4,7 +4,7 @@
 
 支持定量完成，支持多线程，适配iOS后台运行。
 
-如果你不了解如何打包vite项目，请直接将本项目gh-pages分支下的文件部署到服务器根目录即可
+如果你不了解如何打包vite项目，请[点此下载](https://github.com/ljxi/NetworkPanel/archive/refs/heads/gh-pages.zip)解压文件部署到服务器根目录即可
 
 [Demo](https://ljxi.github.io/NetworkPanel/)
 

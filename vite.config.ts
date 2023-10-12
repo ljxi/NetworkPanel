@@ -42,15 +42,16 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  // build:{
-  //   rollupOptions:{
-  //     manualChunks(id){
-  //       if(id.includes('node_modules')){
-  //         return "vendor"
-  //       }
-  //     }
-  //   }
-  // },
+  build:{
+    assetsInlineLimit: 8 * 1024,
+    // rollupOptions:{
+    //   manualChunks(id){
+    //     if(id.includes('node_modules')){
+    //       return "vendor"
+    //     }
+    //   }
+    // }
+  },
   server: {
     open: true,
     port: 3005,

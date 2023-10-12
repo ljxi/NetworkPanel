@@ -191,18 +191,19 @@
   <audio v-if="isMobile && !isIOS && !isMiuiBrowser && runBackground" @canplay="() => { if (isRunning) audioDom.play() }"
     @pause="() => { if (runBackground) isRunning = false }" @play="isRunning = true" controls loop ref="audioDom"
     style="display:none">
-    <source src="/android.mp3" type="audio/mpeg">
+    <source :src="andoridSound" type="audio/mpeg">
   </audio>
   <audio v-if="isIOS && runBackground" @canplay="() => { if (isRunning) audioDom.play() }"
     @pause="() => { if (runBackground) isRunning = false }" @play="isRunning = true" controls loop ref="audioDom"
     style="display:none">
-    <source src="/ios.mp3" type="audio/mpeg">
+    <source :src="iosSound" type="audio/mpeg">
   </audio>
 </template>
 
 <script lang="ts" setup>
 import type { EChartsType } from "echarts";
-
+import iosSound from "../assets/ios.mp3";
+import andoridSound from "../assets/android.mp3";
 const props = defineProps({
   isVisible: Boolean,
   IPinfo: Object

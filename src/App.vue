@@ -33,7 +33,7 @@
 // toggleDark()
 import MainUI from "./components/Main.vue"
 import IPinfoUI from "./components/IPinfo.vue"
-import header_icon from "./assets/logo.svg"
+import header_icon from "./assets/logo.svg?raw"
 import { ref , reactive} from 'vue'
 import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'

@@ -1,7 +1,6 @@
 <template>
-    <div  class="radius"
-          :style="{borderRadius:`var(--el-border-radius-round)`}"
-          style="max-width: 800px;height:fit-content;display: block;margin:0 auto;background-color:#ffffff;padding:2%">
+    <div class="radius card"
+          :style="{borderRadius:`var(--el-border-radius-round)`}">
         <div style="text-align: center;">
           <transition name="el-fade-in">
             <div v-loading="!info.localInfo" v-if="!info.localInfo || info.localInfo['isChinaMainland']" >
@@ -123,5 +122,21 @@ get_lay('https://cp.cloudflare.com/','globalLay')
 .font-background{
   color: #344357;
   font-size: 14px;
+}
+.card{
+    max-width: 800px;
+    height:fit-content;
+    display: block;
+    margin:0 auto;
+    background-color:#ffffff;
+    padding:2%
+}
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color:rgb(18,18,18);
+    }
+    .font-background{
+        color: rgb(193,206,230);
+    }
 }
 </style>

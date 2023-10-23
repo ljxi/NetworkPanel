@@ -9,6 +9,7 @@
     <meta name="description" content="在线流量消耗器，测试您的网速，多地测试您的网络环境">
     <meta name="keywords" content="网络面板,ljxnet,Whoami,流量消耗器，流量消耗">
     <meta name="author" content="Whoami">
+    <meta name="color-scheme" content="light dark">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -22,6 +23,17 @@
             background-color: aliceblue;
             margin: 0;
             font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(33,34,37);
+            }
+            :root{
+                --el-color-white: rgb(18,18,18);
+            }
+            .el-loading-mask {
+                --el-mask-color: rgb(20,20,20);
+            }
         }
         ::-webkit-scrollbar {
             display: none; /* Chrome Safari */
@@ -60,6 +72,14 @@
                 }
             )
         }
+        const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const classVal = document.getElementsByTagName('html')[0].classList;
+        if (darkModeQuery.matches) {
+            classVal.add("dark");
+        }
+        darkModeQuery.addEventListener("change", (e) => {
+            e.matches ? classVal.add("dark") : classVal.remove("dark")
+        });
     </script>
 </body>
 

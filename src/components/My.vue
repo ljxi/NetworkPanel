@@ -154,10 +154,20 @@ onUnmounted(() =>{
   text-align: center; 
   padding: 5%;
 }
+
 .action{
   margin-bottom: 20px;
   width: 100px;
   margin-left: 12px;
   margin-right: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color:rgb(33,34,37);
+    }
+    .action{
+      color: rgb(255, 255, 255);
+    }
 }
 </style>

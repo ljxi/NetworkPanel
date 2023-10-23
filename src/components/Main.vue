@@ -1,6 +1,5 @@
 <template>
-  <div class="radius" :style="{ borderRadius: 'var(--el-border-radius-round)' }"
-    style="max-width: 800px;height:fit-content;display: block;margin:0 auto;background-color:#ffffff;padding:2%">
+  <div class="radius card" :style="{ borderRadius: 'var(--el-border-radius-round)' }">
     <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
       <div class="slider-demo-block">
         <span class="font-background">测速地址：</span>
@@ -53,7 +52,7 @@
             <br>
             每月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ state.predict.mon }}
           </el-popover>
-          <div class="state-icon" style="color: rgb(9,194,222);">
+          <div class="state-icon state-icon-main">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
               class="h-15 w-15 float-right pt-3">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
@@ -61,7 +60,7 @@
               </path>
             </svg>
           </div>
-          <el-text class="font-data" style="color: rgb(9,194,222);">{{ state.show.speed }}</el-text>
+          <el-text class="font-data state-icon-main">{{ state.show.speed }}</el-text>
         </div>
         <div class="showItem">
           <span class="font-background" style="font-size: larger;">带宽</span>
@@ -77,7 +76,7 @@
 
       <div style="width: fit-content;display: block;margin-top:2ch;margin-left: auto;margin-right: auto;">
         <a class="button" v-if="!isRunning && !state.isChecking" @click="tryStart">
-          <svg t="1694957757562" fill="white" style="width: 50px;margin-left: 10px;margin-top: -30px;"
+          <svg t="1694957757562" class="svg-icon"
             viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4036" width="200" height="200">
             <path
               d="M823.8 603.5l-501.2 336c-50.7 34-119.3 20.4-153.2-30.2-12.2-18.2-18.7-39.6-18.7-61.5v-672c0-61 49.5-110.4 110.4-110.4 21.9 0 43.3 6.5 61.5 18.7l501.1 336c50.7 34 64.2 102.6 30.2 153.2-7.8 11.9-18.1 22.2-30.1 30.2z m0 0"
@@ -731,6 +730,20 @@ onUnmounted(() => {
   margin-top: 10px;
 }
 
+.card{
+  max-width: 800px;
+  height:fit-content;
+  display: block;
+  margin:0 auto;
+  background-color:#ffffff;
+  padding:2%
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color:rgb(18,18,18);
+    }
+}
 @media screen and (max-width: 800px) {
   .ItemContainer {
     column-count: 1;
@@ -762,7 +775,54 @@ onUnmounted(() => {
   margin-top: -10px;
   width: 40px;
   height: 20px;
+  color: rgb(96,98,102);
 }
+
+.state-icon-main{
+  color: rgb(9,194,222);
+}
+
+.svg-icon{
+  fill:rgb(255,255,255);
+  width: 50px;
+  margin-left: 10px;
+  margin-top: -30px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .showItem {
+      border: 1px solid rgb(61,63,66) !important;
+    }
+    .state-icon{
+      color: rgb(165,167,172);
+    }
+    .state-icon-main{
+      color: rgb(30,105,131);
+    }
+    .font-background {
+      color: rgb(2, 110, 49);
+    }
+    .el-text{
+      --el-text-color-regular: rgb(165,167,172);
+    }
+    .el-input__inner{
+      color: rgb(200,200,200);
+    }
+    .el-select-dropdown__item{
+      color: rgb(200,200,200);
+    }
+    .el-select-dropdown__item.selected{
+      color: rgb(49,114,207);
+    }
+    .el-switch__label{
+      color: rgb(200,200,200);
+    }
+    .svg-icon{
+      fill:rgb(220,220,220);
+    }
+}
+
+
 
 .button {
   display: block;

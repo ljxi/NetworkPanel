@@ -674,10 +674,11 @@ onMounted(() => {
       }
     ],
     grid: {
-      x: 50,
+      x: 0,
       y: 40,
       x2: 8,
-      y2: 10
+      y2: 10,
+      containLabel: true
     },
   }
 

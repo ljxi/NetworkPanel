@@ -12,6 +12,7 @@
     <meta name="description" content="在线流量消耗器，测试您的网速，多地测试您的网络环境">
     <meta name="keywords" content="网络面板,ljxnet,Whoami,流量消耗器，流量消耗">
     <meta name="author" content="Whoami">
+    <meta name="color-scheme" content="light dark">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -25,6 +26,17 @@
             background-color: aliceblue;
             margin: 0;
             font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: rgb(33,34,37);
+            }
+            :root{
+                --el-color-white: rgb(18,18,18);
+            }
+            .el-loading-mask {
+                --el-mask-color: rgb(20,20,20);
+            }
         }
         ::-webkit-scrollbar {
             display: none; /* Chrome Safari */
@@ -42,7 +54,7 @@
     <script>
         !function(p){"use strict";!function(t){var s=window,e=document,i=p,c="".concat("https:"===e.location.protocol?"https://":"http://","sdk.51.la/js-sdk-pro.min.js"),n=e.createElement("script"),r=e.getElementsByTagName("script")[0];n.type="text/javascript",n.setAttribute("charset","UTF-8"),n.async=!0,n.src=c,n.id="LA_COLLECT",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:"3G2Vc20xpg3Ashoi",ck:"3G2Vc20xpg3Ashoi",autoTrack:true,hashMode:true});
     </script>
-  <script type="module" crossorigin src="./index-20d3654e.js"></script>
+  <script type="module" crossorigin src="./index-b4e62361.js"></script>
   
 </head>
 
@@ -65,6 +77,14 @@
                 }
             )
         }
+        const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        const classVal = document.getElementsByTagName('html')[0].classList;
+        if (darkModeQuery.matches) {
+            classVal.add("dark");
+        }
+        darkModeQuery.addEventListener("change", (e) => {
+            e.matches ? classVal.add("dark") : classVal.remove("dark")
+        });
     </script>
 </body>
 

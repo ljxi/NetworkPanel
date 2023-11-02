@@ -364,7 +364,7 @@ async function uploadLog() {
   state.logged = state.bytesUsed
   state.lastLogTime = now
   if (loginInfo.AccessToken) {
-    let resp = await fetch('//app.ljxnet.cn/app/network-panel/', {
+    let resp = await fetch('//app.ljxnet.cn/network-panel/', {
       method: "POST",
       mode: "cors",
       headers: {

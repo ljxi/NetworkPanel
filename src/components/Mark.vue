@@ -104,7 +104,7 @@ watch(show,(ns,os)=>{
 })
 const mark:Ref<any>=ref([])
 const api =async(args:object)=>{
-  const response = await fetch('//app.ljxnet.cn/app/network-panel/', {
+  const response = await fetch('//app.ljxnet.cn/network-panel/', {
     method: "POST",
     mode: "cors",
     headers: {

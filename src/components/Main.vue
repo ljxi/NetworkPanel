@@ -64,6 +64,9 @@
         </div>
         <div class="showItem">
           <span class="font-background" style="font-size: larger;">带宽</span>
+          <el-text size="small" class="mx-1">{{ state.maxSpeed ? '/' + formatter(state.maxSpeed, 2, [0, 0, 0, 0, 0, 0]) : ""
+          }}</el-text>
+          <el-button type="primary" style="height: 15px;" :icon="Edit" link @click="EditSpeedVisible = true" />
           <div class="state-icon">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
               class="h-15 w-15 float-right pt-3">
@@ -186,6 +189,33 @@
       </span>
     </template>
   </el-dialog>
+  <el-dialog style="width: 90%;max-width: 350px;" v-model="EditSpeedVisible" title="设置带宽上限">
+    <el-form>
+      <div class="mt-4">
+        <el-input type="number" min='1' v-model="maxSpeedInput.num" autocomplete="off" placeholder="留空则无上限"
+          class="input-with-select">
+          <template #append>
+            <el-select v-model="maxSpeedInput.type" placeholder="Select" style="width: 80px">
+              <el-option label="Mbps" value="Mbps" />
+              <el-option label="Gbps" value="Gbps" />
+            </el-select>
+          </template>
+        </el-input>
+        <br><br>
+        <el-alert title="注意：" type="warning">
+          浏览器会使用缓存策略<br>只能限制平均速度，无法限制峰值速度!<br>部分链接无法限速，请使用其它限速方法
+        </el-alert>
+      </div>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="EditSpeedVisible = false">取消</el-button>
+        <el-button type="primary" @click="editSpeedUse()">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
   <MarkUI :show="showMark" :loginInfo="loginInfo" />
   <audio v-if="isMobile && !isIOS && !isMiuiBrowser && runBackground" @canplay="() => { if (isRunning) audioDom.play() }"
     @pause="() => { if (runBackground) isRunning = false }" @play="isRunning = true" controls loop ref="audioDom"
@@ -275,6 +305,7 @@ const state = reactive({
   startUse: 0,
   startTime: 0,
   maxUse: localStorage.maxUse ? Number(localStorage.maxUse) : 0,
+  maxSpeed: localStorage.maxSpeed ? Number(localStorage.maxSpeed) : 0,
 })
 const isRunning = ref(false)
 const loginInfo = reactive({ AccessToken: localStorage.AccessToken ? localStorage.AccessToken : "" })
@@ -519,6 +550,16 @@ function formatter(num: number, desIndex: number, flo: Array<number>) {
   return cnum.toFixed(flo[total_index]) + describe[total_index];
 }
 
+const speedCtr=()=>{
+  if(state.bytesUsed-state.recordUse>state.maxSpeed/8){
+    return new Promise((resolve)=>{
+      setTimeout(()=>{
+        resolve(0)
+      },new Date().getTime()%1000)
+    })
+  }
+}
+
 async function startThread(index: number) {
   try {
     var _url = runUrl.value
@@ -530,6 +571,7 @@ async function startThread(index: number) {
     const reader = response.body.getReader();
     let decodeLength = 0
     while (true) {
+      if(state.maxSpeed)await speedCtr()
       const { value } = await reader.read();
       let chunkLength = value?.length
       if (!chunkLength || _url != runUrl.value) {
@@ -556,6 +598,7 @@ async function startThread(index: number) {
 const EditTableVisible = ref(false)
 const addTableVisible = ref(false)
 const EditMaxVisible = ref(false)
+const EditSpeedVisible = ref(false)
 const addForm = ref({
   label: '',
   value: '',
@@ -608,6 +651,30 @@ const editMaxUse = () => {
   localStorage.maxUse = tmp
   maxUseInput.value.num = null
   EditMaxVisible.value = false
+}
+
+const maxSpeedInput: Ref<{
+  num: number | null;
+  type: "Gbps" | "Mbps" | "Kbps";
+}> = ref({
+  num: null,
+  type: 'Mbps',
+})
+
+const editSpeedUse = () => {
+  var map = {
+    "Kbps": 1024 ,
+    "Mbps": 1024 * 1024,
+    "Gbps": 1024 * 1024 * 1024
+  }
+  var tmp = 0
+  if (maxSpeedInput.value.num) {
+    tmp = Math.floor(maxSpeedInput.value.num * map[maxSpeedInput.value.type])
+  }
+  state.maxSpeed = tmp
+  localStorage.maxSpeed = tmp
+  maxSpeedInput.value.num = null
+  EditSpeedVisible.value = false
 }
 var isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent)
 var isMiuiBrowser = /MiuiBrowser/i.test(navigator.userAgent)

@@ -3,7 +3,7 @@
 		"Apple":"https://store.storevideos.cdn-apple.com/v1/store.apple.com/st/1666383693478/atvloop-video-202210/streams_atvloop-video-202210/1920x1080/fileSequence3.m4s",
 		"微软Azure":"https://cdn.microsoftstore.com.cn/media/product_long_description/3781-00000/2_dupn50xr/4h0yzz2_360.jpg",
 		"联通测速":"https://cesubao.chinaunicom.cn/1000.bin",
-		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=2147483648",
+		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824",
 		"清华大学":"https://iptv.tsinghua.edu.cn/st_new_HB33/garbage.php?ckSize=1024",
 		"上海交大":"https://mirrors.sjtug.sjtu.edu.cn/speedtest/garbage?ckSize=1024",
 		"并夕夕":"https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk",
@@ -36,7 +36,7 @@
 	},
 	"全球[Global]":{
 		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",
-		"Cloudflare":"https://speed.cloudflare.com/__down?bytes=1073741824",
+		"Cloudflare":"https://speed.cloudflare.com/__down?bytes=104857600",
 		"Akamai":"https://akamtrans-a.akamaihd.net/delivery/2023/08/30/brand-protector-2500k-00004.ts",
 		"Cloudflare Workers":"https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
 		"Steam Akamai":"https://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",

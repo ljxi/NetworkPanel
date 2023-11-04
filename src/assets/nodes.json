@@ -2,7 +2,6 @@
 	"高速":{
 		"Apple":"https://store.storevideos.cdn-apple.com/v1/store.apple.com/st/1666383693478/atvloop-video-202210/streams_atvloop-video-202210/1920x1080/fileSequence3.m4s",
 		"微软Azure":"https://cdn.microsoftstore.com.cn/media/product_long_description/3781-00000/2_dupn50xr/4h0yzz2_360.jpg",
-		"移动测速":"https://speedtest2.gd.chinamobile.com.prod.hosts.ooklaserver.net:8080/download",
 		"联通测速":"https://cesubao.chinaunicom.cn/1000.bin",
 		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=2147483648",
 		"清华大学":"https://iptv.tsinghua.edu.cn/st_new_HB33/garbage.php?ckSize=1024",

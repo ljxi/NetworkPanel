@@ -60,15 +60,15 @@ const provinceMatch=(str:string)=>{
 async function getLocalIp() {
     if(props.isVisible){
         try {
-            const response = await  fetch('https://api.mir6.com/api/ip_json', { referrerPolicy: 'no-referrer' });
+            const response = await  fetch('https://ip.useragentinfo.com/json', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
             let localInfo:any={
-                ip:resp['data']['ip'],
-                isp:resp['data']['isp'],
-                isChinaMainland:provinceMatch(resp['data']['province'])?true:false,
-                province:provinceMatch(resp['data']['province']),
-                city:resp['data']['city'].replace(/市$/, ""),
-                area:resp['data']['districts']
+                ip:resp['ip'],
+                isp:resp['isp'],
+                isChinaMainland:provinceMatch(resp['province'])?true:false,
+                province:provinceMatch(resp['province']),
+                city:resp['city'].replace(/市$/, ""),
+                area:resp['area']
             }
             info['localInfo']=localInfo
             if(props.IPinfo){

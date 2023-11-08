@@ -60,15 +60,15 @@ const provinceMatch=(str:string)=>{
 async function getLocalIp() {
     if(props.isVisible){
         try {
-            const response = await  fetch('https://ip.useragentinfo.com/json', { referrerPolicy: 'no-referrer' });
+            const response = await  fetch('https://pubstatic.b0.upaiyun.com/?_upnode', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
             let localInfo:any={
-                ip:resp['ip'],
-                isp:resp['isp'],
-                isChinaMainland:provinceMatch(resp['province'])?true:false,
-                province:provinceMatch(resp['province']),
-                city:resp['city'].replace(/市$/, ""),
-                area:resp['area']
+                ip:resp['remote_addr'],
+                isp:resp['remote_addr_location']['isp'],
+                isChinaMainland:provinceMatch(resp['remote_addr_location']['province'])?true:false,
+                province:provinceMatch(resp['remote_addr_location']['province']),
+                city:resp['remote_addr_location']['city'].replace(/市$/, ""),
+                area:''
             }
             info['localInfo']=localInfo
             if(props.IPinfo){

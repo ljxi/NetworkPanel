@@ -234,8 +234,7 @@ import type { EChartsType } from "echarts";
 import iosSound from "../assets/ios.mp3";
 import andoridSound from "../assets/android.mp3";
 const props = defineProps({
-  isVisible: Boolean,
-  IPinfo: Object
+  isVisible: Boolean
 })
 import { ElMessage } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
@@ -409,8 +408,7 @@ async function uploadLog() {
         url: runUrl.value,
         threadNum: threadNum.value,
         used: num,
-        time: time,
-        IPinfo: props.IPinfo
+        time: time
       })
     });
     resp = await resp.json()

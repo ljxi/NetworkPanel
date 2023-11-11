@@ -29,11 +29,10 @@
   
 <script lang="ts" setup>
 const props = defineProps({
-    isVisible: Boolean,
-    IPinfo: Object
+    isVisible: Boolean
 })
 import CountryCode from "../assets/CountryCode.json"
-import { reactive } from 'vue'
+import { reactive,watchEffect } from 'vue'
 import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 const info=reactive({
@@ -42,7 +41,10 @@ const info=reactive({
     localLay:0,
     globalLay:0,
 })
-
+const ip_cache=reactive(JSON.parse(localStorage.getItem("ip_cache")||"{}"))
+watchEffect(()=>{
+    localStorage.setItem("ip_cache",JSON.stringify(ip_cache))
+})
 const copy=(ip:string)=>{
     toClipboard(ip)
     ElMessage.success({
@@ -58,27 +60,45 @@ const provinceMatch=(str:string)=>{
 }
 
 async function getLocalIp() {
+    try {
+        const response = await  fetch('https://api.mir6.com/api/ip_json', { referrerPolicy: 'no-referrer' });
+        let resp = await response.json();
+        let localInfo:any={
+            ip:resp['data']['ip'],
+            isp:resp['data']['isp'],
+            isChinaMainland:provinceMatch(resp['data']['province'])?true:false,
+            province:provinceMatch(resp['data']['province']),
+            city:resp['data']['city'].replace(/市$/, ""),
+            area:resp['data']['districts'],
+        }
+        return localInfo
+    } catch (error) {
+        throw "获取本地IP失败"
+    }
+}
+
+async function cacheCtr(ip_addr:string){
+    let ret=ip_cache[ip_addr]
+    if(!ret || new Date().getTime()/1000-ret['time']>60*60*24*30){
+        ret=await getLocalIp()
+        ret['time']=new Date().getTime()/1000
+        ip_cache[ip_addr]=ret
+    }
+    return ret
+}
+
+async function watchLocalIp() {
     if(props.isVisible){
         try {
-            const response = await  fetch('https://pubstatic.b0.upaiyun.com/?_upnode', { referrerPolicy: 'no-referrer' });
+            const response = await  fetch('https://forge.speedtest.cn/api/location/info', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
-            let localInfo:any={
-                ip:resp['remote_addr'],
-                isp:resp['remote_addr_location']['isp'],
-                isChinaMainland:provinceMatch(resp['remote_addr_location']['province'])?true:false,
-                province:provinceMatch(resp['remote_addr_location']['province']),
-                city:resp['remote_addr_location']['city'].replace(/市$/, ""),
-                area:''
-            }
+            let localInfo:any=await cacheCtr(resp['ip'])
             info['localInfo']=localInfo
-            if(props.IPinfo){
-                props.IPinfo['localInfo']=localInfo
-            }
         } catch (error) {
             info['localInfo']=null
         }
     }
-    setTimeout(getLocalIp,info['localInfo']?5000:1000)
+    setTimeout(watchLocalIp,info['localInfo']?5000:1000)
 }
 async function getGlobalIp() {
     if(props.isVisible){
@@ -91,16 +111,13 @@ async function getGlobalIp() {
                 country:CountryCode[resp['country_code'] as keyof typeof CountryCode],
             }
             info['globalInfo']=globalInfo
-            if(props.IPinfo){
-                props.IPinfo['globalInfo']=globalInfo
-            }
         } catch (error) {
             info['globalInfo']=null
         }
     }
     setTimeout(getGlobalIp,  info['globalInfo']?5000:1000)
 }
-getLocalIp()
+watchLocalIp()
 getGlobalIp()
 async function get_lay(url:string,type:'localLay'|'globalLay') {
     if(props.isVisible){

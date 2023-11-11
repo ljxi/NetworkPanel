@@ -23,9 +23,9 @@
       </div>
     </el-header>
     <el-main>
-      <MainUI :isVisible="isVisible" :IPinfo="IPinfo" />
+      <MainUI :isVisible="isVisible"/>
       <br>
-      <IPinfoUI :isVisible="isVisible" :IPinfo="IPinfo" />
+      <IPinfoUI :isVisible="isVisible"/>
     </el-main>
     <div style="height: fit-content;padding-bottom: 10px;">
       <div style="width: fit-content;margin-left: auto;margin-right: auto;">
@@ -49,7 +49,6 @@ import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 
 const isVisible = ref(true)
-const IPinfo = reactive({ globalInfo: null, localInfo: null })
 let GoToHomePage = () => {
   //window.open("https://netart.cn/")
   toClipboard('463481772')

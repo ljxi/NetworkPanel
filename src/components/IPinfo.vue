@@ -90,7 +90,7 @@ async function cacheCtr(ip_addr:string){
 async function watchLocalIp() {
     if(props.isVisible){
         try {
-            const response = await  fetch('https://forge.speedtest.cn/api/location/info', { referrerPolicy: 'no-referrer' });
+            const response = await fetch('https://forge.speedtest.cn/api/location/info', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
             let localInfo:any=await cacheCtr(resp['ip'])
             info['localInfo']=localInfo

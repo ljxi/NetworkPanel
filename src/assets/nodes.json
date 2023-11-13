@@ -1,16 +1,10 @@
 {
 	"高速":{
-		"Apple":"https://store.storevideos.cdn-apple.com/v1/store.apple.com/st/1666383693478/atvloop-video-202210/streams_atvloop-video-202210/1920x1080/fileSequence3.m4s",
+		"21CN直播":"https://review.21cn.com/img/20220926/1/1664177550543.mp4",
 		"联通测速":"https://cesubao.chinaunicom.cn/1000.bin",
 		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824",
 		"清华大学":"https://iptv.tsinghua.edu.cn/st_new_HB33/garbage.php?ckSize=1024",
-		"上海交大":"https://mirrors.sjtug.sjtu.edu.cn/speedtest/garbage?ckSize=1024",
-		"并夕夕":"https://cd.pddpic.com/android_dev/2023-07-28/5c04772968aee57ca690fbe1e7f29467.apk",
-		"华为":"https://consumer.huawei.com/content/dam/huawei-cbg-site/cn/mkt/harmonyos-3/video/privacy/privacy-safe-center.webm",
-		"淘宝网":"https://cloud.video.taobao.com/play/u/null/p/1/e/6/t/1/d/ud/329682839911.mp4",
-		"京东":"https://storage.jd.com/jdmobile/JDMALL-PC2.apk",
-		"小米":"https://f100.g.mi.com/download/AppStore/09b005af75fff45bd88ff8f37d7910ba550d32a07",
-		"字节跳动":"https://www.douyin.com/download/pc/obj/douyin-pc-client/7044145585217083655/releases/10715336/2.6.0/win32-ia32/douyin-v2.6.0-win32-ia32-douyinDownload1.exe"
+		"上海交大":"https://mirrors.sjtug.sjtu.edu.cn/speedtest/garbage?ckSize=1024"
 	},
 	"运营商":{
 		"联通电视":"https://listen.10155.com/listener/womusic-bucket/90115000/mv_vod/volte_mp4/20230215/1625752132487675906.mp4",
@@ -19,18 +13,7 @@
 		"咪咕快游":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
 		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
 		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/07da9eb52ad948c7b58b760003c0006b.mp4",
-		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
-		"21CN直播":"https://review.21cn.com/img/20220926/1/1664177550543.mp4"
-	},
-	"常用":{
-		"腾讯":"https://game.gtimg.cn/images/nz/web202106/index/bc_part1.gif?0.3190485611376561",
-		"喜马拉雅":"https://s1.xmcdn.com/yx/xmly-live-release/last/dist/Ximalaya-Live-Setup-4.18.550.exe",
-		"小红书":"https://dc.xiaohongshu.com/file/pkgs/base/xiaohongshu.apk",
-		"vivo":"https://wwwstatic.vivo.com.cn/vivoportal/files/resource/funtouch/1651200648928/images/os2-jude-video.mp4",
-		"七牛云":"https://devtools.qiniu.com/linux/amd64/qrsctl",
-		"百度CDN":"https://issuecdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
-		"百度PCDN":"https://issuepcdn.baidupcs.com/issue/netdisk/yunguanjia/BaiduNetdisk_7.30.5.2.exe",
-		"爱奇艺":"https://mesh.if.iqiyi.com/player/upgrade/file/last/IQIYIsetup_app.exe"
+		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe"
 	},
 	"全球[Global]":{
 		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",

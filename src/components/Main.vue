@@ -243,7 +243,12 @@ import { ref, watch, type Ref, reactive } from 'vue'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
 
-ElMessage.warning('本站将不再内置大厂链接，建议使用自定义节点功能')
+setTimeout(() => {
+  ElMessage.warning({
+    dangerouslyUseHTMLString: true,
+    message: '本站将不再内置大厂链接 建议使用自定义节点功能',
+  })
+},500)
 const showMark = ref({ show: false })
 const customNodes = reactive(localStorage.customNodes ? JSON.parse(localStorage.customNodes) : [])
 const OnlineNodes: {

@@ -135,7 +135,7 @@ get_lay('https://connectivitycheck.platform.hicloud.com/generate_204','localLay'
 get_lay('https://cp.cloudflare.com/','globalLay')
 </script>
   
-<style>
+<style scoped>
 .font-background{
   color: #344357;
   font-size: 14px;
@@ -146,7 +146,7 @@ get_lay('https://cp.cloudflare.com/','globalLay')
     display: block;
     margin:0 auto;
     background-color:#ffffff;
-    padding:2%
+    padding:15px
 }
 @media (prefers-color-scheme: dark) {
     .card {

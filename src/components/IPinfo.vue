@@ -146,7 +146,7 @@ get_lay('https://cp.cloudflare.com/','globalLay')
     display: block;
     margin:0 auto;
     background-color:#ffffff;
-    padding:15px
+    padding:2%
 }
 @media (prefers-color-scheme: dark) {
     .card {

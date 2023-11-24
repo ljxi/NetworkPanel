@@ -17,6 +17,9 @@
           </svg>
           <span class="title"> 网络面板 </span>
         </div>
+        <div style="float: right;">
+          <el-button class="home" @click="GoToHomePage" round>反馈</el-button>
+        </div>
       </div>
     </el-header>
     <el-main>

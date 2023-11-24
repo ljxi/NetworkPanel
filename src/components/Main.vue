@@ -810,7 +810,7 @@ onUnmounted(() => {
   }
 });
 </script>
-<style>
+<style scoped>
 .ItemContainer {
   column-count: 3;
   margin-top: 10px;
@@ -849,7 +849,7 @@ onUnmounted(() => {
   font-size: 30px;
 }
 
-.font-background {
+.font-background{
   color: #344357;
   font-size: 14px;
 }
@@ -885,23 +885,8 @@ onUnmounted(() => {
     .state-icon-main{
       color: rgb(30,105,131);
     }
-    .font-background {
-      color: rgb(2, 110, 49);
-    }
-    .el-text{
-      --el-text-color-regular: rgb(165,167,172);
-    }
-    .el-input__inner{
-      color: rgb(200,200,200);
-    }
-    .el-select-dropdown__item{
-      color: rgb(200,200,200);
-    }
-    .el-select-dropdown__item.selected{
-      color: rgb(49,114,207);
-    }
-    .el-switch__label{
-      color: rgb(200,200,200);
+    .font-background{
+        color: rgb(193,206,230);
     }
     .svg-icon{
       fill:rgb(220,220,220);

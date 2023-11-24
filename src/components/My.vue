@@ -132,8 +132,8 @@ onUnmounted(() =>{
         <br>
         <span style="font-size: 20px;">{{loginStatus}}</span>
         <el-divider />
-        <el-button class='action' type="warning" @click="kick_old">下线其他设备</el-button>
-        <el-button class='action' type="danger" @click="logOut">退出登录</el-button>
+        <el-button class='action warn' type="warning" @click="kick_old">下线其他设备</el-button>
+        <el-button class='action danger' type="danger" @click="logOut">退出登录</el-button>
       </div>
     </div>
   </div>
@@ -160,8 +160,27 @@ onUnmounted(() =>{
   width: 100px;
   margin-left: 12px;
   margin-right: 12px;
+  border-radius: 10px;
+  background-color: unset;
+  font-weight: 900;
 }
 
+.action.warn{
+  color: #1ee0ac;
+  border-color: #1ee0ac;
+}
+.action.warn:hover{
+  color: white;
+  background-color: #1ee0ac;
+}
+.action.danger{
+  color: #e85347;
+  border-color: #e85347;
+}
+.action.danger:hover{
+  color: white;
+  background-color: #e85347;
+}
 @media (prefers-color-scheme: dark) {
     .card {
         background-color:rgb(33,34,37);

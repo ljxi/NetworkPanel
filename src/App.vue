@@ -17,9 +17,6 @@
           </svg>
           <span class="title"> 网络面板 </span>
         </div>
-        <div style="float: right;">
-          <el-button class="home" @click="GoToHomePage" round>反馈</el-button>
-        </div>
       </div>
     </el-header>
     <el-main>
@@ -37,11 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-// import { useDark, useToggle } from '@vueuse/core'
 
-// const isDark = useDark()
-// const toggleDark = useToggle(isDark)
-// toggleDark()
 import MainUI from "./components/Main.vue"
 import IPinfoUI from "./components/IPinfo.vue"
 import { ref, reactive } from 'vue'
@@ -49,6 +42,7 @@ import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 
 const isVisible = ref(true)
+const showDash = ref(false)
 let GoToHomePage = () => {
   //window.open("https://netart.cn/")
   toClipboard('463481772')
@@ -64,7 +58,7 @@ document.addEventListener("visibilitychange", function () {
 })
 </script>
 
-<style>
+<style scoped>
 .header {
   height: fit-content;
   padding-bottom: 12px;

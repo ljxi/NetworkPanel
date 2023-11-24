@@ -17,12 +17,18 @@
           </template>
         </el-select>
       </div>
-      <div class="slider-demo-block" style="margin-top:20px;">
+      <div style="margin-top:20px;">
         <span class="font-background">线程数：{{ threadNum }}</span>
         <el-slider :show-tooltip="false" :min="1" :max='64' v-model="threadNum" />
       </div>
-      <el-switch v-model="runBackground" active-text="保持后台运行" />
-      <br>
+      <div style="width: 100%;height:32px;">
+        <div style="float: left;">
+          <el-switch v-model="runBackground" active-text="保持后台运行" />
+        </div>
+        <div style="float: right;">
+          <el-switch v-model="autoStart" active-text="自动运行" />
+        </div>
+      </div>
       <div class="ItemContainer">
         <div class="showItem">
           <span class="font-background" style="font-size: larger;">总流量</span>
@@ -239,16 +245,10 @@ const props = defineProps({
 import { ElMessage } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
 import { Link, Edit, Delete, CircleCheck, Loading, CopyDocument, TrendCharts, Hide, Histogram, Calendar } from '@element-plus/icons-vue'
-import { ref, watch, type Ref, reactive } from 'vue'
+import { ref, watch,watchEffect, type Ref, reactive } from 'vue'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
 
-setTimeout(() => {
-  ElMessage.warning({
-    dangerouslyUseHTMLString: true,
-    message: '本站将不再内置大厂链接 建议使用自定义节点功能',
-  })
-},500)
 const showMark = ref({ show: false })
 const customNodes = reactive(localStorage.customNodes ? JSON.parse(localStorage.customNodes) : [])
 const OnlineNodes: {
@@ -317,9 +317,20 @@ const loginInfo = reactive({ AccessToken: localStorage.AccessToken ? localStorag
 const chartShow = ref(localStorage.chartShow ? localStorage.chartShow === 'true' : false)
 const threadNum = ref(localStorage.threadNum ? Number(localStorage.threadNum) : 8)
 const runBackground = ref(localStorage.runBackground ? localStorage.runBackground === 'true' : false)
+const autoStart = ref(localStorage.autoStart ? localStorage.autoStart === 'true' : false)
 const runUrl = ref(localStorage.url ? localStorage.url : nodes.value[0].options[0].value)
 
 var tasks: Array<number> = []
+
+onMounted(() => {
+  setTimeout(() => {
+    ElMessage.warning({
+      dangerouslyUseHTMLString: true,
+      message: '本站将不再内置大厂链接 建议使用自定义节点功能',
+    })
+  },500)
+  autoStart.value&&tryStart();
+})
 
 const tryStart = async () => {
   state.isChecking = true
@@ -456,6 +467,9 @@ watch(loginInfo, async (newState, oldState) => {
   localStorage.AccessToken = newState.AccessToken
 })
 
+watchEffect(() => {
+  localStorage.autoStart = autoStart.value;
+})
 const copyUrl = () => {
   toClipboard(runUrl.value).then(() => {
     ElMessage.success({

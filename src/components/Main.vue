@@ -875,6 +875,10 @@ onUnmounted(() => {
   margin-top: -30px;
 }
 
+.el-select-dropdown__wrap{
+  max-height: 60vh;
+}
+
 @media (prefers-color-scheme: dark) {
     .showItem {
       border: 1px solid rgb(61,63,66) !important;

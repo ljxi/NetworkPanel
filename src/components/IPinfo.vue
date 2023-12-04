@@ -13,7 +13,7 @@
             </div>
           </transition>
           <transition name="el-fade-in">
-              <div v-loading="!info.globalInfo" v-if="(info.localInfo && info.localInfo['province'] && !info.globalInfo) || (info.globalInfo && info.globalInfo['country']!='中国')" >
+              <div v-loading="!info.globalInfo" v-if="(info.localInfo && info.localInfo['isChinaMainland'] && !info.globalInfo) || (info.globalInfo && info.globalInfo['country']!='中国')" >
                   <el-tooltip class="item" effect="dark" :content="info.globalInfo?info.globalInfo['ip']:'Loading...'" placement="top">
                       <div @click="copy(info.globalInfo?info.globalInfo['ip']:'')">
                           <el-tag style="width: 50px;" class="ml-2" type="success">{{ info.globalLay?info.globalLay+"ms":"-ms" }}</el-tag>
@@ -61,8 +61,14 @@ const provinceMatch=(str:string)=>{
 
 async function getLocalIp() {
     try {
-        const response = await  fetch('https://api.mir6.com/api/ip_json', { referrerPolicy: 'no-referrer' });
-        let resp = await response.json();
+        const rsp = await fetch('//app.ljxnet.cn/network-panel/', {
+            method: "POST",
+            mode: "cors",
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: '{"action":"ip"}',
+        });
+        let resp = await rsp.json();
         let localInfo:any={
             ip:resp['data']['ip'],
             isp:resp['data']['isp'],
@@ -86,7 +92,14 @@ async function cacheCtr(ip_addr:string){
     }
     return ret
 }
-
+const nullInfo:any={
+                "ip": "127.0.0.1",
+                "isp": "获取失败",
+                "isChinaMainland": true,
+                "province": "",
+                "city": "",
+                "area": ""
+                }
 async function watchLocalIp() {
     if(props.isVisible){
         try {
@@ -95,6 +108,11 @@ async function watchLocalIp() {
             let localInfo:any=await cacheCtr(resp['ip'])
             info['localInfo']=localInfo
         } catch (error) {
+            if(error=='获取本地IP失败'){
+                info['localInfo']=nullInfo
+                return
+            }
+            console.log(error)
             info['localInfo']=null
         }
     }

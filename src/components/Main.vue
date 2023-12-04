@@ -414,9 +414,6 @@ async function uploadLog() {
     let resp = await fetch('//app.ljxnet.cn/network-panel/', {
       method: "POST",
       mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify({

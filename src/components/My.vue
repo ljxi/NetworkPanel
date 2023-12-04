@@ -15,9 +15,6 @@ const api =async(args:object)=>{
   const response = await fetch('https://api.netart.cn/user/', {
     method: "POST",
     mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(args)

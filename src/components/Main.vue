@@ -359,7 +359,10 @@ const checkUrl = async (url: string) => {
     if (structUrl.host.indexOf("ljxnet.cn") + structUrl.host.indexOf("netart.cn") != -2) {
       throw '你不对劲，我要拿小本本把你记下来然后交给警察蜀黍！'
     }
-    const response = await fetch(url, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' })
+
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), 5000);
+    const response = await fetch(url, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' ,signal: controller.signal})
     if (response.status == 404) throw "资源响应异常" + response.status
     if (!response.body) throw "资源响应异常 Nobody"
     const reader = response.body.getReader();

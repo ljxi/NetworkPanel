@@ -108,6 +108,8 @@
       </div>
       <el-button style="float: left;margin-top: -20px;margin-right: 3px" type="primary" :icon="Histogram" link
         @click="showMark.show = true" />
+        <el-button style="float: left;margin-top: -20px;margin-left: 39px" type="primary" :icon="FullScreen" link
+        @click="isFullScreen = true" />
       <el-button style="float: right;margin-top: -20px;margin-right: 3px" type="primary" :icon="TrendCharts" link
         v-if="!chartShow" @click="chartShow = true" />
       <el-button style="float: right;margin-top: -20px;margin-right: 3px" type="primary" :icon="Hide" link
@@ -233,6 +235,7 @@
     style="display:none">
     <source :src="iosSound" type="audio/mpeg">
   </audio>
+  <FullScreenUI v-model="isFullScreen" :isRunning="isRunning" :state="state" />
 </template>
 
 <script lang="ts" setup>
@@ -244,10 +247,11 @@ const props = defineProps({
 })
 import { ElMessage } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
-import { Link, Edit, Delete, CircleCheck, Loading, CopyDocument, TrendCharts, Hide, Histogram, Calendar } from '@element-plus/icons-vue'
+import { Link, Edit, Delete, CircleCheck, Loading, CopyDocument, TrendCharts, Hide, Histogram, Calendar,FullScreen } from '@element-plus/icons-vue'
 import { ref, watch,watchEffect, type Ref, reactive } from 'vue'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
+import FullScreenUI from './FullScreen.vue'
 
 const showMark = ref({ show: false })
 const customNodes = reactive(localStorage.customNodes ? JSON.parse(localStorage.customNodes) : [])
@@ -313,6 +317,7 @@ const state = reactive({
   maxSpeed: localStorage.maxSpeed ? Number(localStorage.maxSpeed) : 0,
 })
 const isRunning = ref(false)
+const isFullScreen = ref(false)
 const loginInfo = reactive({ AccessToken: localStorage.AccessToken ? localStorage.AccessToken : "" })
 const chartShow = ref(localStorage.chartShow ? localStorage.chartShow === 'true' : false)
 const threadNum = ref(localStorage.threadNum ? Number(localStorage.threadNum) : 8)

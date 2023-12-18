@@ -9,8 +9,8 @@
     "description": "网络面板(NetworkPanel)是一个在线流量消耗器，可以测试您的网速，监测您的网络环境，提供丰富测试节点，并且长期维护更新",
     "icons": [
         {
-            "src": "./speed.png",
-            "sizes": "200x200",
+            "src": "./icon.png",
+            "sizes": "138x138",
             "type": "image/png"
         }
     ]

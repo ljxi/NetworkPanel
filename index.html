@@ -39,9 +39,12 @@
                 --el-mask-color: rgb(20,20,20);
             }
         }
-        ::-webkit-scrollbar {
+        html::-webkit-scrollbar {
             display: none; /* Chrome Safari */
-          }
+        }
+        html{
+            scrollbar-width: none;/* Firefox */
+        }
     </style>
     <script>
         var _hmt = _hmt || [];

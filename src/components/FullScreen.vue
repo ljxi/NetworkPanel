@@ -133,18 +133,24 @@ setInterval(()=>{
     left: 50%;
     top:50%;
     transform: translate(-50%, -50%);
-    animation:standby 20s infinite linear ;
+    animation:standby 60s infinite alternate ease-in-out;
 }
 @keyframes standby {
     0% {
-        top: 40%;
-
+        top: 50%;
+        left: 50%;
     }
-    50% {
-        top: 60%;
+    49% {
+        top: 50%;
+        left: 50%;
+    }
+    51% {
+        top: 55%;
+        left: 51%;
     }
     100% {
-        top: 40%;
+        top: 55%;
+        left: 51%;
     }
 }
 </style>

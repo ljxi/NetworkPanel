@@ -328,12 +328,12 @@ const runUrl = ref(localStorage.url ? localStorage.url : nodes.value[0].options[
 var tasks: Array<number> = []
 
 onMounted(() => {
-  setTimeout(() => {
-    ElMessage.warning({
-      dangerouslyUseHTMLString: true,
-      message: '本站将不再内置大厂链接 建议使用自定义节点功能',
-    })
-  },500)
+  // setTimeout(() => {
+  //   ElMessage.warning({
+  //     dangerouslyUseHTMLString: true,
+  //     message: '本站将不再内置大厂链接 建议使用自定义节点功能',
+  //   })
+  // },500)
   autoStart.value&&tryStart();
 })
 

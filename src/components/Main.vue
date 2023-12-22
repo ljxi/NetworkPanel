@@ -578,7 +578,7 @@ const speedCtr=()=>{
     return new Promise((resolve)=>{
       setTimeout(()=>{
         resolve(0)
-      },new Date().getTime()%1000)
+      },1000-(new Date().getTime()%1000))
     })
   }
 }

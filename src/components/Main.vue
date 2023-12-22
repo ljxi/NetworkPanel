@@ -93,7 +93,7 @@
           </svg>
         </a>
         <a class="button" v-if="state.isChecking">
-          <el-icon style="margin-top: 40px" :size="60" class="is-loading">
+          <el-icon :size="60" class="is-loading el-icon-loading">
             <Loading />
           </el-icon>
         </a>
@@ -883,7 +883,10 @@ onUnmounted(() => {
 .el-select-dropdown__wrap{
   max-height: 60vh;
 }
-
+.el-icon-loading{
+  margin-top: 40px;
+  color:rgb(255,255,255);
+}
 @media (prefers-color-scheme: dark) {
     .showItem {
       border: 1px solid rgb(61,63,66) !important;
@@ -908,12 +911,7 @@ onUnmounted(() => {
   display: block;
   text-decoration: none;
   background-color: #485bed;
-  /* background-image: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e7e7e7)); */
   background-image: -webkit-linear-gradient(145deg, #485bed, #6576ff);
-  /* background-image: linear-gradient(145deg,
-                    #00e4ca 10%, #0026a4 10%,
-                    #00dbe0 10%, #ff0000 10%); */
-
   font-size: 30px;
   font-weight: 700 !important;
   margin: 36px;
@@ -924,5 +922,4 @@ onUnmounted(() => {
   line-height: 144px;
   border-radius: 50%;
   box-shadow: 0px 3px 8px #485bed, inset 0px 2px 3px #6576ff;
-  /* border: solid 1px transparent; */
 }</style>

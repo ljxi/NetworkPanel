@@ -14,7 +14,10 @@
           <span class="title"> 网络面板 </span>
         </div>
         <div style="float: right;margin-top: 5px;">
-          <el-button class="home" @click="GoToHomePage" round>反馈</el-button>
+          <el-button class="home" @click="aboutVisible=true" round>关于</el-button>
+        </div>
+        <div v-if="isAndroid" style="float: right;margin-top: 5px;margin-right: 5px;">
+          <el-button class="home" @click="downLoadAPPTableVisible=true" round>APP</el-button>
         </div>
       </div>
     </el-header>
@@ -30,6 +33,57 @@
       </div>
     </div>
   </el-container>
+  <el-dialog style="width: 90%;max-width: 700px;" v-model="downLoadAPPTableVisible" title="APP下载">
+    <div>
+      <h2>网络面板v2.2</h2>
+      <span>Java原生实现</span><br> 
+      <span>1.支持锁屏运行</span><br>
+      <span>2.支持添加任何链接</span><br>
+      <span>3.相对于浏览器更加省电</span><br>
+      <span>4.通知栏实时查看网络信息</span><br>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="downLoadAPPTableVisible = false">关闭</el-button>
+        <el-button type="primary" @click="downloadApp">
+          下载
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+  <el-dialog style="width: 90%;max-width: 400px;" v-model="aboutVisible" title="关于">
+    <div>
+      <h2>网络面板</h2>
+      <span>作者：<el-link href="https://netart.cn/" type="primary">Whoami</el-link></span><br>
+      <span>QQ：<el-link type="primary" @click="copyText('582424565')">582424565 </el-link></span><br>
+      <span>QQ群：<el-link type="primary" @click="copyText('463481772')">463481772 </el-link></span><br>
+      <span>开源地址：<el-link href="https://github.com/ljxi/NetworkPanel" type="primary">Github</el-link></span><br> 
+      <span>赞助支持：
+        <el-link href="https://afdian.net/a/ljxnet" type="primary">爱发电</el-link>&nbsp
+        <el-link href="https://qr.alipay.com/fkx13781i79xywfarbvrsfc" type="primary">支付宝</el-link>
+      </span>
+    </div>
+    <div>
+      <h2>疑问解答</h2>
+      <div class="question">
+        <span class="ask">问：APP/后端代码开源吗？</span><br>
+        <span class="answer">答：不开源</span><br>
+      </div>
+      <div class="question">
+        <span class="ask">问：我搭建了一个前端页面，能否添加到跨域白名单？</span><br>
+        <span class="answer">答：你需要有一定的用户量，并添加链接指向本项目开源仓库，然后联系我加白名单</span><br>
+      </div>
+      <div class="question">
+        <span class="ask">问：能否添加xxx功能？</span><br>
+        <span class="answer">答：有合理的建议请联系我</span><br>
+      </div>
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="aboutVisible = false">关闭</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -39,15 +93,20 @@ import IPinfoUI from "./components/IPinfo.vue"
 import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
-
+var isAndroid = /Android/i.test(navigator.userAgent)
 const isVisible = ref(true)
-const showDash = ref(false)
-let GoToHomePage = () => {
-  //window.open("https://netart.cn/")
-  toClipboard('463481772')
+const downLoadAPPTableVisible = ref(false)
+const aboutVisible = ref(false)
+const downloadApp = () => {
+  window.open("https://api.netart.cn/lanzou?id=iOqLF1ivbvtc")
+  downLoadAPPTableVisible.value = false
+}
+
+let copyText = (txt:string) => {
+  toClipboard(txt)
   ElMessage.info({
     dangerouslyUseHTMLString: true,
-    message: '<center>已经复制QQ群号：<br><strong>463481772</strong></center>',
+    message: '<center>已经复制到剪切板</center>',
   })
 }
 document.addEventListener("visibilitychange", function () {
@@ -57,7 +116,13 @@ document.addEventListener("visibilitychange", function () {
 })
 </script>
 
-<style scoped>
+<style scoped>  
+.question {
+  margin-top: 10px;
+}
+.ask {
+  color: #6071ee;
+}
 .header {
   height: fit-content;
   padding-bottom: 12px;

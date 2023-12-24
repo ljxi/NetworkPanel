@@ -50,7 +50,7 @@ export default defineConfig({
     }
   },
   build:{
-    assetsDir: '',
+    assetsDir: 'assets',
     assetsInlineLimit: 8 * 1024,
     // rollupOptions:{
     //   manualChunks(id){

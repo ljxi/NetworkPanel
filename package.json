@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@soerenmartius/vue3-clipboard": "^0.1.2",
+    "@vitejs/plugin-legacy": "^5.2.0",
     "echarts": "^5.4.3",
     "element-plus": "^2.3.14",
     "nosleep.js": "^0.12.0",

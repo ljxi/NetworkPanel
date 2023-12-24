@@ -61,7 +61,17 @@
       <span>赞助支持：
         <el-link href="https://afdian.net/a/ljxnet" type="primary">爱发电</el-link>&nbsp
         <el-link href="https://qr.alipay.com/fkx13781i79xywfarbvrsfc" type="primary">支付宝</el-link>
-      </span>
+      </span><br>
+      <span>特别感谢：</span><br>
+      <el-link href="https://www.kuocaicdn.com/register?code=8z8urvbg2ffd9" type="primary">括彩科技</el-link><span>提供免费稳定的CDN服务</span><br>
+      <el-link href="https://staticfile.org/" type="primary">七牛云</el-link><span>提供免费稳定前端静态资源分发服务</span><br>
+      <br>
+      <span>本项目用到的开源库:</span><br>
+      <el-link href="https://github.com/vuejs/core" type="primary">Vue</el-link>&nbsp
+      <el-link href="https://github.com/element-plus/element-plus" type="primary">ElementPlus</el-link>&nbsp
+      <el-link href="https://github.com/apache/echarts" type="primary">echarts</el-link>&nbsp
+      <el-link href="https://github.com/richtr/NoSleep.js" type="primary">NoSleep.js</el-link>&nbsp
+      <el-link href="https://github.com/soerenmartius/vue3-clipboard" type="primary">vue3-clipboard</el-link>&nbsp
     </div>
     <div>
       <h2>疑问解答</h2>

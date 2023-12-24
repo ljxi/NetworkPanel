@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import { visualizer } from "rollup-plugin-visualizer";
 import importToCDN from 'vite-plugin-cdn-import'
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import legacyPlugin from '@vitejs/plugin-legacy'
 
 export default defineConfig({
   plugins: [
@@ -30,6 +31,10 @@ export default defineConfig({
       ],
     }),
     cssInjectedByJsPlugin(),
+    legacyPlugin({
+      targets:['chrome 52'],  // 需要兼容的目标列表，可以设置多个
+      additionalLegacyPolyfills:['regenerator-runtime/runtime'] // 面向IE11时需要此插件
+    }),
     visualizer({
       gzipSize: true,
       brotliSize: true,
@@ -37,7 +42,7 @@ export default defineConfig({
       filename: "visualizer.html",
       template :"sunburst",
       open:false
-    }),
+    })
   ],
   resolve: {
     alias: {

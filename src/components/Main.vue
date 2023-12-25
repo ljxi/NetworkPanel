@@ -699,9 +699,9 @@ const editSpeedUse = () => {
   maxSpeedInput.value.num = null
   EditSpeedVisible.value = false
 }
-var isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent)
+var isMobile = /Mobi|Android|iPhone|Macintosh/i.test(navigator.userAgent)
 var isMiuiBrowser = /MiuiBrowser/i.test(navigator.userAgent)
-var isIOS = /iPhone/i.test(navigator.userAgent)
+var isIOS = /iPhone|Macintosh/i.test(navigator.userAgent)
 
 const audioDom: Ref<any> = ref(null);
 

@@ -95,6 +95,7 @@
       <span>特别感谢：</span><br>
       <el-link @click='open("https://www.kuocaicdn.com/register?code=8z8urvbg2ffd9")' type="primary">括彩科技</el-link><span>提供免费稳定的CDN服务</span><br>
       <el-link @click='open("https://staticfile.org/")' type="primary">七牛云</el-link><span>提供免费稳定的前端静态资源分发服务</span><br>
+      <el-link @click='open("https://www.bootcdn.cn/")' type="primary">BootCDN</el-link><span>提供免费稳定的前端静态资源分发服务</span><br>
       <br>
       <span>本项目用到的开源库:</span><br>
       <el-link @click='open("https://github.com/vuejs/core")' type="primary">Vue</el-link>&nbsp

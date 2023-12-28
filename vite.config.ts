@@ -10,7 +10,8 @@ export default defineConfig({
   plugins: [
     vue(),
     importToCDN({
-      prodUrl: 'https://cdn.staticfile.org/{name}/{version}/{path}',
+      // prodUrl: 'https://cdn.staticfile.org/{name}/{version}/{path}',
+      prodUrl: 'https://cdn.bootcdn.net/ajax/libs/{name}/{version}/{path}',
       modules: [
         {
           name: "echarts",

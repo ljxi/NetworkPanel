@@ -61,7 +61,7 @@
       </div>
       <el-button style="width: 100%" @click="isShowMe=true">用户中心</el-button>
     </el-dialog>
-    <el-dialog style="width: 99vw;max-width: 500px;" v-model="isShowMe" title="用户中心">
+    <el-dialog align-center style="width: 99vw;max-width: 500px;" v-model="isShowMe" title="用户中心">
       <MyUI v-if="isShowMe" :loginInfo="props.loginInfo"/>
     </el-dialog>
 </template>

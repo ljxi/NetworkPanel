@@ -1,18 +1,47 @@
 <script setup lang="ts">
-import {ref,watch,onMounted, onUnmounted} from 'vue'
+import {ref,type Ref,watch,computed,onMounted, onUnmounted} from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 const props = defineProps({
   loginInfo: { type: Object, required: true },
 })
 const loginStatus=ref(0)
 const imgBase64=ref("")
-
+const nick=ref('')
+const showPrev=ref(false)
+const showRank=ref(false)
+const rankData:Ref<any>=ref({})
+  
+const desMap=[["本小时","今天","本月","今年"],["上小时","昨天","上月","去年"]]
+const tableData=computed(()=>{
+  let ret:any=[]
+  let index=0;
+  let j=showPrev.value?"prev":"now";
+  ([3,2,1,0]).forEach((i:number)=>{
+    if(showRank.value){
+      ret.push({
+        des:desMap[showPrev.value?1:0][index],
+        allUsed: rankData.value[j][i]["allUsed"][0] || 0,
+        averageSpeed: rankData.value[j][i]["averageSpeed"][0] || 0,
+        onlineTime: rankData.value[j][i]["onlineTime"][0] || 0,
+      })
+    }else{
+      ret.push({
+        des:desMap[showPrev.value?1:0][index],
+        allUsed: formatter(rankData.value[j][i]["allUsed"][1] || 0,0),
+        averageSpeed: formatter(rankData.value[j][i]["averageSpeed"][1]*8 || 0,1),
+        onlineTime: timeformatter(rankData.value[j][i]["onlineTime"][1] || 0),
+      })
+    }
+    index++; 
+  })
+  return ret;
+})
 
 watch(loginStatus,(ns,os)=>{
   if(ns<=0)props.loginInfo.AccessToken=''
 })
 const api =async(args:object)=>{
-  const response = await fetch('https://api.netart.cn/user/', {
+  const response = await fetch('//app.ljxnet.cn/network-panel/', {
     method: "POST",
     mode: "cors",
     redirect: "follow",
@@ -97,6 +126,8 @@ const getStatus=async()=>{
   let resp=await api({action:'getStatus',AccessToken:props.loginInfo.AccessToken})
   if(resp.status==0){
     loginStatus.value=resp.uin
+    nick.value=resp.nick
+    rankData.value=resp.data
   }else if(resp.status == -1){
     loginStatus.value=-1
     login()
@@ -108,7 +139,32 @@ onMounted(() => {
 
 onUnmounted(() =>{
   checkTsk?clearInterval(checkTsk):""
-  })
+})
+
+function formatter(num: number, desIndex: number) {
+  const flo = [0, 0, 0, 1, 1, 1]
+  const describeString = [['B', 'KB', 'MB', 'GB', 'TB', 'PB'],
+  ['Bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps', 'Pbps']
+  ]
+  const describe = describeString[desIndex]
+  var cnum = num;
+  var total_index = 0;
+  while (cnum >= 1024) {
+    if (total_index == describe.length - 1) break;
+    cnum = cnum / 1024;
+    total_index++;
+  }
+  return cnum.toFixed(flo[total_index]) + describe[total_index];
+}
+const timeformatter=(n:number)=>{
+  if(n<60)return n.toFixed(0)+'秒'
+  n/=60
+  if(n<60)return n.toFixed(0)+'分钟'
+  n/=60
+  if(n<24)return n.toFixed(0)+'小时'
+  n/=24
+  return n.toFixed(0)+'天'
+}
 </script>
 
 <template>
@@ -127,8 +183,17 @@ onUnmounted(() =>{
       <div v-if="loginStatus>0">
         <el-avatar :size="100" :src="'https://q.qlogo.cn/headimg_dl?dst_uin='+loginStatus+'&spec=640'" />
         <br>
-        <span style="font-size: 20px;">{{loginStatus}}</span>
-        <el-divider />
+        <span style="font-size: 20px;">{{nick}}</span>
+        <br>
+        <el-checkbox v-model="showPrev" label="上个统计周期" size="small"/>
+        <el-checkbox v-model="showRank" label="显示排名" size="small"/>
+        <el-table :table-layout="'auto'" :data="tableData" :border="true" style="width: 100%">
+          <el-table-column prop="des" label=""/>
+          <el-table-column prop="allUsed" label="总流量"/>
+          <el-table-column prop="averageSpeed" label="平均速度"/>
+          <el-table-column prop="onlineTime" label="在线时长" />
+        </el-table>
+        <br>
         <el-button class='action warn' type="warning" @click="kick_old">下线其他设备</el-button>
         <el-button class='action danger' type="danger" @click="logOut">退出登录</el-button>
       </div>
@@ -141,15 +206,12 @@ onUnmounted(() =>{
   height: fit-content;
 }
 .card{
-  width: fit-content;
+  width: 95%;
   height: fit-content;
-  padding: 2%;
-  background-color:azure;
   margin-left: auto;
   margin-right: auto;
   border-radius: 50px;
-  text-align: center; 
-  padding: 5%;
+  text-align: center;
 }
 
 .action{
@@ -180,10 +242,11 @@ onUnmounted(() =>{
 }
 @media (prefers-color-scheme: dark) {
     .card {
-        background-color:rgb(33,34,37);
+        background-color:#141414;
     }
     .action{
       color: rgb(255, 255, 255);
     }
 }
+
 </style>

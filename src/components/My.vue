@@ -108,6 +108,7 @@ const qr_check=async()=>{
     loginStatus.value=resp.uin
     props.loginInfo.AccessToken=resp.AccessToken
     clearInterval(checkTsk)
+    getStatus()
   }else if(resp.status==-2){
     loginStatus.value=-2
   }else if(resp.status==-1){

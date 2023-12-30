@@ -103,13 +103,11 @@ watch(show,(ns,os)=>{
 
 })
 const mark:Ref<any>=ref([])
-const api =async(args:object)=>{
-  const response = await fetch('//app.ljxnet.cn/network-panel/', {
-    method: "POST",
+const api =async(args:string[][])=>{
+  const response = await fetch(import.meta.env.VITE_API_URL+"get.ajax?"+new URLSearchParams(args).toString(), {
     mode: "cors",
     redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(args)
+    referrerPolicy: "no-referrer"
   })
   const resp=await response.json()
   return resp
@@ -127,7 +125,7 @@ const refreshMark=async()=>{
   isLoading.value=true
   mark.value=[]
   try{
-    let rep=await api({"action":"get","grade":Number(grade.value),sortedBy:sortBy.value,"past":past.value})
+    let rep=await api([["grade",grade.value],['sorted_by',sortBy.value],["isPast",past.value?"true":"false"]])
     rep.data.forEach((element:any) => {
       let formatted
       if(sortBy.value=='allUsed'){

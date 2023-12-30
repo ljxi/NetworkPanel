@@ -40,8 +40,8 @@ const tableData=computed(()=>{
 watch(loginStatus,(ns,os)=>{
   if(ns<=0)props.loginInfo.AccessToken=''
 })
-const api =async(args:object)=>{
-  const response = await fetch('//app.ljxnet.cn/network-panel/', {
+const api =async(action:string,args:object)=>{
+  const response = await fetch(import.meta.env.VITE_API_URL+action, {
     method: "POST",
     mode: "cors",
     redirect: "follow",
@@ -54,7 +54,7 @@ return resp
 let checkTsk:number=0;
 const login=async()=>{
   imgBase64.value=''
-  let resp=await api({action:'login',AccessToken:props.loginInfo.AccessToken})
+  let resp=await api('login',{AccessToken:props.loginInfo.AccessToken})
   loginStatus.value=-1
   if(resp.status==0){
     imgBase64.value=resp.img
@@ -74,7 +74,7 @@ const kick_old=async()=>{
     }
   )
     .then(async() => {
-      let resp=await api({action:'kick_old',AccessToken:props.loginInfo.AccessToken})
+      let resp=await api('kick_old',{AccessToken:props.loginInfo.AccessToken})
       if(resp.status==0){
         ElMessage({
             type: 'info',
@@ -100,8 +100,7 @@ const logOut=async()=>{
     .catch(() => {})
 }
 const qr_check=async()=>{
-  let resp=await api({action:'qr_check',
-                      pt_login_sig:sessionStorage.getItem("pt_login_sig"),
+  let resp=await api('qr_check',{pt_login_sig:sessionStorage.getItem("pt_login_sig"),
                       qrsig:sessionStorage.getItem("qrsig"),
                     })
   if(resp.status==0){
@@ -124,7 +123,7 @@ const qr_check=async()=>{
   }
 }
 const getStatus=async()=>{
-  let resp=await api({action:'getStatus',AccessToken:props.loginInfo.AccessToken})
+  let resp=await api('getStatus',{AccessToken:props.loginInfo.AccessToken})
   if(resp.status==0){
     loginStatus.value=resp.uin
     nick.value=resp.nick

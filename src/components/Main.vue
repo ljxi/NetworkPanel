@@ -419,13 +419,12 @@ async function uploadLog() {
   state.logged = state.bytesUsed
   state.lastLogTime = now
   if (loginInfo.AccessToken) {
-    let resp = await fetch('//app.ljxnet.cn/network-panel/', {
+    let resp = await fetch(import.meta.env.VITE_API_URL+"log", {
       method: "POST",
       mode: "cors",
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify({
-        action: 'log',
         AccessToken: loginInfo.AccessToken,
         url: runUrl.value,
         threadNum: threadNum.value,

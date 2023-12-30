@@ -61,12 +61,11 @@ const provinceMatch=(str:string)=>{
 
 async function getLocalIp() {
     try {
-        const rsp = await fetch('//app.ljxnet.cn/network-panel/', {
-            method: "POST",
+        const rsp = await fetch(import.meta.env.VITE_API_URL+"ip.ajax", {
+            method: "get",
             mode: "cors",
             redirect: "follow",
-            referrerPolicy: "no-referrer",
-            body: '{"action":"ip"}',
+            referrerPolicy: "no-referrer"
         });
         let resp = await rsp.json();
         let localInfo:any={

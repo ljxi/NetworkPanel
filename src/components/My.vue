@@ -6,11 +6,16 @@ const props = defineProps({
 })
 const loginStatus=ref(0)
 const imgBase64=ref("")
+const bindQQ=ref("")
+const thirdQQLoginUrl=ref("")
 const nick=ref('')
 const showPrev=ref(false)
 const showRank=ref(false)
 const rankData:Ref<any>=ref({})
-  
+
+const openQQ=()=>{
+  window.open(thirdQQLoginUrl.value,'_blank')
+}
 const desMap=[["本小时","今天","本月","今年"],["上小时","昨天","上月","去年"]]
 const tableData=computed(()=>{
   let ret:any=[]
@@ -54,12 +59,12 @@ return resp
 let checkTsk:number=0;
 const login=async()=>{
   imgBase64.value=''
-  let resp=await api('login',{AccessToken:props.loginInfo.AccessToken})
+  let resp=await api('third_qq_login',{AccessToken:props.loginInfo.AccessToken})
   loginStatus.value=-1
   if(resp.status==0){
     imgBase64.value=resp.img
-    sessionStorage.setItem("pt_login_sig", resp["pt_login_sig"]);
-    sessionStorage.setItem("qrsig", resp["qrsig"]);
+    thirdQQLoginUrl.value=resp.url
+    localStorage.setItem("third_qq_login_session", resp["session"]);
     checkTsk=setInterval(qr_check,1000)
   }
 }
@@ -99,31 +104,48 @@ const logOut=async()=>{
     })
     .catch(() => {})
 }
+const bindQQFunc=async()=>{
+  let resp=await api('third_qq_bind',{uin:bindQQ.value,session:localStorage.getItem("third_qq_login_session")})
+  if(resp.status==0){
+    ElMessage.success("绑定成功")
+    qr_check()
+  }else if(resp.status==-3 || resp.status==-1){
+    ElMessageBox.alert(`${resp.msg}`, '提示', {
+      confirmButtonText: '确定'
+    })
+  }else{
+    ElMessageBox.alert(`${resp.msg}`, '提示', {
+      confirmButtonText: '确定',
+      callback: () => {
+        login() 
+      },
+    })
+  }
+}
 const qr_check=async()=>{
-  let resp=await api('qr_check',{pt_login_sig:sessionStorage.getItem("pt_login_sig"),
-                      qrsig:sessionStorage.getItem("qrsig"),
-                    })
+  let resp=await api('third_qq_check',{session:localStorage.getItem("third_qq_login_session")})
   if(resp.status==0){
     loginStatus.value=resp.uin
     props.loginInfo.AccessToken=resp.AccessToken
     clearInterval(checkTsk)
     getStatus()
-  }else if(resp.status==-2){
-    loginStatus.value=-2
   }else if(resp.status==-1){
     loginStatus.value=-1
-  }else if(resp.status==-10){
+  }else if(resp.status==-2){
+    loginStatus.value=-2
     clearInterval(checkTsk)
-    ElMessageBox.alert(`登录失败，${resp.msg}请重新拉取二维码`, '提示', {
+  }else{
+    clearInterval(checkTsk)
+    ElMessageBox.alert(`登录失败，${resp.msg}，请重新拉取二维码`, '提示', {
       confirmButtonText: '确定',
       callback: () => {
-        login()
+        login() 
       },
     })
   }
 }
 const getStatus=async()=>{
-  let resp=await api('getStatus',{AccessToken:props.loginInfo.AccessToken})
+  let resp=await api('get_status',{AccessToken:props.loginInfo.AccessToken})
   if(resp.status==0){
     loginStatus.value=resp.uin
     nick.value=resp.nick
@@ -170,15 +192,21 @@ const timeformatter=(n:number)=>{
 <template>
   <div class="block">
     <div v-loading="!loginStatus" class="card">
-      <div v-if="loginStatus==-1 || loginStatus==-2">
-        <div v-loading="!imgBase64" style="width: 150px;height: 150px;margin-left: auto;margin-right: auto;">
+      <div v-if="loginStatus==-1"> 
+        <span style="font-size: 15px;">请使用QQ扫码登录</span>
+        <div v-loading="!imgBase64" style="width: 150px;height: 150px;margin-top: 5px;margin-left: auto;margin-right: auto;">
           <img style="width: 100%;" v-if="imgBase64" :src="imgBase64"/>
         </div>
         <br>
-        <span v-if="loginStatus!=-2" style="font-size: 15px;">请使用QQ扫码登录</span>
+        <el-button class='action warn' type="warning" @click="openQQ">一键跳转登录</el-button>
+      </div>
+      <div v-if="loginStatus==-2"> 
+        <span style="font-size: 15px;">请输入刚刚用于授权的QQ号码</span>
+        <el-input v-model="bindQQ" placeholder="请输入QQ号" style="margin-top: 5px;margin-left: auto;margin-right: auto;" />
         <br>
-        <span v-if="loginStatus!=-2" style="font-size: 15px;">TIM可以从相册扫码</span>
-        <span v-if="loginStatus==-2" style="font-size: 15px;">请确认登录</span>
+        <br>
+        <el-button class='action warn' type="warning" @click="bindQQFunc">点击验证</el-button><br>
+        <span style="font-size: 10px;">QQ号码将用于排行榜展示</span>
       </div>
       <div v-if="loginStatus>0">
         <el-avatar :size="100" :src="'https://q.qlogo.cn/headimg_dl?dst_uin='+loginStatus+'&spec=640'" />

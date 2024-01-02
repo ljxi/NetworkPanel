@@ -97,7 +97,7 @@
             <Loading />
           </el-icon>
         </a>
-        <a class="button" v-if="isRunning" @click="isRunning = false">
+        <a class="button" v-if="isRunning && !state.isChecking" @click="isRunning = false">
           <svg t="1694958268344" fill="white" style="width: 80px;margin-top: -30px;" viewBox="0 0 1024 1024" version="1.1"
             xmlns="http://www.w3.org/2000/svg" p-id="7667" width="200" height="200">
             <path
@@ -338,6 +338,10 @@ onMounted(() => {
 })
 
 const tryStart = async () => {
+  if(runUrl.value.startsWith("NetworkPanelApi://")) {
+    isRunning.value = true
+    return
+  }
   state.isChecking = true
   const urlStatus = await checkUrl(runUrl.value)
   state.isChecking = false
@@ -380,9 +384,32 @@ const checkUrl = async (url: string) => {
   }
 }
 
+let solvedRunUrl = ''
+async function apiSolver(){
+  if(!runUrl.value.startsWith("NetworkPanelApi://")){
+    solvedRunUrl = runUrl.value
+    return
+  }
+  let host=runUrl.value.split("NetworkPanelApi://")[1]
+  let resp:any = await fetch(import.meta.env.VITE_API_URL+"url.ajax?"+new URLSearchParams({host:host}), {
+      mode: "cors",
+      redirect: "follow",
+      referrerPolicy: "no-referrer"
+    });
+  resp = await resp.json()
+  if(resp['status']!=0){
+    isRunning.value=false;
+    return
+  }
+  solvedRunUrl = resp['url']
+}
 watch(isRunning, async (newState, oldState) => {
   clearChart()
   if (newState) {
+    state.isChecking = true
+    await apiSolver()
+    state.isChecking = false
+    if(!isRunning.value) return
     if (state.maxUse && state.bytesUsed >= state.maxUse) {
       state.bytesUsed = 0;
       state.logged = 0;
@@ -395,11 +422,14 @@ watch(isRunning, async (newState, oldState) => {
     for (let i = 0; i < threadNum.value; i++)startThread(i)
     tasks.push(setInterval(frameEvent, 16))
     tasks.push(setInterval(uploadLog, 60000))
+    tasks.push(setInterval(apiSolver, 60000))
     secEvent()
     tasks.push(setInterval(secEvent, 1000))
     runBackground.value ? audioDom.value?.play() : ''
   } else {
+    tasks.map((i) => console.log(i))
     tasks.map((i) => clearInterval(i))
+    tasks = []
     uploadLog()
     audioDom.value?.pause()
     var speed = (state.bytesUsed - state.startUse) / (new Date().getTime() / 1000 - state.startTime)
@@ -465,6 +495,9 @@ watch(chartShow, async (newState, oldState) => {
 
 watch(runUrl, async (newState, oldState) => {
   localStorage.url = newState
+  if (isRunning.value) {
+    apiSolver()
+  }
 })
 
 watch(loginInfo, async (newState, oldState) => {
@@ -584,7 +617,11 @@ const speedCtr=()=>{
 
 async function startThread(index: number) {
   try {
-    var _url = runUrl.value
+    if(solvedRunUrl==""){
+      isRunning.value=false
+      return
+    }
+    let _url=solvedRunUrl
     const response = await fetch(_url, { cache: "no-store", mode: 'cors', referrerPolicy: 'no-referrer' })
     if (!response.body) throw "Nobody"
     let contentLength = response.headers.get('content-length')
@@ -596,7 +633,7 @@ async function startThread(index: number) {
       if(state.maxSpeed)await speedCtr()
       const { value } = await reader.read();
       let chunkLength = value?.length
-      if (!chunkLength || _url != runUrl.value) {
+      if (!chunkLength || solvedRunUrl != _url) {
         startThread(index);
         break;
       }

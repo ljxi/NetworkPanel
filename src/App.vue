@@ -25,6 +25,10 @@
       <MainUI :isVisible="isVisible" />
       <br>
       <IPinfoUI :isVisible="isVisible" />
+      <div @click="open('https://kuocai.cn/')" class="ad card">
+        <span>CDN赞助商</span>
+        <img src="https://www.kuocaicdn.com/dashboard/assets/svg/logos/logo.svg" alt="括彩科技">
+      </div>
     </el-main>
     <div style="height: fit-content;padding-bottom: 10px;">
       <div style="width: fit-content;margin-left: auto;margin-right: auto;">
@@ -142,7 +146,6 @@
 </template>
 
 <script lang="ts" setup>
-
 import MainUI from "./components/Main.vue"
 import IPinfoUI from "./components/IPinfo.vue"
 import { ref, reactive, watch } from 'vue'
@@ -219,7 +222,39 @@ document.addEventListener("visibilitychange", function () {
   width: 30px;
   margin-left: 5px;
 }
+.card{
+    max-width: 800px;
+    height:fit-content;
+    display: block;
+    margin:0 auto;
+    background-color:#ffffff;
+    padding:2%;
+    border-radius: 20px;
+}
+.ad{
+  margin-top: 15px;
+}
+.ad > img {
+  height: 70px;
+  width: calc(100% - 20px);
+  margin: 10px;
+  border-radius: 20px;
+}
+.ad > span{
+  position: relative;
+  display: block;
+  left: 15px;
+  top: 10px;
+  color: transparent;
+  font-weight: bolder;
+  background-clip: text;
+  background-image: linear-gradient(to right,#37CAC6, #3D95F4 80px);
+
+}
 @media (prefers-color-scheme: dark) {
+  .card {
+        background-color:rgb(18,18,18);
+    }
   .header {
     background-color: rgb(18, 18, 18);
   }

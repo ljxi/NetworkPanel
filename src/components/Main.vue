@@ -448,7 +448,7 @@ async function uploadLog() {
 
   state.logged = state.bytesUsed
   state.lastLogTime = now
-  if (loginInfo.AccessToken) {
+  // if (loginInfo.AccessToken) {
     let resp = await fetch(import.meta.env.VITE_API_URL+"log", {
       method: "POST",
       mode: "cors",
@@ -466,7 +466,7 @@ async function uploadLog() {
     if (resp.status == -1) {
       loginInfo.AccessToken = ''
     }
-  }
+  // }
 }
 
 watch(props, async (newState, oldState) => {

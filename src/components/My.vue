@@ -12,7 +12,7 @@ const nick=ref('')
 const showPrev=ref(false)
 const showRank=ref(false)
 const rankData:Ref<any>=ref({})
-
+let isMounted=false
 const openQQ=()=>{
   window.open(thirdQQLoginUrl.value,'_blank')
 }
@@ -56,7 +56,6 @@ const api =async(action:string,args:object)=>{
 const resp=await response.json()
 return resp
 }
-let checkTsk:number=0;
 const login=async()=>{
   imgBase64.value=''
   let resp=await api('third_qq_login',{AccessToken:props.loginInfo.AccessToken})
@@ -65,7 +64,7 @@ const login=async()=>{
     imgBase64.value=resp.img
     thirdQQLoginUrl.value=resp.url
     localStorage.setItem("third_qq_login_session", resp["session"]);
-    checkTsk=setInterval(qr_check,1000)
+    qr_check()
   }
 }
 const kick_old=async()=>{
@@ -122,20 +121,28 @@ const bindQQFunc=async()=>{
     })
   }
 }
-const qr_check=async()=>{
+const qr_check=async(once:boolean=false):Promise<boolean>=>{
   let resp=await api('third_qq_check',{session:localStorage.getItem("third_qq_login_session")})
   if(resp.status==0){
     loginStatus.value=resp.uin
     props.loginInfo.AccessToken=resp.AccessToken
-    clearInterval(checkTsk)
+    localStorage.removeItem("third_qq_login_session");
     getStatus()
+    return true
   }else if(resp.status==-1){
     loginStatus.value=-1
+    if(isMounted && !once){
+      setTimeout(()=>{
+        qr_check()
+      },1000)
+    }else{
+        localStorage.removeItem("third_qq_login_session");
+    }
   }else if(resp.status==-2){
     loginStatus.value=-2
-    clearInterval(checkTsk)
+    return true
   }else{
-    clearInterval(checkTsk)
+    localStorage.removeItem("third_qq_login_session");
     ElMessageBox.alert(`登录失败，${resp.msg}，请重新拉取二维码`, '提示', {
       confirmButtonText: '确定',
       callback: () => {
@@ -143,6 +150,7 @@ const qr_check=async()=>{
       },
     })
   }
+  return false;
 }
 const getStatus=async()=>{
   let resp=await api('get_status',{AccessToken:props.loginInfo.AccessToken})
@@ -151,18 +159,22 @@ const getStatus=async()=>{
     nick.value=resp.nick
     rankData.value=resp.data
   }else if(resp.status == -1){
+    if(localStorage.getItem("third_qq_login_session")){
+      let ret=await qr_check(true)
+      if(ret)return
+    }
     loginStatus.value=-1
     login()
   }
 }
 onMounted(() => {
+  isMounted=true
   getStatus()
 })
 
-onUnmounted(() =>{
-  checkTsk?clearInterval(checkTsk):""
+onUnmounted(()=>{
+  isMounted=false
 })
-
 function formatter(num: number, desIndex: number) {
   const flo = [0, 0, 0, 1, 1, 1]
   const describeString = [['B', 'KB', 'MB', 'GB', 'TB', 'PB'],

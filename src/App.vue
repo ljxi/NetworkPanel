@@ -48,6 +48,17 @@
     <div>
       <h2>更新日志</h2>
       <div>
+        <h3>v2.5</h3>
+        <p>
+          1.修复了启动后一段时间可能闪退的问题<br>
+          2.省电优化<br>
+          3.安装包体积优化<br>
+          (启动闪退的请尝试再次更新
+          <el-link @click="open('https://api.netart.cn/d?b013x2a3i')" type="primary">Webview</el-link>
+          )<br>
+        </p>
+      </div>
+      <div>
         <h3>v2.4</h3>
         <p>
           1.修复了大量的问题<br>

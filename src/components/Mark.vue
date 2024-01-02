@@ -104,6 +104,7 @@ watch(show,(ns,os)=>{
 })
 const mark:Ref<any>=ref([])
 const api =async(args:string[][])=>{
+  args.push(["cache", window.location.host])
   const response = await fetch(import.meta.env.VITE_API_URL+"get.ajax?"+new URLSearchParams(args).toString(), {
     mode: "cors",
     redirect: "follow",

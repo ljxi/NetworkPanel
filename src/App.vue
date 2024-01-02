@@ -25,7 +25,7 @@
       <MainUI :isVisible="isVisible" />
       <br>
       <IPinfoUI :isVisible="isVisible" />
-      <div @click="open('https://kuocai.cn/')" class="ad card">
+      <div @click="open('https://kuocai.cn/')" class="banner card">
         <span>CDN赞助商</span>
         <img src="https://www.kuocaicdn.com/dashboard/assets/svg/logos/logo.svg" alt="括彩科技">
       </div>
@@ -231,16 +231,16 @@ document.addEventListener("visibilitychange", function () {
     padding:2%;
     border-radius: 20px;
 }
-.ad{
+.banner{
   margin-top: 15px;
 }
-.ad > img {
+.banner > img {
   height: 70px;
   width: calc(100% - 20px);
   margin: 10px;
   border-radius: 20px;
 }
-.ad > span{
+.banner > span{
   position: relative;
   display: block;
   left: 15px;

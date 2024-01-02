@@ -391,7 +391,7 @@ async function apiSolver(){
     return
   }
   let host=runUrl.value.split("NetworkPanelApi://")[1]
-  let resp:any = await fetch(import.meta.env.VITE_API_URL+"url.ajax?"+new URLSearchParams({host:host}), {
+  let resp:any = await fetch(import.meta.env.VITE_API_URL+"url.ajax?"+new URLSearchParams({host:host,cache:window.location.host}), {
       mode: "cors",
       redirect: "follow",
       referrerPolicy: "no-referrer"

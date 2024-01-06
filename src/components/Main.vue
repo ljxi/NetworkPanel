@@ -354,13 +354,13 @@ const tryStart = async () => {
     isRunning.value = true
   }
 }
-
+const block_list=["ljxnet.cn","netart.cn",".gov.cn"]
 const checkUrl = async (url: string) => {
   var status = true
   let info = ''
   try {
     let structUrl = new URL(url)
-    if (structUrl.host.indexOf("ljxnet.cn") + structUrl.host.indexOf("netart.cn") != -2) {
+    if (block_list.some((i)=>structUrl.host.endsWith(i))) {
       throw '你不对劲，我要拿小本本把你记下来然后交给警察蜀黍！'
     }
 

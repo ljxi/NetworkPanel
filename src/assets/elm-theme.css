@@ -1,6 +1,7 @@
 
 html.dark {
-
     --el-text-color-regular: #c8c8c8;
     --el-text-color-primary: #c8c8c8;
+    --el-color-white: rgb(18,18,18);
+    --el-mask-color: rgb(20,20,20);
 }

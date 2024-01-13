@@ -1,7 +1,10 @@
 {
+	"赞助商":{
+		"括彩测速":"NetworkPanelApi://kuocai"
+	},
 	"运营商":{
 		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
-		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7390/MobileMusic7390_014000D.apk",
+		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7411/MobileMusic7411_014000D.apk",
 		"咪咕视频":"https://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
 		"咪咕快游2":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
 		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",

@@ -1,4 +1,7 @@
 {
+	"赞助商":{
+		"括彩测速":"NetworkPanelApi://kuocai"
+	},
 	"运营商":{
 		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
 		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7411/MobileMusic7411_014000D.apk",

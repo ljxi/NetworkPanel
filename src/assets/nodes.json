@@ -1,7 +1,4 @@
 {
-	"赞助商":{
-		"括彩测速":"NetworkPanelApi://kuocai"
-	},
 	"运营商":{
 		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
 		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7411/MobileMusic7411_014000D.apk",
@@ -11,6 +8,9 @@
 		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/1de5da90486f42e8939deed107fd64a3.mp4",
 		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
 		"联通电视":"https://listen.10155.com/listener/womusic-bucket/90115000/mv_vod/volte_mp4/20230215/1625752132487675906.mp4"
+	},
+	"赞助商":{
+		"括彩测速[高速]":"NetworkPanelApi://kuocai"
 	},
 	"高速":{
 		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824",

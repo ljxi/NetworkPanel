@@ -9,9 +9,6 @@
 		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
 		"联通电视":"https://listen.10155.com/listener/womusic-bucket/90115000/mv_vod/volte_mp4/20230215/1625752132487675906.mp4"
 	},
-	"赞助商":{
-		"括彩测速[高速]":"NetworkPanelApi://kuocai"
-	},
 	"高速":{
 		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824",
 		"上海交大":"https://mirrors.sjtug.sjtu.edu.cn/speedtest/garbage?ckSize=1024"

@@ -80,6 +80,10 @@ setInterval(()=>{
 },1000)
 </script>
 <style scoped>
+@font-face {
+	font-family: 'DingTalk';
+	src: url('../assets/DingTalk-simple.ttf') format('truetype');
+}
 .fullscreen {
     position: fixed;
     top: 0;
@@ -107,7 +111,7 @@ setInterval(()=>{
 
     }
     .right {
-        margin-top: -3vh;
+        margin-top: -1vh;
         height: 200px;
     }
 }
@@ -134,6 +138,7 @@ setInterval(()=>{
     top:50%;
     transform: translate(-50%, -50%);
     animation:standby 60s infinite alternate ease-in-out;
+    font-family: DingTalk;
 }
 @keyframes standby {
     0% {

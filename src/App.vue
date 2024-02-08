@@ -25,15 +25,21 @@
       <MainUI :isVisible="isVisible" />
       <br>
       <IPinfoUI :isVisible="isVisible" />
-      <div @click="open('https://kuocai.cn/')" class="banner card">
-        <span>CDN赞助商</span>
-        <img src="https://www.kuocaicdn.com/dashboard/assets/svg/logos/logo.svg" alt="括彩科技">
-      </div>
     </el-main>
     <div style="height: fit-content;padding-bottom: 10px;">
       <div style="width: fit-content;margin-left: auto;margin-right: auto;">
         <el-link type="info" @click='open("https://netart.cn/")' target="_blank">Whoami</el-link>&nbsp;
         <el-link type="info" @click='open("https://github.com/ljxi/NetworkPanel")' target="_blank">源码</el-link>
+      </div>
+      <div style="width: fit-content;margin-left: auto;margin-right: auto;">
+        <span style="color:var(--el-color-info);font-size: 12px;">
+          本工具由
+            <el-link style="vertical-align: -2px;" type="info" @click='open("https://kuocai.cn/")' target="_blank">
+              <img src="https://www.kuocaicdn.com/dashboard/assets/svg/logos/logo-short.svg" alt="括彩CDN" width="15" height="15">
+              括彩云智能CDN
+            </el-link>
+          提供CDN服务
+        </span>
       </div>
     </div>
   </el-container>

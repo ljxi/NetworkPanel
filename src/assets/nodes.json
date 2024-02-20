@@ -1,18 +1,15 @@
 {
 	"运营商":{
 		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
-		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7411/MobileMusic7411_014000D.apk",
+		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7413/MobileMusic7413_014000D.apk",
 		"咪咕视频":"https://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
 		"咪咕快游2":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
 		"量子密信":"https://im.zdxlz.com/downloadmi/file-im-sdk/apk/mobile/%E9%87%8F%E5%AD%90%E5%AF%86%E4%BF%A1.apk",
 		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
 		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/1de5da90486f42e8939deed107fd64a3.mp4",
 		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
-		"联通电视":"NetworkPanelApi://listen.10155.com"
-	},
-	"高速":{
-		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824",
-		"上海交大":"https://mirrors.sjtug.sjtu.edu.cn/speedtest/garbage?ckSize=1024"
+		"联通电视":"NetworkPanelApi://listen.10155.com",
+		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824"
 	},
 	"全球[Global]":{
 		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",

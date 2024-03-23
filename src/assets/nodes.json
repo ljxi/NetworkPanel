@@ -1,24 +1,32 @@
 {
+	"高速":{
+		"腾讯CDN":"http://dldir1.qq.com/qqfile/qq/PCQQ9.7.19/QQ9.7.19.29259.exe",
+		"华为CDN":"https://store-drcn.hispace.dbankcloud.cn/dl/appdl/application/apk/ce/cea074d22c784e4ab8a5b19ba8b493a5/com.huawei.appmarket.1908281654.apk?maple=0&trackId=0&distOpEntity=HWSW",
+		"阿里CDN":"http://download.taobaocdn.com/wireless/taobao4android/latest/701483.apk",
+		"阿里CDN[上行]":"networkpanel://node/#eyJ1cmwiOiJodHRwOi8vdGFvYmFvLmNvbS8iLCJ1cGxvYWQiOnRydWV9##580d3465bdbdc07a00f62a527f041068",
+		"腾讯CDN[上行]":"networkpanel://node/#eyJ1cmwiOiJodHRwOi8vcXEuY29tLyIsInVwbG9hZCI6dHJ1ZX0##0dcede8e37f3fff4d6dd9bd00cfc5c2f",
+		"上海交大[上行]":"networkpanel://node/#eyJ1cmwiOiJodHRwOi8vbWlycm9ycy5zanR1Zy5zanR1LmVkdS5jbi9zcGVlZHRlc3QvZW1wdHkiLCJ1cGxvYWQiOnRydWV9##299f3d5cfa46a7904545f381d4b77ed8"
+	},
 	"运营商":{
-		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
-		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7413/MobileMusic7413_014000D.apk",
-		"咪咕视频":"https://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
-		"咪咕快游2":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
-		"量子密信":"https://im.zdxlz.com/downloadmi/file-im-sdk/apk/mobile/%E9%87%8F%E5%AD%90%E5%AF%86%E4%BF%A1.apk",
-		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
-		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/1de5da90486f42e8939deed107fd64a3.mp4",
-		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
-		"联通电视":"NetworkPanelApi://listen.10155.com",
-		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824"
+		"咪咕快游[高速]":"http://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
+		"咪咕快游2":"http://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
+		"咪咕音乐":"http://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7413/MobileMusic7413_014000D.apk",
+		"咪咕视频":"http://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
+		"咪咕爱看[定向]":"http://jhvsc.aikan.miguvideo.com:7107/CPS/images/universal/film/poster/202312/20231207/71/202312070401376490q1.jpg",
+		"移动云盘1[定向]":"http://yun.mcloud.139.com/hongseyunpan/2.43G.zip",
+		"移动云盘2[定向]":"http://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
+		"天翼云":"http://vod-origin-rjzy.gdoss.xstore.ctyun.cn/1de5da90486f42e8939deed107fd64a3.mp4",
+		"天翼云桌面":"http://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
+		"联通电视[备用]":"networkpanel://node/#eyJ1cGRhdGUiOiJodHRwczovL2FwcC5sanhuZXQuY24vbmV0d29yay1wYW5lbC91cmwuYWpheD9ob3N0PWxpc3Rlbi4xMDE1NS5jb20ifQ##8f9b03473449d38830cff14ae125f6bc"
 	},
 	"全球[Global]":{
-		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",
-		"Cloudflare":"https://speed.cloudflare.com/__down?bytes=104857600",
-		"Akamai":"https://akamtrans-a.akamaihd.net/delivery/2023/08/30/brand-protector-2500k-00004.ts",
-		"jsDelivr":"https://cdn.jsdelivr.net/gh/ljxi/CDN-IP-test@main/dump",
-		"Cloudflare Workers":"https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
-		"Steam Akamai":"https://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
-		"Steam Cloudflare":"https://cdn.cloudflare.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
-		"Microsoft Akamai":"https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16Ptm"
+		"Cachefly":"http://web1.cachefly.net/speedtest/downloading",
+		"Cloudflare":"http://speed.cloudflare.com/__down?bytes=104857600",
+		"Akamai":"http://akamtrans-a.akamaihd.net/delivery/2023/08/30/brand-protector-2500k-00004.ts",
+		"jsDelivr":"http://cdn.jsdelivr.net/gh/ljxi/CDN-IP-test@main/dump",
+		"Cloudflare Workers":"http://gh.con.sh/http://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
+		"Steam Akamai":"http://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
+		"Steam Cloudflare":"http://cdn.cloudflare.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
+		"Microsoft Akamai":"http://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16Ptm"
 	}
 }

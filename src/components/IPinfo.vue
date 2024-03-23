@@ -62,7 +62,7 @@ const provinceMatch=(str:string)=>{
 async function getLocalIp() {
     try {
         const rsp = await fetch(import.meta.env.VITE_API_URL+"ip.ajax", {
-            method: "get",
+            method: "GET",
             mode: "cors",
             redirect: "follow",
             referrerPolicy: "no-referrer"

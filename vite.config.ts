@@ -33,10 +33,10 @@ export default defineConfig({
       ],
     }),
     // cssInjectedByJsPlugin(), // css注入插件 会导致字体路径异常
-    // legacyPlugin({
-    //   targets:['chrome 52'],  // 需要兼容的目标列表，可以设置多个
-    //   additionalLegacyPolyfills:['regenerator-runtime/runtime'] // 面向IE11时需要此插件
-    // }),
+    legacyPlugin({
+      targets:['chrome 52'],  // 需要兼容的目标列表，可以设置多个
+      additionalLegacyPolyfills:['regenerator-runtime/runtime'] // 面向IE11时需要此插件
+    }),
     visualizer({
       gzipSize: true,
       brotliSize: true,

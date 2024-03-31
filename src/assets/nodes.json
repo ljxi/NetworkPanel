@@ -6,15 +6,12 @@
 		"咪咕快游2":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
 		"量子密信":"https://im.zdxlz.com/downloadmi/file-im-sdk/apk/mobile/%E9%87%8F%E5%AD%90%E5%AF%86%E4%BF%A1.apk",
 		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
-		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/1de5da90486f42e8939deed107fd64a3.mp4",
-		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202000005/CtyunClouddeskUniversal_2.0.0_202000005_x86_20230421161227_Setup_Signed.exe",
 		"联通电视":"NetworkPanelApi://listen.10155.com",
 		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824"
 	},
 	"全球[Global]":{
 		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",
 		"Cloudflare":"https://speed.cloudflare.com/__down?bytes=104857600",
-		"Akamai":"https://akamtrans-a.akamaihd.net/delivery/2023/08/30/brand-protector-2500k-00004.ts",
 		"jsDelivr":"https://cdn.jsdelivr.net/gh/ljxi/CDN-IP-test@main/dump",
 		"Cloudflare Workers":"https://gh.con.sh/https://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
 		"Steam Akamai":"https://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",

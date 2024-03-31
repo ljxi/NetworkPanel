@@ -133,13 +133,33 @@
 				<el-input v-model="addForm.label" autocomplete="off" />
 			</el-form-item>
 			<el-form-item label="url:" label-width='50px'>
-				<el-input v-model="addForm.value" autocomplete="off">
+				<el-input @input="() =>{addForm.enhanced = addForm.value.endsWith('#enhanced')}" v-model="addForm.value" autocomplete="off">
 					<template #suffix>
 						<el-icon v-if="urlParser(addForm.value)">
 							<CircleCheck />
 						</el-icon>
 					</template>>
 				</el-input>
+			</el-form-item>
+			<el-form-item label="增强并发:" label-width='80px'>
+				<el-switch
+					v-model="addForm.enhanced" @change="() =>{
+						if(addForm.enhanced)addForm.value = addForm.value + '#enhanced'
+						else addForm.value = addForm.value.replace('#enhanced','')
+					}"
+				/>
+				<el-popover
+					placement="bottom"
+					:width="200"
+					trigger="hover"
+					content="开启后，对于有多个IP节点的链接，会忽略默认的就近访问原则，软件会将探测到的所有节点IP（不高于线程数）加入测速列表。对于有些链接，这个功能能够使测试结果更加准确。但是可能会干扰运营商的定向流量判定"
+				>
+					<template #reference>
+						<div style="margin-left: 20px;">
+							<svg style="fill: var(--el-color-primary);width: 20px;height: 20px;vertical-align: -5px;" t="1711880594298" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4260"><path d="M512 97.52381c228.912762 0 414.47619 185.563429 414.47619 414.47619s-185.563429 414.47619-414.47619 414.47619S97.52381 740.912762 97.52381 512 283.087238 97.52381 512 97.52381z m0 73.142857C323.486476 170.666667 170.666667 323.486476 170.666667 512s152.81981 341.333333 341.333333 341.333333 341.333333-152.81981 341.333333-341.333333S700.513524 170.666667 512 170.666667z m45.32419 487.619047v73.142857h-68.510476l-0.024381-73.142857h68.534857z m-4.047238-362.008381c44.251429 8.923429 96.889905 51.126857 96.889905 112.518096 0 61.415619-50.151619 84.650667-68.120381 96.134095-17.993143 11.50781-24.722286 24.771048-24.722286 38.863238V609.52381h-68.534857v-90.672762c0-21.504 6.89981-36.571429 26.087619-49.883429l4.315429-2.852571 38.497524-25.6c24.551619-16.530286 24.210286-49.712762 9.020952-64.365715a68.998095 68.998095 0 0 0-60.391619-15.481904c-42.715429 8.387048-47.640381 38.521905-47.932952 67.779047v16.554667H390.095238c0-56.953905 6.534095-82.773333 36.912762-115.395048 34.03581-36.449524 81.993143-42.300952 126.268952-33.328762z" p-id="4261"></path></svg>
+						</div>
+					</template>
+				</el-popover>
 			</el-form-item>
 		</el-form>
 		<template #footer>
@@ -427,6 +447,7 @@ const EditSpeedVisible = ref(false)
 const addForm = ref({
 	label: '',
 	value: '',
+	enhanced: false,
 	checking: false
 })
 const urlParser = (ipt: string) => {

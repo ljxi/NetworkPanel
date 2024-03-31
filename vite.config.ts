@@ -10,29 +10,6 @@ export default defineConfig(({ mode }) =>{
   return {
     plugins: [
       vue(),
-      // importToCDN({
-      //   // prodUrl: 'https://cdn.staticfile.org/{name}/{version}/{path}',
-      //   prodUrl: 'https://cdn.bootcdn.net/ajax/libs/{name}/{version}/{path}',
-      //   modules: [
-      //     {
-      //       name: "echarts",
-      //       var: "echarts",
-      //       path: "echarts.min.js",
-      //     },
-      //     {
-      //       name: 'vue',
-      //       var: 'Vue',
-      //       path: `vue.runtime.global.prod.min.js`,
-      //     },
-      //     {
-      //       name: 'element-plus',
-      //       var: 'ElementPlus',
-      //       path: `index.full.min.js`,
-      //       css: 'index.min.css'
-      //     },
-      //   ],
-      // }),
-      // cssInjectedByJsPlugin(),
       visualizer({
         gzipSize: true,
         brotliSize: true,
@@ -40,10 +17,6 @@ export default defineConfig(({ mode }) =>{
         filename: "visualizer.html",
         template :"sunburst",
         open:false
-      }),
-      legacyPlugin({
-        targets:['chrome 52'],  // 需要兼容的目标列表，可以设置多个
-        additionalLegacyPolyfills:['regenerator-runtime/runtime'] // 面向IE11时需要此插件
       })
     ],
     resolve: {

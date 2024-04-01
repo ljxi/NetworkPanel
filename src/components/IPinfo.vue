@@ -61,8 +61,8 @@ const provinceMatch=(str:string)=>{
 
 async function getLocalIp() {
     try {
-        const rsp = await fetch(import.meta.env.VITE_API_URL+"ip.ajax", {
-            method: "GET",
+        const response = await  fetch('https://api.mir6.com/api/ip_json', { referrerPolicy: 'no-referrer' });
+        let resp = await response.json();
             mode: "cors",
             redirect: "follow",
             referrerPolicy: "no-referrer"

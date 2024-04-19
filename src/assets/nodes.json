@@ -1,10 +1,9 @@
 {
 	"运营商":{
-		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20231114094513/MiguPlay-V3.69.1.1_miguzsj.apk",
-		"咪咕音乐":"https://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic7413/MobileMusic7413_014000D.apk",
+		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20240412135425/MiguPlay-V3.79.1.1_miguzsj.apk",
+		"咪咕音乐":"https://wsdkdl.migu.cn:8443/b486900f41fc411187240dcb45fdbc8d/1711555243144/netsdk_b.js",
 		"咪咕视频":"https://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
 		"咪咕快游2":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
-		"量子密信":"https://im.zdxlz.com/downloadmi/file-im-sdk/apk/mobile/%E9%87%8F%E5%AD%90%E5%AF%86%E4%BF%A1.apk",
 		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
 		"联通电视":"NetworkPanelApi://listen.10155.com",
 		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824"

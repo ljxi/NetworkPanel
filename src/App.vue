@@ -29,12 +29,13 @@
     <div style="height: fit-content;padding-bottom: 10px;">
       <div style="width: fit-content;margin-left: auto;margin-right: auto;">
         <el-link type="info" @click='open("https://netart.cn/")' target="_blank">Whoami</el-link>&nbsp;
-        <el-link type="info" @click='open("https://github.com/ljxi/NetworkPanel")' target="_blank">源码</el-link>
+        <el-link type="info" @click='open("https://github.com/ljxi/NetworkPanel")' target="_blank">源码</el-link>&nbsp;
+        <el-link type="info" @click='open("https://github.com/ljxi/GeoCN")' target="_blank">IP离线库</el-link>
       </div>
       <div style="width: fit-content;margin-left: auto;margin-right: auto;">
         <span style="color:var(--el-color-info);font-size: 12px;">
           本工具由
-            <el-link style="vertical-align: -2px;" type="info" @click='open("https://kuocai.cn/")' target="_blank">
+            <el-link style="vertical-align: -2px;" type="info" @click='open("https://www.kuocaicdn.com/register?code=8z8urvbg2ffd9")' target="_blank">
               <img src="https://www.kuocaicdn.com/dashboard/assets/svg/logos/logo-short.svg" alt="括彩CDN" width="15" height="15">
               括彩云智能CDN
             </el-link>
@@ -148,7 +149,9 @@
       <span>作者：<el-link @click='open("https://netart.cn/")' type="primary">Whoami</el-link></span><br>
       <span>QQ：<el-link type="primary" @click="copyText('582424565')">582424565 </el-link></span><br>
       <span>QQ群：<el-link type="primary" @click="copyText('463481772')">463481772 </el-link></span><br>
-      <span>开源地址：<el-link @click='open("https://github.com/ljxi/NetworkPanel")' type="primary">Github</el-link></span><br> 
+      <span>开源地址：<el-link @click='open("https://github.com/ljxi/NetworkPanel")' type="primary">NetworkPanel</el-link>&nbsp;
+        <el-link @click='open("https://github.com/ljxi/GeoCN")' type="primary">GeoCN</el-link>
+      </span><br> 
       <span>赞助支持：
         <el-link @click='open("https://afdian.net/a/ljxnet")' type="primary">爱发电</el-link>&nbsp
         <el-link @click='open("https://qr.alipay.com/fkx13781i79xywfarbvrsfc")' type="primary">支付宝</el-link>

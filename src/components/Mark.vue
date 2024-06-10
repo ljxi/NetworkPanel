@@ -34,14 +34,18 @@
           <el-table-column v-if="showSimple" prop="user" label="属地">
             <template #default="scope">
               <div class="block">
-                <el-tag size="small" :type=scope.row.type round>{{ scope.row.short }}</el-tag>
+                <el-tooltip class="item" effect="dark" :content="scope.row.short" placement="top">
+                  <el-tag size="small" :type=scope.row.type class="tag-long" round>{{ scope.row.short }}</el-tag>
+                </el-tooltip>
               </div>
             </template>
           </el-table-column>
           <el-table-column v-if="!showSimple" prop="user" label="运营商">
             <template #default="scope">
               <div class="block">
-                <el-tag size="small" :type=scope.row.type round>{{ scope.row.isp }}</el-tag>
+                <el-tooltip class="item" effect="dark" :content="scope.row.isp" placement="top">
+                  <el-tag size="small" :type=scope.row.type class="tag-short" round>{{ scope.row.isp }}</el-tag>
+                </el-tooltip>
               </div>
             </template>
           </el-table-column>
@@ -167,3 +171,18 @@ const timeformatter=(n:number)=>{
   return n.toFixed(0)+'天'
 }
 </script>
+
+<style scoped>
+.tag-short{
+  max-width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tag-long{
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

@@ -56,24 +56,27 @@ const copy = (ip: string) => {
 }
 
 async function queryIp(ip: string) {
-    try {
-        const rsp = await fetch(import.meta.env.VITE_API_URL + "ip.ajax?ip=" + ip, {
-            method: "GET",
-            mode: "cors",
-            redirect: "follow",
-            referrerPolicy: "no-referrer"
-        });
-        let resp = await rsp.json();
-        return resp['data']
-    } catch (error) {
-        throw "查询IP信息失败"
-    }
+    const rsp = await fetch(import.meta.env.VITE_API_URL + "ip.ajax?ip=" + ip, {
+        method: "GET",
+        mode: "cors",
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
+    });
+    let resp = await rsp.json();
+    return resp['data']
 }
 
+let failure = false
 async function cachedQuery(ip: string) {
     let ret = JSON.parse(localStorage.getItem("cache_ip_"+ip) || "{}")
     if (!ret.ip || new Date().getTime() / 1000 - ret.time > 60 * 60 * 24){
+    try {
+        if(failure) throw ""
         ret = await queryIp(ip)
+    } catch (error) {
+        failure = true
+        throw "查询IP信息失败"
+    }
         ret['time'] = new Date().getTime() / 1000
         localStorage.setItem("cache_ip_"+ip, JSON.stringify(ret))
     }

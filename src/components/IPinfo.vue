@@ -6,7 +6,7 @@
                     <el-tooltip class="item" effect="dark" :content="ipInfo.local.ip" placement="top">
                         <div @click="copy(ipInfo.local.ip)">
                             <el-tag style="width: 50px;" class="ml-2" type="success">{{
-                                ipInfo.layLocal ? ipInfo.layLocal + "ms" : "-ms" }}</el-tag>
+                                ipInfo.layLocal?ipInfo.layLocal+"ms":"-ms" }}</el-tag>
                             <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -1px;"
                                 class="font-background">{{ ipInfo.local.show.join(" ") }}</el-text>
                         </div>
@@ -18,7 +18,7 @@
                     <el-tooltip class="item" effect="dark" :content="ipInfo.cloudflare.ip" placement="top">
                         <div @click="copy(ipInfo.cloudflare.ip)">
                             <el-tag style="width: 50px;" class="ml-2" type="success">{{
-                                ipInfo.layCloudflare ? ipInfo.layCloudflare + "ms" : "-ms" }}</el-tag>
+                                ipInfo.layCloudflare?ipInfo.layCloudflare+"ms":"-ms" }}</el-tag>
                             <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -1px;"
                                 class="font-background">{{ ipInfo.cloudflare.show.join(" ") }}</el-text>
                         </div>
@@ -34,7 +34,7 @@
                         </div>
                     </el-tooltip>
                 </div>
-            </transition>
+            </transition> 
         </div>
     </div>
 </template>
@@ -46,7 +46,7 @@ const props = defineProps({
 import { reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
-const ipInfo: { local: any, cloudflare: any, layLocal: any, layCloudflare: any } = reactive({ local: null, cloudflare: null, layLocal: null, layCloudflare: null })
+const ipInfo: {local:any, cloudflare:any,layLocal:any,layCloudflare:any} = reactive({local:null, cloudflare:null,layLocal:null,layCloudflare:null})
 const copy = (ip: string) => {
     toClipboard(ip)
     ElMessage.success({
@@ -56,26 +56,29 @@ const copy = (ip: string) => {
 }
 
 async function queryIp(ip: string) {
-    try {
-        const rsp = await fetch(import.meta.env.VITE_API_URL + "ip.ajax?ip=" + ip, {
-            method: "GET",
-            mode: "cors",
-            redirect: "follow",
-            referrerPolicy: "no-referrer"
-        });
-        let resp = await rsp.json();
-        return resp['data']
-    } catch (error) {
-        throw "查询IP信息失败"
-    }
+    const rsp = await fetch(import.meta.env.VITE_API_URL + "ip.ajax?ip=" + ip, {
+        method: "GET",
+        mode: "cors",
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
+    });
+    let resp = await rsp.json();
+    return resp['data']
 }
 
+let failure = false
 async function cachedQuery(ip: string) {
-    let ret = JSON.parse(localStorage.getItem("cache_ip_" + ip) || "{}")
-    if (!ret.ip || new Date().getTime() / 1000 - ret.time > 60 * 60 * 24) {
+    let ret = JSON.parse(localStorage.getItem("cache_ip_"+ip) || "{}")
+    if (!ret.ip || new Date().getTime() / 1000 - ret.time > 60 * 60 * 24){
+    try {
+        if(failure) throw ""
         ret = await queryIp(ip)
+    } catch (error) {
+        failure = true
+        throw "查询IP信息失败"
+    }
         ret['time'] = new Date().getTime() / 1000
-        localStorage.setItem("cache_ip_" + ip, JSON.stringify(ret))
+        localStorage.setItem("cache_ip_"+ip, JSON.stringify(ret))
     }
     return ret
 }
@@ -108,7 +111,7 @@ async function handleIP(ip: string) {
     setTimeout(watchLocalIp, 5000)
 })();
 
-const watchCloudflare = async (host: string) => {
+const watchCloudflare = async(host: string) => {
     if (props.isVisible) {
         try {
             var start_timestamp = new Date().getTime();
@@ -127,22 +130,22 @@ const watchCloudflare = async (host: string) => {
     setTimeout(watchCloudflare, 1000, host)
 }
 
-watchCloudflare("cp.cloudflare.com")
-    // watchCloudflare("chat.openai.com")
+watchCloudflare("ipv4.ip.sb")
+// watchCloudflare("chat.openai.com")
 
-    ; (async function getCNLay() {
-        if (props.isVisible) {
-            try {
-                var start_timestamp = new Date().getTime();
-                await fetch("https://connectivitycheck.platform.hicloud.com/generate_204",
-                    { method: "HEAD", cache: "no-store", mode: 'no-cors', referrerPolicy: 'no-referrer' });
-                ipInfo.layLocal = new Date().getTime() - start_timestamp
-            } catch (error) {
-                ipInfo.layLocal = 0
-            }
+;(async function getCNLay() {
+    if (props.isVisible) {
+        try {
+            var start_timestamp = new Date().getTime();
+            await fetch("https://connectivitycheck.platform.hicloud.com/generate_204",
+            { method: "HEAD", cache: "no-store", mode: 'no-cors', referrerPolicy: 'no-referrer' });
+            ipInfo.layLocal = new Date().getTime() - start_timestamp
+        } catch (error) {
+            ipInfo.layLocal = 0
         }
-        setTimeout(getCNLay, 1000)
-    })();
+    }
+    setTimeout(getCNLay, 1000)
+})();
 </script>
 
 <style scoped>

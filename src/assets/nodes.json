@@ -1,6 +1,6 @@
 {
 	"高速":{
-		"腾讯CDN":"http://dldir1.qq.com/qqfile/qq/PCQQ9.7.19/QQ9.7.19.29259.exe#enhanced",
+		"腾讯CDN":"http://dldir1.qq.com/qqfile/qq/QQNT/Windows/QQ_9.9.15_240808_x64_01.exe#enhanced",
 		"华为CDN":"https://store-drcn.hispace.dbankcloud.cn/dl/appdl/application/apk/ce/cea074d22c784e4ab8a5b19ba8b493a5/com.huawei.appmarket.1908281654.apk?maple=0&trackId=0&distOpEntity=HWSW#enhanced",
 		"阿里CDN":"http://download.taobaocdn.com/wireless/taobao4android/latest/701483.apk#enhanced",
 		"阿里CDN[上行]":"networkpanel://node/#eyJ1cmwiOiJodHRwOi8vdGFvYmFvLmNvbS8iLCJ1cGxvYWQiOnRydWV9##580d3465bdbdc07a00f62a527f041068",
@@ -8,10 +8,13 @@
 		"上海交大[上行]":"networkpanel://node/#eyJ1cmwiOiJodHRwOi8vbWlycm9ycy5zanR1Zy5zanR1LmVkdS5jbi9zcGVlZHRlc3QvZW1wdHkiLCJ1cGxvYWQiOnRydWV9##299f3d5cfa46a7904545f381d4b77ed8"
 	},
 	"运营商":{
-		"咪咕快游[高速]":"http://freeserver.migufun.com/resource/beta/apk/20240412135425/MiguPlay-V3.79.1.1_miguzsj.apk",
-		"咪咕快游2":"http://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
-		"咪咕音乐":"http://d.musicapp.migu.cn/upload/fbpt_rsync_apps/local/signed/MobileMusic74111/MobileMusic74111_014002C_20240606093313726.apk",
+		"咪咕快游[高速]":"http://freeserver.migufun.com/resource/beta/apk/20240712112601/MiguPlay-V3.85.1.1_miguzsj.apk",
+		"咪咕音乐":"http://wsdkdl.migu.cn:8443/b486900f41fc411187240dcb45fdbc8d/1723479628065/netsdk_b.js",
 		"咪咕视频":"http://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
+		"和彩云":"http://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
+		"联通公免":"http://m1.ad.10010.com/small_video/uploadImg/1669798519261.png",
+		"天翼云":"http://vod-origin-rjzy.gdoss.xstore.ctyun.cn/8ee30576c30d40518c4dae03f7eacf3c.mp4",
+		"天翼云桌面":"http://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202030001/CtyunClouddeskUniversal_2.3.0_202030001_x86_20240327104015_Setup.exe",
 		"咪咕爱看[定向]":"https://img.aikan.miguvideo.com/publish/noms/2024/04/22/1O5MNLF3AN2JL.gif",
 		"移动云盘1[定向]":"http://yun.mcloud.139.com/hongseyunpan/2.43G.zip",
 		"移动云盘2[定向]":"http://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",

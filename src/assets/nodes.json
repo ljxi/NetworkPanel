@@ -1,12 +1,13 @@
 {
 	"运营商":{
-		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20240412135425/MiguPlay-V3.79.1.1_miguzsj.apk",
-		"咪咕音乐":"https://wsdkdl.migu.cn:8443/b486900f41fc411187240dcb45fdbc8d/1716482115184/netsdk_b.js",
+		"咪咕快游[高速]":"https://freeserver.migufun.com/resource/beta/apk/20240712112601/MiguPlay-V3.85.1.1_miguzsj.apk",
+		"咪咕音乐":"https://wsdkdl.migu.cn:8443/b486900f41fc411187240dcb45fdbc8d/1723479628065/netsdk_b.js",
 		"咪咕视频":"https://img.cmvideo.cn/publish/noms/2023/12/06/1O4SHFIFR36BD.gif",
-		"咪咕快游2":"https://h5cdn.migufun.com/middleh5/_nuxt/643447d.js",
 		"和彩云":"https://img.mcloud.139.com/material_prod/material_media/20221128/1669626861087.png",
 		"联通电视":"NetworkPanelApi://listen.10155.com",
-		"电信测速":"https://vipspeedtest8.wuhan.net.cn:8080/download?size=1073741824"
+		"联通公免":"https://m1.ad.10010.com/small_video/uploadImg/1669798519261.png",
+		"天翼云":"https://vod-origin-rjzy.gdoss.xstore.ctyun.cn/8ee30576c30d40518c4dae03f7eacf3c.mp4",
+		"天翼云桌面":"https://desk.ctyun.cn:8999/desktop-prod/software/windows_tob_client/15/64/202030001/CtyunClouddeskUniversal_2.3.0_202030001_x86_20240327104015_Setup.exe"
 	},
 	"全球[Global]":{
 		"Cachefly":"https://web1.cachefly.net/speedtest/downloading",

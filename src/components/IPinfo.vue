@@ -4,7 +4,7 @@
             <transition name="el-fade-in">
                 <div v-if="ipInfo.local && ipInfo.local.country && ipInfo.local.country.code == 'CN'">
                     <el-tooltip class="item" effect="dark" :content="ipInfo.local.ip" placement="top">
-                        <div @click="copy(ipInfo.local.ip)">
+                        <div @click.stop="onQuery(ipInfo.local.ip)">
                             <el-tag style="width: 50px;" class="ml-2" type="success">{{
                                 ipInfo.layLocal?ipInfo.layLocal+"ms":"-ms" }}</el-tag>
                             <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -1px;"
@@ -16,7 +16,7 @@
             <transition name="el-fade-in">
                 <div v-if="ipInfo.cloudflare && ipInfo.cloudflare.country && ipInfo.cloudflare.country.code != 'CN'">
                     <el-tooltip class="item" effect="dark" :content="ipInfo.cloudflare.ip" placement="top">
-                        <div @click="copy(ipInfo.cloudflare.ip)">
+                        <div @click.stop="onQuery(ipInfo.cloudflare.ip)">
                             <el-tag style="width: 50px;" class="ml-2" type="success">{{
                                 ipInfo.layCloudflare?ipInfo.layCloudflare+"ms":"-ms" }}</el-tag>
                             <el-text style="cursor: pointer;margin-left: 5px;white-space:nowrap;vertical-align: -1px;"
@@ -37,15 +37,70 @@
             </transition> 
         </div>
     </div>
+    <el-dialog align-center style="width: 95vw;max-width: 600px;max-height: 85vh;" v-model="queryWindow" title="IP查询">
+        <el-input v-model="ipInput" style="max-width: 600px" placeholder="请输入IPV4/IPV6地址" clearable autocomplete="new-password">
+            <template #append><el-button type="primary" :icon="Search" circle  @click="onQuery(ipInput)"/></template>
+        </el-input>
+         <table class="ip-table" v-loading="isQuerying">
+            <tr>
+                <td @click="copy(ipRet.ip)">{{ ipRet.ip }}</td>
+            </tr>
+            <tr>
+                <td>{{ ipRet.addr }}</td>
+            </tr>
+            <tr v-if="ipRet.as?.info || ipRet.type">
+                <td>{{ ipRet.as?.info }} {{ ipRet.type }}</td>
+            </tr>
+            <tr v-if="ipRet.as">
+                <td>
+                    ASN {{ ipRet.as?.number }}
+                </td>
+            </tr>
+            <tr v-if="ipRet.country">
+                <td>
+                    {{ ipRet.country?.name }}({{ ipRet.country?.code }}) {{ ipRet.regions?.join(" ") }}
+                </td>
+            </tr>
+            <tr v-if="ipRet.registered_country?.code != ipRet.country?.code">
+                <td>
+                    注册地 {{ ipRet.registered_country?.name }}({{ ipRet.registered_country?.code }})
+                </td>
+            </tr>
+            <tr>
+                <td>{{ ipRet.as?.name }}</td>
+            </tr>
+         </table>
+    </el-dialog>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
     isVisible: Boolean
 })
-import { reactive } from 'vue'
+import { reactive,ref, type Ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
+import { Search } from '@element-plus/icons-vue'
+const queryWindow = ref(false)
+const isQuerying = ref(false)
+const ipInput = ref("")
+const ipRet: Ref<any> = ref({})
+const onQuery = async(ip:string) => {
+    queryWindow.value = true
+    try {
+        const ipv4 = /^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+        const ipv6 = /^([\da-fA-F]{1,4}:){6}((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$|^::([\da-fA-F]{1,4}:){0,4}((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$|^([\da-fA-F]{1,4}:):([\da-fA-F]{1,4}:){0,3}((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$|^([\da-fA-F]{1,4}:){2}:([\da-fA-F]{1,4}:){0,2}((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$|^([\da-fA-F]{1,4}:){3}:([\da-fA-F]{1,4}:){0,1}((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$|^([\da-fA-F]{1,4}:){4}:((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$|^([\da-fA-F]{1,4}:){7}[\da-fA-F]{1,4}$|^:((:[\da-fA-F]{1,4}){1,6}|:)$|^[\da-fA-F]{1,4}:((:[\da-fA-F]{1,4}){1,5}|:)$|^([\da-fA-F]{1,4}:){2}((:[\da-fA-F]{1,4}){1,4}|:)$|^([\da-fA-F]{1,4}:){3}((:[\da-fA-F]{1,4}){1,3}|:)$|^([\da-fA-F]{1,4}:){4}((:[\da-fA-F]{1,4}){1,2}|:)$|^([\da-fA-F]{1,4}:){5}:([\da-fA-F]{1,4})?$|^([\da-fA-F]{1,4}:){6}:$/;
+    
+        if (!ipv4.test(ip) && !ipv6.test(ip)) {
+            throw "请输入正确的IP地址"
+        }
+        isQuerying.value = true
+        ipRet.value = await cachedQuery(ip)
+        isQuerying.value = false
+    } catch (error) {
+        ElMessage.error(String(error))
+    }
+}
 const ipInfo: {local:any, cloudflare:any,layLocal:any,layCloudflare:any} = reactive({local:null, cloudflare:null,layLocal:null,layCloudflare:null})
 const copy = (ip: string) => {
     toClipboard(ip)
@@ -70,13 +125,13 @@ let failure = false
 async function cachedQuery(ip: string) {
     let ret = JSON.parse(localStorage.getItem("cache_ip_"+ip) || "{}")
     if (!ret.ip || new Date().getTime() / 1000 - ret.time > 60 * 60 * 24){
-    try {
-        if(failure) throw ""
-        ret = await queryIp(ip)
-    } catch (error) {
-        failure = true
-        throw "查询IP信息失败"
-    }
+        try {
+            if(failure) throw ""
+            ret = await queryIp(ip)
+        } catch (error) {
+            failure = true
+            throw "查询IP信息失败"
+        }
         ret['time'] = new Date().getTime() / 1000
         localStorage.setItem("cache_ip_"+ip, JSON.stringify(ret))
     }
@@ -161,6 +216,16 @@ watchCloudflare("ipv4.ip.sb")
     margin: 0 auto;
     background-color: #ffffff;
     padding: 2%
+}
+
+.ip-table {
+    height: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    border: #ffffff 1px solid;
+    border-radius: 10px;
+
+    text-align: center;
 }
 
 @media (prefers-color-scheme: dark) {

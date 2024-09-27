@@ -21,12 +21,12 @@
 		"联通电视[备用]":"networkpanel://node/#eyJ1cGRhdGUiOiJodHRwczovL2FwcC5sanhuZXQuY24vbmV0d29yay1wYW5lbC91cmwuYWpheD9ob3N0PWxpc3Rlbi4xMDE1NS5jb20ifQ##8f9b03473449d38830cff14ae125f6bc"
 	},
 	"全球[Global]":{
-		"Cachefly":"http://web1.cachefly.net/speedtest/downloading#enhanced",
-		"Cloudflare":"http://speed.cloudflare.com/__down?bytes=104857600#enhanced",
-		"jsDelivr":"http://cdn.jsdelivr.net/gh/ljxi/CDN-IP-test@main/dump#enhanced",
-		"Cloudflare Workers":"http://gh.con.sh/http://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z#enhanced",
-		"Steam Akamai":"http://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif#enhanced",
-		"Steam Cloudflare":"http://cdn.cloudflare.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif#enhanced",
-		"Microsoft Akamai":"http://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16Ptm#enhanced"
+		"Cachefly":"http://web1.cachefly.net/speedtest/downloading",
+		"Cloudflare":"http://speed.cloudflare.com/__down?bytes=104857600",
+		"jsDelivr":"http://cdn.jsdelivr.net/gh/ljxi/CDN-IP-test@main/dump",
+		"Cloudflare Workers":"http://gh.con.sh/http://github.com/AaronFeng753/Waifu2x-Extension-GUI/releases/download/v2.21.12/Waifu2x-Extension-GUI-v2.21.12-Portable.7z",
+		"Steam Akamai":"http://cdn.akamai.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
+		"Steam Cloudflare":"http://cdn.cloudflare.steamstatic.com/steam/apps/1063730/extras/NW_Sword_Sorcery_2.gif",
+		"Microsoft Akamai":"http://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16Ptm"
 	}
 }

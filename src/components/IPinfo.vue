@@ -185,7 +185,7 @@ const watchCloudflare = async(host: string) => {
     setTimeout(watchCloudflare, 1000, host)
 }
 
-watchCloudflare("ipv4.ip.sb")
+watchCloudflare("cp.cloudflare.com")
 // watchCloudflare("chat.openai.com")
 
 ;(async function getCNLay() {

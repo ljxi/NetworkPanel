@@ -156,14 +156,14 @@ async function handleIP(ip: string) {
 (async function watchLocalIp() {
     if (props.isVisible) {
         try {
-            const response = await fetch('https://pubstatic.b0.upaiyun.com/?_upnode', { referrerPolicy: 'no-referrer' });
+            const response = await fetch('https://app.ljxnet.cn/network-panel/ip.ajax', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
-            ipInfo.local = await handleIP(resp['remote_addr'])
+            ipInfo.local = await handleIP(resp["data"]["ip"])
         } catch (error) {
             console.log(error)
         }
     }
-    setTimeout(watchLocalIp, 5000)
+    setTimeout(watchLocalIp, 60000)
 })();
 
 const watchCloudflare = async(host: string) => {

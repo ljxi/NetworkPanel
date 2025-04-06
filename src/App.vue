@@ -152,10 +152,6 @@
       <span>开源地址：<el-link @click='open("https://github.com/ljxi/NetworkPanel")' type="primary">NetworkPanel</el-link>&nbsp;
         <el-link @click='open("https://github.com/ljxi/GeoCN")' type="primary">GeoCN</el-link>
       </span><br> 
-      <span>赞助支持：
-        <el-link @click='open("https://afdian.net/a/ljxnet")' type="primary">爱发电</el-link>&nbsp
-        <el-link @click='open("https://qr.alipay.com/fkx13781i79xywfarbvrsfc")' type="primary">支付宝</el-link>
-      </span><br>
       <span>特别感谢：</span><br>
       <el-link @click='open("https://www.kuocaicdn.com/register?code=8z8urvbg2ffd9")' type="primary">括彩科技</el-link><span>提供免费稳定的CDN服务</span><br>
       <el-link @click='open("https://staticfile.org/")' type="primary">七牛云</el-link><span>提供免费稳定的前端静态资源分发服务</span><br>

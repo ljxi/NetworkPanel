@@ -156,7 +156,7 @@ async function handleIP(ip: string) {
 (async function watchLocalIp() {
     if (props.isVisible) {
         try {
-            const response = await fetch('https://app.ljxnet.cn/network-panel/ip.ajax', { referrerPolicy: 'no-referrer' });
+            const response = await fetch(import.meta.env.VITE_API_URL + 'ip.ajax', { referrerPolicy: 'no-referrer' });
             let resp = await response.json();
             ipInfo.local = await handleIP(resp["data"]["ip"])
         } catch (error) {

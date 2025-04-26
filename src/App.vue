@@ -61,7 +61,7 @@ const versionCode = ref(0)
 const versionName = ref("")
 const updateDialog = ref(false)
 const handleUpdate = () => {
-	window.open('https://net.ljxnet.cn/#app')
+	window.open('https://net.netart.cn/#app')
 	updateDialog.value = false
 }
 onMounted(() => {

@@ -9,29 +9,29 @@ import legacyPlugin from '@vitejs/plugin-legacy'
 export default defineConfig({
   plugins: [
     vue(),
-    importToCDN({
-      prodUrl: 'https://cdn.staticfile.org/{name}/{version}/{path}',
-      // prodUrl: 'https://cdn.bootcdn.net/ajax/libs/{name}/{version}/{path}',
-      // prodUrl: 'https://cdn.iocdn.cc/npm/{name}@{version}/dist/{path}',
-      modules: [
-        {
-          name: "echarts",
-          var: "echarts",
-          path: "echarts.min.js",
-        },
-        {
-          name: 'vue',
-          var: 'Vue',
-          path: `vue.runtime.global.prod.min.js`,
-        },
-        {
-          name: 'element-plus',
-          var: 'ElementPlus',
-          path: `index.full.min.js`,
-          css: 'index.min.css'
-        },
-      ],
-    }),
+    // importToCDN({
+    //   // prodUrl: 'https://cdn.staticfile.org/{name}/{version}/{path}',
+    //   prodUrl: 'https://cdn.bootcdn.net/ajax/libs/{name}/{version}/{path}',
+    //   // prodUrl: 'https://cdn.iocdn.cc/npm/{name}@{version}/dist/{path}',
+    //   modules: [
+    //     {
+    //       name: "echarts",
+    //       var: "echarts",
+    //       path: "echarts.min.js",
+    //     },
+    //     {
+    //       name: 'vue',
+    //       var: 'Vue',
+    //       path: `vue.runtime.global.prod.min.js`,
+    //     },
+    //     {
+    //       name: 'element-plus',
+    //       var: 'ElementPlus',
+    //       path: `index.full.min.js`,
+    //       css: 'index.min.css'
+    //     },
+    //   ],
+    // }),
     // cssInjectedByJsPlugin(), // css注入插件 会导致字体路径异常
     legacyPlugin({
       targets:['chrome 52'],  // 需要兼容的目标列表，可以设置多个
@@ -54,13 +54,13 @@ export default defineConfig({
   build:{
     assetsDir: 'assets',
     assetsInlineLimit: 8 * 1024,
-    // rollupOptions:{
-    //   manualChunks(id){
-    //     if(id.includes('node_modules')){
-    //       return "vendor"
-    //     }
-    //   }
-    // }
+    rollupOptions:{
+      manualChunks(id){
+        if(id.includes('node_modules')){
+          return "vendor"
+        }
+      }
+    }
   },
   server: {
     open: true,

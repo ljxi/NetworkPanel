@@ -1,6 +1,6 @@
 {
   "name": "network-panel",
-  "version": "0.0.0",
+  "version": "3.2.2",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,6 +10,7 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@vitejs/plugin-legacy": "^4.0.0",
     "echarts": "^5.4.3",
@@ -23,7 +24,6 @@
     "@types/node": "^18.17.15",
     "@vitejs/plugin-vue": "^4.3.4",
     "@vue/tsconfig": "^0.4.0",
-    "node-sass": "^9.0.0",
     "npm-run-all": "^4.1.5",
     "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.68.0",

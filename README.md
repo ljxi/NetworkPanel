@@ -6,10 +6,9 @@
 
 如果你不了解如何打包vite项目，请[点此下载](https://github.com/ljxi/NetworkPanel/archive/refs/heads/gh-pages.zip)解压文件部署到服务器根目录即可
 
-或者使用 [Docker](https://github.com/canmi21/NetworkPanel/releases/download/v3.2.2/networkpanel.tar) 部署
+或者使用`Docker`部署
 ```bash
-docker load -i networkpanel.tar
-docker run -d --rm -p 8080:80 canmi/networkpanel:latest
+docker run -d --rm -p 8080:80 netart/network-panel:latest
 ```
 
 

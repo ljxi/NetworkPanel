@@ -7,9 +7,9 @@ on:
     branches:
       - main
       - master
-  # 当创建标签时触发
-  tag:
-    - 'v*'
+    # 当创建标签时触发
+    tag:
+      - 'v*'
   # 允许手动触发
   workflow_dispatch:
 

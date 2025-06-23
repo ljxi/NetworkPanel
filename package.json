@@ -1,6 +1,6 @@
 {
   "name": "network-panel",
-  "version": "0.0.0",
+  "version": "3.2.2",
   "private": true,
   "scripts": {
     "dev": "vite",

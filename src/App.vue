@@ -46,7 +46,7 @@
   </el-container>
   <el-dialog align-center style="width: 90%;max-width: 700px;" v-model="downLoadAPPTableVisible" title="APP下载">
     <div>
-      <el-button style="float:right;margin-top: -5px;" type="primary" @click="open('https://api.netart.cn/d?b013x15cb')">
+      <el-button style="float:right;margin-top: -5px;" type="primary" @click="open('https://cdn.netart.cn/network-panel-app/v3.2.2.apk')">
           下载最新版
       </el-button> 
       <h2>网络面板APP</h2>

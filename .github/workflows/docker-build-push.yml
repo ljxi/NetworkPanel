@@ -27,26 +27,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 设置 Node.js 环境
-      - name: Setup Node.js
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 20
           cache: 'pnpm'
-
-      # 缓存 pnpm 依赖
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
 
       # 安装依赖
       - name: Install dependencies

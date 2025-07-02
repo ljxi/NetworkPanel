@@ -13,7 +13,7 @@ docker run -d --rm -p 8080:80 netart/network-panel:latest
 
 或者使用腾讯云提供的一键部署
 
-[![Use EdgeOne Pages to deploy](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fljxi%2FNetworkPanel)
+[![Use EdgeOne Pages to deploy](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fljxi%2FNetworkPanel&repository-name=NetworkPanel&project-name=networkpanel&build-command=npm%20run%20build&install-command=npm%20i&output-directory=dist&root-directory=.%2F)
 
 [Demo](https://ljxi.github.io/NetworkPanel/)
 

@@ -3,17 +3,17 @@
       <div style="overflow-y: auto;max-height: calc(85vh - 100px);margin-top:-30px">
         <div class="mb-2 flex items-center text-sm">
           <el-radio-group v-model="sortBy" @change="refreshMark" class="ml-4">
-            <el-radio value="allUsed" size="small">总流量</el-radio>
-            <el-radio value="averageSpeed" size="small">平均速度</el-radio>
-            <el-radio value="onlineTime" size="small">在线时长</el-radio>
+            <el-radio label="allUsed" size="small">总流量</el-radio>
+            <el-radio label="averageSpeed" size="small">平均速度</el-radio>
+            <el-radio label="onlineTime" size="small">在线时长</el-radio>
           </el-radio-group>
         </div>
         <div class="mb-2 flex items-center text-sm">
           <el-radio-group v-model="grade" @change="refreshMark" class="ml-4">
-            <el-radio value='3' size="small">小时</el-radio>
-            <el-radio value='2' size="small">天</el-radio>
-            <el-radio value='1' size="small">月</el-radio>
-            <el-radio value='0' size="small">年</el-radio>
+            <el-radio label='3' size="small">小时</el-radio>
+            <el-radio label='2' size="small">天</el-radio>
+            <el-radio label='1' size="small">月</el-radio>
+            <el-radio label='0' size="small">年</el-radio>
             <el-checkbox v-model="past" label="上个统计周期" size="small" @change="refreshMark" />
           </el-radio-group>
         </div>
@@ -120,7 +120,7 @@ const api =async(args:string[][])=>{
 
 const typeMatch=(str:string)=>{
     const arr1=['移动','联通','电信','广电']
-    const arr2=['primary','success','warning','danger']
+    const arr2=['','success','warning','danger']
     for(let i in arr1)if(str.includes(arr1[i]))return arr2[i]
     return 'info'
 }

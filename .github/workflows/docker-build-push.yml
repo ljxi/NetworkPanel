@@ -97,8 +97,8 @@ jobs:
             type=ref,event=tag
             # 为主分支创建 latest 标签
             type=raw,value=latest,enable={{is_default_branch}}
-            # 使用 Git SHA 创建标签
-            type=sha,prefix={{branch}}-
+            # # 使用 Git SHA 创建标签
+            # type=sha,prefix={{branch}}-
 
       # 构建并推送 Docker 镜像
       - name: Build and push Docker image

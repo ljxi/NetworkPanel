@@ -35,9 +35,9 @@
       <div style="width: fit-content;margin-left: auto;margin-right: auto;">
         <span style="color:var(--el-color-info);font-size: 12px;">
           本工具由
-            <el-link style="vertical-align: -2px;" type="info" @click='open("https://www.kuocaicdn.com/register?code=8z8urvbg2ffd9")' target="_blank">
-              <img src="https://www.kuocaicdn.com/dashboard/assets/svg/logos/logo-short.svg" alt="括彩CDN" width="15" height="15">
-              括彩云智能CDN
+            <el-link style="vertical-align: -2px;" type="info" @click='open("https://edgeone.ai/zh?from=net.netart.cn")' target="_blank">
+              <img src="https://edgeone.ai/favicon.ico" alt="括彩CDN" width="15" height="15">
+              Tencent Edgeone
             </el-link>
           提供CDN服务
         </span>
@@ -159,9 +159,8 @@
         <el-link @click='open("https://github.com/ljxi/GeoCN")' type="primary">GeoCN</el-link>
       </span><br> 
       <span>特别感谢：</span><br>
+      <el-link @click='open("https://edgeone.ai/zh?from=net.netart.cn")' type="primary">Tencent Edgeone</el-link><span>提供免费稳定无限量的CDN服务</span><br>
       <el-link @click='open("https://www.kuocaicdn.com/register?code=8z8urvbg2ffd9")' type="primary">括彩科技</el-link><span>提供免费稳定的CDN服务</span><br>
-      <el-link @click='open("https://staticfile.org/")' type="primary">七牛云</el-link><span>提供免费稳定的前端静态资源分发服务</span><br>
-      <el-link @click='open("https://www.bootcdn.cn/")' type="primary">BootCDN</el-link><span>提供免费稳定的前端静态资源分发服务</span><br>
       <br>
       <span>本项目用到的开源库:</span><br>
       <el-link @click='open("https://github.com/vuejs/core")' type="primary">Vue</el-link>&nbsp

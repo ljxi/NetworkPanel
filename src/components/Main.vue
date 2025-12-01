@@ -2,6 +2,7 @@
   <div class="radius card" :style="{ borderRadius: 'var(--el-border-radius-round)' }">
     <div style="margin-top: 10px;margin-left: 10px;margin-right: 10px;">
       <div class="slider-demo-block">
+        <a href="https://chromewebstore.google.com/webstore/detail/mjhpgnbimicffchbodmgfnemoghjakai" target="_blank" rel="noopener noreferrer" class="speed-link">如果地址无法测速请安装,跨域链接CORS扩展</a>
         <span class="font-background">测速地址：</span>
         <el-button type="primary" :icon="CopyDocument" link @click="copyUrl" />
         <el-button type="primary" :icon="Edit" link @click="EditTableVisible = true" />

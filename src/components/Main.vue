@@ -454,6 +454,9 @@ async function uploadLog() {
       mode: "cors",
       redirect: "follow",
       referrerPolicy: "no-referrer",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         AccessToken: loginInfo.AccessToken,
         url: runUrl.value,

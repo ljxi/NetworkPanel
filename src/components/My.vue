@@ -51,6 +51,9 @@ const api =async(action:string,args:object)=>{
     mode: "cors",
     redirect: "follow",
     referrerPolicy: "no-referrer",
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(args)
 })
 const resp=await response.json()

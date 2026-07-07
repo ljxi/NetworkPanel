@@ -55,8 +55,8 @@ import { ElMessage } from 'element-plus'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 const native=window.mjs
 const isVisible = ref(true)
-const newVersionCode = 322
-const newVersionName = "3.2.2"
+const newVersionCode = 323
+const newVersionName = "3.2.3"
 const versionCode = ref(0)
 const versionName = ref("")
 const updateDialog = ref(false)

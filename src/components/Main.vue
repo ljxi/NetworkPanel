@@ -226,6 +226,13 @@
 </template>
 
 <script lang="ts" setup>
+// 扩展 Window 接口，声明 Java 层推送数据的回调函数
+declare global {
+	interface Window {
+		onTrafficDataUpdate?: (bytesUsed: number, speed: number, avgSpeed: number) => void;
+	}
+}
+
 const props = defineProps({
 	isVisible: Boolean
 })
@@ -313,6 +320,15 @@ onMounted(() => {
 			tryStart();
 		}
 	}
+
+	// 注册全局回调函数，接收 Java 层推送的数据
+	window.onTrafficDataUpdate = (bytesUsed: number, speed: number, avgSpeed: number) => {
+		state.bytesUsed = bytesUsed
+		isRunning.value = native.getIsRunning()
+		if(speed != lastSpeed) setSpeed(speed)
+		lastSpeed = speed
+		setUsed()
+	}
 })
 
 const tryStart = async () => {
@@ -366,7 +382,6 @@ const checkUrl = async (url: string) => {
 
 watch(isRunning,async (n) => {
 	if (n) {
-		tasks.push(setInterval(frameEvent, 32))
 		native.setThreadNum(threadNum.value)
 		native.setMaxSpeed(state.maxSpeed)
 		native.setRunBackground(runBackground.value)
@@ -376,6 +391,7 @@ watch(isRunning,async (n) => {
 	} else {
 		native.stop()
 		setSpeed(native.getAvgSpeed())
+		// 清除轮询定时器（现在已不再使用）
 		tasks.map((i) => clearInterval(i))
 		tasks.length = 0
 	}
@@ -414,14 +430,6 @@ var setSpeed = (speed: number) => {
 }
 
 let lastSpeed=0
-var frameEvent = () => {
-	state.bytesUsed = native.getBytesUsed()
-	isRunning.value = native.getIsRunning()
-	let speed=native.getSpeed()
-	if(speed!=lastSpeed)setSpeed(speed)
-	lastSpeed=speed
-	setUsed()
-}
 
 function formatter(num: number, desIndex: number, flo: Array<number>) {
 	if(num==0)return "-"

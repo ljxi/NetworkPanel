@@ -32,7 +32,7 @@
 			<div class="ItemContainer">
 				<div class="showItem">
 					<span class="font-background" style="font-size: larger;">总流量</span>
-					<el-text size="small" class="mx-1">{{ state.maxUse ? '/' + formatter(state.maxUse, 0, [0, 0, 0, 0, 0, 0]) : ""
+					<el-text size="small" class="mx-1">{{ settings.maxUse ? '/' + formatter(settings.maxUse, 0, [0, 0, 0, 0, 0, 0]) : ""
 					}}</el-text>
 					<el-button type="primary" style="height: 15px;" :icon="Edit" link @click="EditMaxVisible = true" />
 					<div class="state-icon">
@@ -42,7 +42,7 @@
 								d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
 						</svg>
 					</div>
-					<el-text class="font-data">{{ state.show.allUsed }}</el-text>
+					<el-text class="font-data">{{ trafficState.show.allUsed }}</el-text>
 				</div>
 				<div class="showItem">
 					<span class="font-background" style="font-size: larger;">{{ isRunning ? '实时速度' : '平均速度' }}</span>
@@ -50,13 +50,13 @@
 						<template #reference>
 							<el-button type="primary" style="height: 15px;vertical-align: -2px;" :icon="Calendar" link />
 						</template>
-						每分钟&nbsp;&nbsp;{{ state.predict.min }}
+						每分钟&nbsp;&nbsp;{{ trafficState.predict.min }}
 						<br>
-						每小时&nbsp;&nbsp;{{ state.predict.hour }}
+						每小时&nbsp;&nbsp;{{ trafficState.predict.hour }}
 						<br>
-						每天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ state.predict.day }}
+						每天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ trafficState.predict.day }}
 						<br>
-						每月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ state.predict.mon }}
+						每月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ trafficState.predict.mon }}
 					</el-popover>
 					<div class="state-icon state-icon-main">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -66,11 +66,11 @@
 							</path>
 						</svg>
 					</div>
-					<el-text class="font-data state-icon-main">{{ state.show.speed }}</el-text>
+					<el-text class="font-data state-icon-main">{{ trafficState.show.speed }}</el-text>
 				</div>
 				<div class="showItem">
 					<span class="font-background" style="font-size: larger;">带宽</span>
-					<el-text size="small" class="mx-1">{{ state.maxSpeed ? '/' + formatter(state.maxSpeed, 2, [0, 0, 0, 0, 0, 0]) : ""
+					<el-text size="small" class="mx-1">{{ settings.maxSpeed ? '/' + formatter(settings.maxSpeed, 2, [0, 0, 0, 0, 0, 0]) : ""
 					}}</el-text>
 					<el-button type="primary" style="height: 15px;" :icon="Edit" link @click="EditSpeedVisible = true" />
 					<div class="state-icon">
@@ -79,12 +79,12 @@
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 						</svg>
 					</div>
-					<el-text class="font-data">{{ state.show.speedBit }}</el-text>
+					<el-text class="font-data">{{ trafficState.show.speedBit }}</el-text>
 				</div>
 			</div>
 
 			<div style="width: fit-content;display: block;margin-top:2ch;margin-left: auto;margin-right: auto;">
-				<a class="button" v-if="!isRunning && !state.isChecking" @click="tryStart">
+				<a class="button" v-if="!isRunning && !trafficState.isChecking" @click="requestStart">
 					<svg t="1694957757562" class="svg-icon"
 						viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4036" width="200" height="200">
 						<path
@@ -92,12 +92,12 @@
 							p-id="4037"></path>
 					</svg>
 				</a>
-				<a class="button" v-if="state.isChecking">
+				<a class="button" v-if="trafficState.isChecking">
 					<el-icon :size="60" class="is-loading el-icon-loading">
 						<Loading />
 					</el-icon>
 				</a>
-				<a class="button" v-if="isRunning" @click="isRunning = false">
+				<a class="button" v-if="isRunning" @click="requestStop">
 					<svg t="1694958268344" fill="white" style="width: 80px;margin-top: -30px;" viewBox="0 0 1024 1024" version="1.1"
 						xmlns="http://www.w3.org/2000/svg" p-id="7667" width="200" height="200">
 						<path
@@ -222,14 +222,21 @@
 		</template>
 	</el-dialog>
 	<MarkUI :show="showMark" :loginInfo="loginInfo" />
-	<FullScreenUI v-model="isFullScreen" :isRunning="isRunning" :state="state" />
+	<FullScreenUI v-model="isFullScreen" :isRunning="isRunning" :state="trafficState" />
 </template>
 
 <script lang="ts" setup>
-// 扩展 Window 接口，声明 Java 层推送数据的回调函数
+type NativeTrafficState = {
+	isRunning: boolean;
+	bytesUsed: number;
+	speed: number;
+	avgSpeed: number;
+}
+
+// 扩展 Window 接口，声明 Java 层推送运行态的回调函数
 declare global {
 	interface Window {
-		onTrafficDataUpdate?: (bytesUsed: number, speed: number, avgSpeed: number) => void;
+		onTrafficStateUpdate?: (state: NativeTrafficState) => void;
 	}
 }
 
@@ -240,7 +247,7 @@ const native=window.mjs
 import { ElMessage } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
 import { Link, Edit, Delete, CircleCheck, Loading, CopyDocument, Histogram, Calendar,FullScreen } from '@element-plus/icons-vue'
-import { ref, watch,watchEffect, type Ref, reactive,onMounted } from 'vue'
+import { computed, ref, watch, type Ref, reactive,onMounted } from 'vue'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
 import FullScreenUI from './FullScreen.vue'
@@ -285,7 +292,13 @@ watch(customNodes, async (newState, oldState) => {
 	localStorage.customNodes = JSON.stringify(newState)
 }, { deep: true })
 
-const state = reactive({
+const trafficState = reactive({
+	initialized: false,
+	isRunning: false,
+	isChecking: false,
+	bytesUsed: 0,
+	speed: 0,
+	avgSpeed: 0,
 	show: {
 		allUsed: '-',
 		speed: '-',
@@ -297,12 +310,12 @@ const state = reactive({
 		day: '-',
 		mon: '-',
 	},
-	isChecking: false,
-	bytesUsed: 0,
+})
+const settings = reactive({
 	maxUse: localStorage.maxUse ? Number(localStorage.maxUse) : 0,
 	maxSpeed: localStorage.maxSpeed ? Number(localStorage.maxSpeed) : 0,
 })
-const isRunning = ref(false)
+const isRunning = computed(() => trafficState.isRunning)
 const isFullScreen = ref(false)
 const loginInfo = reactive({ AccessToken: localStorage.AccessToken ? localStorage.AccessToken : "" })
 const threadNum = ref(localStorage.threadNum ? Number(localStorage.threadNum) : 8)
@@ -310,39 +323,65 @@ const runBackground = ref(localStorage.runBackground ? localStorage.runBackgroun
 const autoStart = ref(localStorage.autoStart ? localStorage.autoStart === 'true' : false)
 const runUrl = ref(localStorage.url ? localStorage.url : nodes.value[0].options[0].value)
 
-var tasks: Array<number> = []
+let shouldAutoStartAfterFirstState = false
+let lastDisplaySpeed = -1
 onMounted(() => {
-	isRunning.value = native.getIsRunning();
+	shouldAutoStartAfterFirstState = autoStart.value
 	native.setRunBackground(runBackground.value)
-	if(!isRunning.value){
-		native.setUrl(runUrl.value)
-		if(autoStart.value){
-			tryStart();
-		}
-	}
-
-	// 注册全局回调函数，接收 Java 层推送的数据
-	window.onTrafficDataUpdate = (bytesUsed: number, speed: number, avgSpeed: number) => {
-		state.bytesUsed = bytesUsed
-		isRunning.value = native.getIsRunning()
-		if(speed != lastSpeed) setSpeed(speed)
-		lastSpeed = speed
-		setUsed()
-	}
+	window.onTrafficStateUpdate = applyTrafficState
+	native.requestTrafficState()
 })
 
-const tryStart = async () => {
-	state.isChecking = true
+const applyTrafficState = (nextState: NativeTrafficState) => {
+	trafficState.initialized = true
+	trafficState.isChecking = false
+	trafficState.isRunning = nextState.isRunning
+	trafficState.bytesUsed = nextState.bytesUsed
+	trafficState.speed = nextState.speed
+	trafficState.avgSpeed = nextState.avgSpeed
+
+	setUsed()
+	const displaySpeed = nextState.isRunning ? nextState.speed : nextState.avgSpeed
+	if (displaySpeed !== lastDisplaySpeed) {
+		setSpeed(displaySpeed)
+		lastDisplaySpeed = displaySpeed
+	}
+
+	if (shouldAutoStartAfterFirstState) {
+		shouldAutoStartAfterFirstState = false
+		if (!nextState.isRunning) {
+			requestStart()
+		}
+	}
+}
+
+const syncNativeConfig = () => {
+	native.setUrl(runUrl.value)
+	native.setThreadNum(threadNum.value)
+	native.setMaxSpeed(settings.maxSpeed)
+	native.setRunBackground(runBackground.value)
+	native.setMaxUse(settings.maxUse)
+	native.setReportToken(loginInfo.AccessToken)
+}
+
+const requestStart = async () => {
+	if (trafficState.isRunning || trafficState.isChecking) return
+	trafficState.isChecking = true
 	const urlStatus = await checkUrl(runUrl.value)
-	state.isChecking = false
 	if (!urlStatus.status) {
+		trafficState.isChecking = false
 		ElMessage.error({
 			dangerouslyUseHTMLString: true,
 			message: urlStatus.info
 		})
 	} else {
-		isRunning.value = true
+		syncNativeConfig()
+		native.start()
 	}
+}
+
+const requestStop = () => {
+	native.stop()
 }
 const block_list=["ljxnet.cn","netart.cn",".gov.cn"]
 const checkUrl = async (url: string) => {
@@ -380,32 +419,24 @@ const checkUrl = async (url: string) => {
 	}
 }
 
-watch(isRunning,async (n) => {
-	if (n) {
-		native.setThreadNum(threadNum.value)
-		native.setMaxSpeed(state.maxSpeed)
-		native.setRunBackground(runBackground.value)
-		native.setMaxUse(state.maxUse)
-		native.setReportToken(loginInfo.AccessToken)
-		native.start()
-	} else {
-		native.stop()
-		setSpeed(native.getAvgSpeed())
-		// 清除轮询定时器（现在已不再使用）
-		tasks.map((i) => clearInterval(i))
-		tasks.length = 0
-	}
+watch(runUrl, (n) => {
+	native.setUrl(n)
+	localStorage.url = n
 })
-watch(runUrl,(n) => {native.setUrl(n)})
-watch(threadNum,(n) => {native.setThreadNum(n)})
-watch(runBackground,(n) => {native.setRunBackground(n)})
-watch(loginInfo,(n) => {native.setReportToken(n.AccessToken)})
-watchEffect(() => {
-	localStorage.autoStart = autoStart.value;
-	localStorage.runBackground = runBackground.value;
-	localStorage.url = runUrl.value;
-	localStorage.AccessToken = loginInfo.AccessToken
-	localStorage.threadNum = threadNum.value
+watch(threadNum, (n) => {
+	native.setThreadNum(n)
+	localStorage.threadNum = String(n)
+})
+watch(runBackground, (n) => {
+	native.setRunBackground(n)
+	localStorage.runBackground = String(n)
+})
+watch(autoStart, (n) => {
+	localStorage.autoStart = String(n)
+})
+watch(loginInfo, (n) => {
+	native.setReportToken(n.AccessToken)
+	localStorage.AccessToken = n.AccessToken
 })
 const copyUrl = () => {
 	toClipboard(runUrl.value).then(() => {
@@ -417,19 +448,17 @@ const copyUrl = () => {
 }
 
 var setUsed = () => {
-	if (!state.bytesUsed) state.show.allUsed = '-'
-	state.show.allUsed = formatter(state.bytesUsed, 0, [0, 0, 1, 2, 2, 2])
+	if (!trafficState.bytesUsed) trafficState.show.allUsed = '-'
+	trafficState.show.allUsed = formatter(trafficState.bytesUsed, 0, [0, 0, 1, 2, 2, 2])
 }
 var setSpeed = (speed: number) => {
-	state.show.speed = formatter(speed, 1, [0, 0, 1, 2, 2, 2])
-	state.show.speedBit = formatter(speed * 8, 2, [0, 0, 0, 2, 2, 2])
-	state.predict.min = formatter(speed * 60, 0, [0, 0, 0, 1, 1, 1])
-	state.predict.hour = formatter(speed * 60 * 60, 0, [0, 0, 0, 1, 1, 1])
-	state.predict.day = formatter(speed * 60 * 60 * 24, 0, [0, 0, 0, 1, 1, 1])
-	state.predict.mon = formatter(speed * 60 * 60 * 24 * 30, 0, [0, 0, 0, 1, 1, 1])
+	trafficState.show.speed = formatter(speed, 1, [0, 0, 1, 2, 2, 2])
+	trafficState.show.speedBit = formatter(speed * 8, 2, [0, 0, 0, 2, 2, 2])
+	trafficState.predict.min = formatter(speed * 60, 0, [0, 0, 0, 1, 1, 1])
+	trafficState.predict.hour = formatter(speed * 60 * 60, 0, [0, 0, 0, 1, 1, 1])
+	trafficState.predict.day = formatter(speed * 60 * 60 * 24, 0, [0, 0, 0, 1, 1, 1])
+	trafficState.predict.mon = formatter(speed * 60 * 60 * 24 * 30, 0, [0, 0, 0, 1, 1, 1])
 }
-
-let lastSpeed=0
 
 function formatter(num: number, desIndex: number, flo: Array<number>) {
 	if(num==0)return "-"
@@ -504,7 +533,7 @@ const editMaxUse = () => {
 	if (maxUseInput.value.num) {
 		tmp = Math.floor(maxUseInput.value.num * map[maxUseInput.value.type])
 	}
-	state.maxUse = tmp
+	settings.maxUse = tmp
 	native.setMaxUse(tmp)
 	localStorage.maxUse = tmp
 	maxUseInput.value.num = null
@@ -529,7 +558,7 @@ const editSpeedUse = () => {
 	if (maxSpeedInput.value.num) {
 		tmp = Math.floor(maxSpeedInput.value.num * map[maxSpeedInput.value.type])
 	}
-	state.maxSpeed = tmp
+	settings.maxSpeed = tmp
 	localStorage.maxSpeed = tmp
 	native.setMaxSpeed(tmp)
 	maxSpeedInput.value.num = null

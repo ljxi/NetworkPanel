@@ -237,6 +237,7 @@ type NativeTrafficState = {
 declare global {
 	interface Window {
 		onTrafficStateUpdate?: (state: NativeTrafficState) => void;
+		onAppForeground?: () => void;
 	}
 }
 
@@ -244,10 +245,10 @@ const props = defineProps({
 	isVisible: Boolean
 })
 const native=window.mjs
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import nodesJson from "../assets/nodes.json"
 import { Link, Edit, Delete, CircleCheck, Loading, CopyDocument, Histogram, Calendar,FullScreen } from '@element-plus/icons-vue'
-import { computed, ref, watch, type Ref, reactive,onMounted } from 'vue'
+import { computed, ref, watch, type Ref, reactive,onMounted,onUnmounted } from 'vue'
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 import MarkUI from './Mark.vue'
 import FullScreenUI from './FullScreen.vue'
@@ -330,6 +331,15 @@ onMounted(() => {
 	native.setRunBackground(runBackground.value)
 	window.onTrafficStateUpdate = applyTrafficState
 	native.requestTrafficState()
+	window.onAppForeground = () => {
+		void checkClipboardImport()
+	}
+	void checkClipboardImport()
+})
+
+onUnmounted(() => {
+	delete window.onTrafficStateUpdate
+	delete window.onAppForeground
 })
 
 const applyTrafficState = (nextState: NativeTrafficState) => {
@@ -494,6 +504,134 @@ const urlParser = (ipt: string) => {
 	if(b)return b[0];
 	return "";
 }
+
+type ClipboardNode = {
+	label: string;
+	value: string;
+}
+
+let clipboardImportChecking = false
+let lastDuplicateClipboardText = ''
+
+async function readClipboardText(): Promise<string> {
+	try {
+		if (window.isSecureContext && navigator.clipboard?.readText) {
+			const text = await navigator.clipboard.readText()
+			if (text) return text
+		}
+	} catch {
+	}
+	try {
+		if (typeof native.getClipboardText === 'function') {
+			const text = native.getClipboardText()
+			return typeof text === 'string' ? text : ''
+		}
+	} catch {
+	}
+	return ''
+}
+
+async function clearClipboardText(): Promise<void> {
+	try {
+		if (window.isSecureContext && navigator.clipboard?.writeText) {
+			await navigator.clipboard.writeText('')
+			return
+		}
+	} catch {
+	}
+	try {
+		if (typeof native.clearClipboard === 'function') {
+			native.clearClipboard()
+		}
+	} catch {
+	}
+}
+
+function parseClipboardNodes(text: string): ClipboardNode[] {
+	const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean)
+	if (!lines.length) return []
+
+	const parsedNodes: ClipboardNode[] = []
+	for (const line of lines) {
+		const matched = line.match(/^(.+?)\s+((?:https?:\/\/|networkpanel:)\S+)$/i)
+		if (!matched) return []
+
+		const label = matched[1].trim()
+		const value = matched[2].trim()
+		const parsedUrl = urlParser(value)
+		if (!label || !parsedUrl || parsedUrl !== value) return []
+
+		parsedNodes.push({
+			label,
+			value: parsedUrl,
+		})
+	}
+	return parsedNodes
+}
+
+function getImportableNodes(clipboardNodes: ClipboardNode[]): ClipboardNode[] {
+	const existingUrls = new Set<string>()
+	for (const group of OnlineNodes) {
+		for (const node of group.options) {
+			existingUrls.add(node.value)
+		}
+	}
+	for (const node of customNodes) {
+		existingUrls.add(node.value)
+	}
+
+	const importableNodes: ClipboardNode[] = []
+	for (const node of clipboardNodes) {
+		if (existingUrls.has(node.value)) continue
+		existingUrls.add(node.value)
+		importableNodes.push(node)
+	}
+	return importableNodes
+}
+
+async function checkClipboardImport() {
+	if (clipboardImportChecking) return
+	clipboardImportChecking = true
+	try {
+		const clipboardText = (await readClipboardText()).trim()
+		const clipboardNodes = parseClipboardNodes(clipboardText)
+		if (!clipboardNodes.length) return
+
+		const importableNodes = getImportableNodes(clipboardNodes)
+		if (!importableNodes.length) {
+			if (lastDuplicateClipboardText !== clipboardText) {
+				lastDuplicateClipboardText = clipboardText
+				ElMessage.info('剪切板中的节点已存在')
+			}
+			return
+		}
+		lastDuplicateClipboardText = ''
+
+		const skippedCount = clipboardNodes.length - importableNodes.length
+		const message = skippedCount
+			? `检测到 ${clipboardNodes.length} 个剪切板节点，其中 ${importableNodes.length} 个可导入，${skippedCount} 个已存在，是否导入？`
+			: `检测到剪切板中有 ${importableNodes.length} 个节点，是否导入？`
+		await ElMessageBox.confirm(message, '导入节点', {
+			confirmButtonText: '导入',
+			cancelButtonText: '取消',
+			type: 'info',
+		})
+
+		customNodes.push(...importableNodes)
+		await clearClipboardText()
+		ElMessage.success(`已导入 ${importableNodes.length} 个节点`)
+	} catch {
+	} finally {
+		clipboardImportChecking = false
+	}
+}
+
+watch(() => props.isVisible, (visible, wasVisible) => {
+	if (visible && !wasVisible) {
+		void checkClipboardImport()
+	}
+})
+
 const addNode = async () => {
 	addForm.value.value = urlParser(addForm.value.value)
 	addForm.value.checking = true

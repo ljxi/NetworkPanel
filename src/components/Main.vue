@@ -118,6 +118,9 @@
 			<el-table-column prop="label" label="名称" width="100" />
 			<el-table-column prop="value" label="URL" />
 			<el-table-column fixed="right" label="" width="50">
+				<template #header>
+					<el-button type="primary" link :icon="CopyDocument" @click="copyCustomNodes" />
+				</template>
 				<template #default="scope">
 					<el-button type="danger" link :icon="Delete" @click.prevent="customNodes.splice(scope.$index, 1)" />
 				</template>
@@ -453,6 +456,15 @@ const copyUrl = () => {
 		ElMessage.success({
 			dangerouslyUseHTMLString: true,
 			message: '已复制当前链接',
+		})
+	})
+}
+const copyCustomNodes = () => {
+	const text = customNodes.map((node: { label: string; value: string }) => `${node.label} ${node.value}`).join('\n')
+	toClipboard(text).then(() => {
+		ElMessage.success({
+			dangerouslyUseHTMLString: true,
+			message: '已复制全部自定义地址',
 		})
 	})
 }
